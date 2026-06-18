@@ -1,0 +1,1 @@
+Ada Hotels demo site

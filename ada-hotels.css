@@ -1,0 +1,316 @@
+/* ── Ada Hotels — shared design system ───────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --ah-navy:          #0D1F3C;
+  --ah-navy-2:        #162B50;
+  --ah-navy-3:        #1E3662;
+  --ah-gold:          #C9A84C;
+  --ah-gold-light:    #E8C87E;
+  --ah-gold-pale:     #F5EDD4;
+  --ah-cream:         #FAF7F2;
+  --ah-white:         #FFFFFF;
+  --ah-text:          #0D1F3C;
+  --ah-text-2:        #4A5568;
+  --ah-text-3:        #8A96A8;
+  --ah-border:        #E2DDD4;
+  --ah-border-strong: #C9A84C;
+  --ah-red:           #C0392B;
+  --ah-green:         #27AE60;
+
+  --ah-gold-grad:     linear-gradient(135deg, #C9A84C 0%, #E8C87E 50%, #C9A84C 100%);
+  --ah-navy-grad:     linear-gradient(160deg, #0D1F3C 0%, #1E3662 100%);
+  --ah-ease:          cubic-bezier(0.25, 0, 0, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--ah-white);
+  color: var(--ah-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Typography ───────────────────────────────────────────── */
+.display {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--ah-navy);
+}
+.display-white {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--ah-white);
+}
+.eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ah-gold);
+}
+
+/* ── Layout ───────────────────────────────────────────────── */
+.wrap {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* ── Buttons ──────────────────────────────────────────────── */
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  border-radius: 4px;
+  background: var(--ah-gold-grad);
+  color: var(--ah-navy);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: filter 150ms var(--ah-ease), transform 150ms var(--ah-ease);
+  box-shadow: 0 4px 16px rgba(201,168,76,0.35);
+}
+.btn-gold:hover { filter: brightness(1.06); transform: translateY(-1px); }
+
+.btn-navy {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 30px;
+  border-radius: 4px;
+  background: var(--ah-navy);
+  color: var(--ah-white);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background 150ms var(--ah-ease);
+}
+.btn-navy:hover { background: var(--ah-navy-3); }
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 30px;
+  border-radius: 4px;
+  border: 1.5px solid var(--ah-navy);
+  background: transparent;
+  color: var(--ah-navy);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 150ms, color 150ms;
+}
+.btn-outline:hover { background: var(--ah-navy); color: var(--ah-white); }
+
+.btn-outline-white {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 30px;
+  border-radius: 4px;
+  border: 1.5px solid rgba(255,255,255,0.6);
+  background: transparent;
+  color: var(--ah-white);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 150ms, border-color 150ms;
+}
+.btn-outline-white:hover { background: rgba(255,255,255,0.1); border-color: white; }
+
+/* ── Header ───────────────────────────────────────────────── */
+.site-header {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 48px;
+}
+.site-header.solid {
+  position: relative;
+  background: var(--ah-white);
+  border-bottom: 1px solid var(--ah-border);
+  padding: 18px 48px;
+  box-shadow: 0 1px 12px rgba(13,31,60,0.06);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+.brand-mark {
+  width: 48px;
+  height: 48px;
+  border-radius: 4px;
+  background: var(--ah-gold-grad);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(201,168,76,0.3);
+  flex-shrink: 0;
+}
+.brand-mark svg { display: block; }
+.brand-name-wrap { display: flex; flex-direction: column; line-height: 1.1; }
+.brand-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ah-white);
+  letter-spacing: 0.02em;
+}
+.brand-title.dark { color: var(--ah-navy); }
+.brand-tag {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+}
+.brand-tag.dark { color: var(--ah-text-3); }
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+.site-nav a {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  transition: color 120ms;
+}
+.site-nav a:hover, .site-nav a.active { color: var(--ah-white); }
+.site-nav.dark a { color: var(--ah-text-2); }
+.site-nav.dark a:hover, .site-nav.dark a.active { color: var(--ah-navy); }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.user-pill {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 6px 14px 6px 6px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.1);
+  cursor: pointer;
+  transition: background 120ms;
+}
+.user-pill:hover { background: rgba(255,255,255,0.18); }
+.user-pill.dark {
+  border-color: var(--ah-border);
+  background: var(--ah-cream);
+}
+.user-avatar {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: var(--ah-gold-grad);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(201,168,76,0.35);
+}
+.user-name {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.9);
+}
+.user-name.dark { color: var(--ah-navy); }
+
+/* ── Gold rule ────────────────────────────────────────────── */
+.gold-rule {
+  border: none;
+  height: 2px;
+  background: var(--ah-gold-grad);
+}
+
+/* ── Cards ────────────────────────────────────────────────── */
+.hotel-card {
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--ah-white);
+  border: 1px solid var(--ah-border);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 200ms var(--ah-ease), transform 200ms var(--ah-ease);
+}
+.hotel-card:hover {
+  box-shadow: 0 12px 40px rgba(13,31,60,0.14);
+  transform: translateY(-3px);
+}
+
+/* ── Footer ───────────────────────────────────────────────── */
+.site-footer {
+  background: var(--ah-navy);
+  color: rgba(255,255,255,0.7);
+  padding: 64px 0 32px;
+}
+.footer-inner {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  padding-bottom: 48px;
+}
+.footer-brand { display: flex; flex-direction: column; gap: 16px; }
+.footer-brand p { font-size: 14px; line-height: 1.65; max-width: 32ch; color: rgba(255,255,255,0.55); }
+.footer-col { display: flex; flex-direction: column; gap: 14px; }
+.footer-head {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ah-gold-light);
+  margin-bottom: 4px;
+}
+.footer-col a {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  transition: color 120ms;
+}
+.footer-col a:hover { color: var(--ah-white); }
+.footer-legal {
+  padding-top: 28px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+}

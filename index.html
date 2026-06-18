@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ada Hotels — Discover Your Perfect Stay</title>
+<link rel="stylesheet" href="ada-hotels.css">
+<style>
+
+/* ── Hero ─────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 620px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(13,31,60,0.55) 0%, rgba(13,31,60,0.35) 50%, rgba(13,31,60,0.65) 100%),
+    url('hero-bg.jpg') center/cover no-repeat;
+  background-color: #1A3A5C;
+}
+/* Decorative layers when no photo */
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 60%, rgba(201,168,76,0.12) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 20%, rgba(30,54,98,0.6) 0%, transparent 50%),
+    linear-gradient(160deg, #0D1F3C 0%, #1E3662 40%, #2A4A7A 70%, #1A3050 100%);
+}
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(45deg, rgba(201,168,76,0.03) 0px, rgba(201,168,76,0.03) 1px, transparent 1px, transparent 40px),
+    repeating-linear-gradient(-45deg, rgba(201,168,76,0.02) 0px, rgba(201,168,76,0.02) 1px, transparent 1px, transparent 40px);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 120px 32px 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.hero-content .eyebrow { color: var(--ah-gold-light); opacity: 0.9; }
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(42px, 6vw, 76px);
+  font-weight: 700;
+  color: var(--ah-white);
+  line-height: 1.05;
+  max-width: 14ch;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+}
+.hero-sub {
+  font-size: 17px;
+  color: rgba(255,255,255,0.78);
+  max-width: 48ch;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* ── Booking widget ───────────────────────────────────────── */
+.booking-bar-wrap {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1020px;
+  padding: 0 32px;
+  margin-top: -28px;
+}
+.booking-bar {
+  background: var(--ah-white);
+  border-radius: 8px;
+  box-shadow: 0 16px 56px rgba(13,31,60,0.22), 0 4px 16px rgba(13,31,60,0.1);
+  display: grid;
+  grid-template-columns: 1.8fr 1.2fr 1.2fr 1fr auto;
+  overflow: hidden;
+  border: 1px solid var(--ah-border);
+}
+.bb-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 18px 22px;
+  border-right: 1px solid var(--ah-border);
+  cursor: pointer;
+  transition: background 120ms;
+}
+.bb-field:hover { background: var(--ah-cream); }
+.bb-field:last-of-type { border-right: none; }
+.bb-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ah-gold);
+}
+.bb-value {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ah-navy);
+}
+.bb-sub {
+  font-size: 12px;
+  color: var(--ah-text-3);
+  margin-top: 1px;
+}
+.bb-search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 32px;
+  background: var(--ah-gold-grad);
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ah-navy);
+  gap: 10px;
+  transition: filter 150ms;
+  white-space: nowrap;
+}
+.bb-search:hover { filter: brightness(1.06); }
+.bb-search svg { flex-shrink: 0; }
+
+/* ── Trust strip ──────────────────────────────────────────── */
+.trust-strip {
+  background: var(--ah-navy);
+  padding: 16px 0;
+}
+.trust-strip-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.04em;
+}
+.trust-item svg { color: var(--ah-gold-light); flex-shrink: 0; }
+
+/* ── Find your stay ───────────────────────────────────────── */
+.find-section {
+  padding: 72px 0 80px;
+  background: var(--ah-cream);
+}
+.find-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+.find-head h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 700;
+  color: var(--ah-navy);
+  line-height: 1.1;
+}
+.find-head a {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ah-gold);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.find-head a:hover { color: var(--ah-navy); }
+
+/* Filter tabs */
+.filter-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+}
+.filter-tab {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 1.5px solid var(--ah-border);
+  background: var(--ah-white);
+  color: var(--ah-text-2);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 150ms;
+  white-space: nowrap;
+}
+.filter-tab:hover { border-color: var(--ah-navy); color: var(--ah-navy); }
+.filter-tab.active {
+  background: var(--ah-navy);
+  border-color: var(--ah-navy);
+  color: var(--ah-white);
+}
+
+/* Hotel cards grid */
+.hotels-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+.hotel-card { cursor: pointer; }
+.hotel-thumb {
+  width: 100%;
+  aspect-ratio: 4/3;
+  position: relative;
+  overflow: hidden;
+}
+.hotel-thumb-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+}
+.hotel-thumb-inner.london   { background: linear-gradient(160deg, #1A2E50 0%, #2E4A78 50%, #1A3A6A 100%); }
+.hotel-thumb-inner.paris    { background: linear-gradient(160deg, #2E1A20 0%, #5A2A38 50%, #3A1A28 100%); }
+.hotel-thumb-inner.edinburgh{ background: linear-gradient(160deg, #0E2218 0%, #1A4030 50%, #0E2A1E 100%); }
+.hotel-thumb-inner.dubai    { background: linear-gradient(160deg, #2E2010 0%, #5A4020 50%, #3A2810 100%); }
+.hotel-thumb-inner.barcelona{ background: linear-gradient(160deg, #201020 0%, #402040 50%, #281030 100%); }
+.hotel-thumb-inner.amsterdam{ background: linear-gradient(160deg, #102020 0%, #204040 50%, #102828 100%); }
+
+.hotel-thumb::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.06), transparent 60%);
+  pointer-events: none;
+}
+.hotel-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.badge-offers  { background: var(--ah-gold-grad); color: var(--ah-navy); }
+.badge-new     { background: var(--ah-navy); color: var(--ah-white); border: 1px solid rgba(255,255,255,0.2); }
+.badge-popular { background: rgba(255,255,255,0.15); color: var(--ah-white); border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(4px); }
+
+.hotel-save {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.9);
+  border: none;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 120ms;
+}
+.hotel-save:hover { background: var(--ah-white); }
+
+.hotel-info { padding: 20px; }
+.hotel-location {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ah-gold);
+  margin-bottom: 5px;
+}
+.hotel-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--ah-navy);
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+.hotel-desc {
+  font-size: 13px;
+  color: var(--ah-text-2);
+  line-height: 1.55;
+  margin-bottom: 14px;
+}
+.hotel-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 1px solid var(--ah-border);
+}
+.hotel-rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ah-navy);
+}
+.stars { color: var(--ah-gold); font-size: 11px; letter-spacing: 1px; }
+.hotel-price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+}
+.price-from { font-size: 10px; color: var(--ah-text-3); letter-spacing: 0.06em; }
+.price-val {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ah-navy);
+  line-height: 1;
+}
+.price-val small { font-size: 13px; font-weight: 400; color: var(--ah-text-3); }
+
+/* ── Experience strip ─────────────────────────────────────── */
+.exp-strip {
+  padding: 80px 0;
+  background: var(--ah-white);
+}
+.exp-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.exp-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  padding: 36px 24px;
+  border-radius: 8px;
+  border: 1px solid var(--ah-border);
+  background: var(--ah-cream);
+  transition: box-shadow 200ms, transform 200ms;
+  text-decoration: none;
+}
+.exp-card:hover {
+  box-shadow: 0 8px 32px rgba(13,31,60,0.1);
+  transform: translateY(-3px);
+}
+.exp-icon {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: var(--ah-navy);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px;
+  flex-shrink: 0;
+}
+.exp-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ah-navy);
+}
+.exp-desc { font-size: 13px; color: var(--ah-text-2); line-height: 1.6; }
+
+/* ── Promo banner ─────────────────────────────────────────── */
+.promo-banner {
+  margin: 0;
+  background: var(--ah-navy-grad);
+  padding: 72px 0;
+  position: relative;
+  overflow: hidden;
+}
+.promo-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 10% 50%, rgba(201,168,76,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 30%, rgba(201,168,76,0.08) 0%, transparent 40%);
+  pointer-events: none;
+}
+.promo-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+}
+.promo-copy { display: flex; flex-direction: column; gap: 16px; max-width: 56ch; }
+.promo-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 700;
+  color: var(--ah-white);
+  line-height: 1.1;
+}
+.promo-sub { font-size: 16px; color: rgba(255,255,255,0.7); line-height: 1.6; }
+.promo-cta { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+
+/* ── In-room callout ──────────────────────────────────────── */
+.inroom-callout {
+  padding: 80px 0;
+  background: var(--ah-cream);
+}
+.inroom-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 72px;
+  align-items: center;
+}
+.inroom-visual {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  background: linear-gradient(160deg, #0D1F3C, #1E3662);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 24px 60px rgba(13,31,60,0.2);
+}
+.inroom-visual::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 40% 40%, rgba(201,168,76,0.15), transparent 60%);
+}
+.inroom-mockup {
+  position: relative;
+  z-index: 2;
+  width: 220px;
+  background: var(--ah-white);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  overflow: hidden;
+}
+.im-header {
+  background: var(--ah-navy);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.im-avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--ah-gold-grad);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.im-label { font-size: 11px; font-weight: 700; color: var(--ah-white); letter-spacing: 0.04em; }
+.im-sub { font-size: 9px; color: rgba(255,255,255,0.6); }
+.im-msgs { padding: 14px 12px; display: flex; flex-direction: column; gap: 10px; background: #F8F6F2; }
+.im-bot, .im-user {
+  max-width: 85%;
+  padding: 9px 12px;
+  border-radius: 12px;
+  font-size: 11px;
+  line-height: 1.5;
+}
+.im-bot {
+  background: var(--ah-white);
+  color: var(--ah-navy);
+  border: 1px solid var(--ah-border);
+  border-radius: 4px 12px 12px 12px;
+  align-self: flex-start;
+}
+.im-user {
+  background: var(--ah-navy);
+  color: var(--ah-white);
+  border-radius: 12px 4px 12px 12px;
+  align-self: flex-end;
+  font-weight: 500;
+}
+.im-input {
+  padding: 10px 12px;
+  border-top: 1px solid var(--ah-border);
+  background: var(--ah-white);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.im-input-field {
+  flex: 1;
+  font-size: 10px;
+  color: var(--ah-text-3);
+}
+.im-send {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: var(--ah-gold-grad);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.inroom-copy { display: flex; flex-direction: column; gap: 22px; }
+.inroom-copy h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 700;
+  color: var(--ah-navy);
+  line-height: 1.1;
+}
+.inroom-copy p { font-size: 16px; color: var(--ah-text-2); line-height: 1.7; }
+.inroom-features { display: flex; flex-direction: column; gap: 14px; margin-top: 4px; }
+.inroom-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  font-size: 14px;
+  color: var(--ah-text-2);
+}
+.if-icon {
+  width: 38px; height: 38px;
+  border-radius: 8px;
+  background: var(--ah-navy);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.if-text strong { display: block; color: var(--ah-navy); font-weight: 600; margin-bottom: 2px; }
+
+@media (max-width: 960px) {
+  .booking-bar { grid-template-columns: 1fr 1fr; }
+  .hotels-grid { grid-template-columns: 1fr 1fr; }
+  .exp-grid { grid-template-columns: 1fr 1fr; }
+  .inroom-inner { grid-template-columns: 1fr; }
+  .promo-inner { flex-direction: column; }
+  .site-header { padding: 20px 24px; }
+}
+@media (max-width: 640px) {
+  .hotels-grid { grid-template-columns: 1fr; }
+  .booking-bar { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+  <a class="brand" href="index.html">
+    <div class="brand-mark">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <text x="14" y="21" font-family="Playfair Display, serif" font-size="20" font-weight="700" fill="#0D1F3C" text-anchor="middle">AH</text>
+      </svg>
+    </div>
+    <div class="brand-name-wrap">
+      <span class="brand-title">Ada Hotels</span>
+      <span class="brand-tag">Exceptional stays worldwide</span>
+    </div>
+  </a>
+  <nav class="site-nav">
+    <a href="index.html" class="active">Hotels</a>
+    <a href="inroom.html">In-Room</a>
+    <a href="index.html">Dining</a>
+    <a href="index.html">Offers</a>
+  </nav>
+  <div class="header-actions">
+    <div class="user-pill">
+      <span class="user-avatar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="8" r="4" fill="#0D1F3C"/>
+          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#0D1F3C" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="user-name">Kirky_123</span>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="eyebrow">Exceptional stays, everywhere</p>
+    <h1 class="hero-title">Where will your story begin?</h1>
+    <p class="hero-sub">From city escapes to coastal retreats — discover hotels that feel like home, wherever you are in the world.</p>
+  </div>
+</section>
+
+<!-- Booking bar -->
+<div style="background:var(--ah-cream);display:flex;justify-content:center;padding:0 0 0 0;">
+  <div class="booking-bar-wrap">
+    <div class="booking-bar">
+      <div class="bb-field">
+        <span class="bb-label">Where to?</span>
+        <span class="bb-value">Hotels &amp; Destinations</span>
+        <span class="bb-sub">Search by city, hotel or region</span>
+      </div>
+      <div class="bb-field">
+        <span class="bb-label">Check in</span>
+        <span class="bb-value">Wed, 2 Jul</span>
+        <span class="bb-sub">Add check-out date</span>
+      </div>
+      <div class="bb-field">
+        <span class="bb-label">Check out</span>
+        <span class="bb-value">Thu, 3 Jul</span>
+        <span class="bb-sub">1 night</span>
+      </div>
+      <div class="bb-field">
+        <span class="bb-label">Rooms &amp; Guests</span>
+        <span class="bb-value">1 room, 1 adult</span>
+        <span class="bb-sub">Edit guests</span>
+      </div>
+      <button class="bb-search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+        Search
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Trust strip -->
+<div class="trust-strip">
+  <div class="wrap">
+    <div class="trust-strip-inner">
+      <div class="trust-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Best rate guaranteed
+      </div>
+      <div class="trust-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        450+ hotels worldwide
+      </div>
+      <div class="trust-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        Free cancellation on most stays
+      </div>
+      <div class="trust-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Ada Rewards — earn on every stay
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Find your stay -->
+<section class="find-section">
+  <div class="wrap">
+    <div class="find-head">
+      <div>
+        <p class="eyebrow" style="margin-bottom:8px">Handpicked for you</p>
+        <h2>Find your next stay</h2>
+      </div>
+      <a href="index.html">View all hotels &rarr;</a>
+    </div>
+
+    <div class="filter-tabs">
+      <button class="filter-tab active">&#10024; Offers</button>
+      <button class="filter-tab">&#9829; Popular</button>
+      <button class="filter-tab">&#127960; City pulse</button>
+      <button class="filter-tab">&#127774; Wellness</button>
+      <button class="filter-tab">&#128106; Family-friendly</button>
+      <button class="filter-tab">&#10024; New hotels</button>
+    </div>
+
+    <div class="hotels-grid">
+
+      <!-- Card 1 -->
+      <a class="hotel-card" href="index.html">
+        <div class="hotel-thumb">
+          <div class="hotel-thumb-inner london">&#127963;</div>
+          <span class="hotel-badge badge-offers">Special offer</span>
+          <button class="hotel-save" onclick="event.preventDefault()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0D1F3C" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+        </div>
+        <div class="hotel-info">
+          <div class="hotel-location">London, United Kingdom</div>
+          <div class="hotel-name">Ada Hotel Mayfair</div>
+          <div class="hotel-desc">Elegant rooms steps from Hyde Park, with a celebrated afternoon tea and rooftop terrace overlooking the city.</div>
+          <div class="hotel-meta">
+            <div class="hotel-rating">
+              <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span>4.9</span>
+              <span style="color:var(--ah-text-3);font-weight:400;font-size:12px">(2,847)</span>
+            </div>
+            <div class="hotel-price">
+              <span class="price-from">From</span>
+              <span class="price-val">&pound;189<small>/night</small></span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 2 -->
+      <a class="hotel-card" href="index.html">
+        <div class="hotel-thumb">
+          <div class="hotel-thumb-inner paris">&#9889;</div>
+          <span class="hotel-badge badge-popular">Popular</span>
+          <button class="hotel-save" onclick="event.preventDefault()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0D1F3C" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+        </div>
+        <div class="hotel-info">
+          <div class="hotel-location">Paris, France</div>
+          <div class="hotel-name">Ada Hotel Saint-Germain</div>
+          <div class="hotel-desc">A refined Haussmann building transformed into a sanctuary of calm, steps from the Seine and the Louvre.</div>
+          <div class="hotel-meta">
+            <div class="hotel-rating">
+              <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span>4.8</span>
+              <span style="color:var(--ah-text-3);font-weight:400;font-size:12px">(1,924)</span>
+            </div>
+            <div class="hotel-price">
+              <span class="price-from">From</span>
+              <span class="price-val">&euro;225<small>/night</small></span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 3 -->
+      <a class="hotel-card" href="index.html">
+        <div class="hotel-thumb">
+          <div class="hotel-thumb-inner edinburgh">&#127807;</div>
+          <span class="hotel-badge badge-new">New</span>
+          <button class="hotel-save" onclick="event.preventDefault()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0D1F3C" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+        </div>
+        <div class="hotel-info">
+          <div class="hotel-location">Edinburgh, Scotland</div>
+          <div class="hotel-name">Ada Hotel Royal Mile</div>
+          <div class="hotel-desc">A stone's throw from Edinburgh Castle, blending Scottish heritage with contemporary luxury and a celebrated whisky bar.</div>
+          <div class="hotel-meta">
+            <div class="hotel-rating">
+              <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span>4.7</span>
+              <span style="color:var(--ah-text-3);font-weight:400;font-size:12px">(643)</span>
+            </div>
+            <div class="hotel-price">
+              <span class="price-from">From</span>
+              <span class="price-val">&pound;159<small>/night</small></span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- Experiences strip -->
+<section class="exp-strip">
+  <div class="wrap">
+    <div style="text-align:center;margin-bottom:44px">
+      <p class="eyebrow" style="margin-bottom:10px">Everything under one roof</p>
+      <h2 class="display" style="font-size:clamp(28px,3.5vw,40px)">The Ada Hotels experience</h2>
+    </div>
+    <div class="exp-grid">
+      <a class="exp-card" href="inroom.html">
+        <div class="exp-icon">&#128241;</div>
+        <div class="exp-title">In-Room Concierge</div>
+        <div class="exp-desc">Your AI-powered room assistant, available 24/7 for everything from room service to local recommendations.</div>
+      </a>
+      <a class="exp-card" href="index.html">
+        <div class="exp-icon">&#127869;</div>
+        <div class="exp-title">Signature Dining</div>
+        <div class="exp-desc">Award-winning restaurants and intimate bars, each shaped by local flavour and seasonal menus.</div>
+      </a>
+      <a class="exp-card" href="index.html">
+        <div class="exp-icon">&#128134;</div>
+        <div class="exp-title">Spa &amp; Wellness</div>
+        <div class="exp-desc">Rejuvenating treatments, pools and fitness facilities designed to restore body and mind.</div>
+      </a>
+      <a class="exp-card" href="index.html">
+        <div class="exp-icon">&#127968;</div>
+        <div class="exp-title">Meetings &amp; Events</div>
+        <div class="exp-desc">Versatile event spaces and dedicated planning teams to make every gathering unforgettable.</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- In-room callout -->
+<section class="inroom-callout">
+  <div class="wrap">
+    <div class="inroom-inner">
+      <div class="inroom-visual">
+        <div class="inroom-mockup">
+          <div class="im-header">
+            <div class="im-avatar">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" fill="#0D1F3C"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#0D1F3C" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <div class="im-label">Ada Concierge</div>
+              <div class="im-sub">&#9679; Online now</div>
+            </div>
+          </div>
+          <div class="im-msgs">
+            <div class="im-bot">Good evening! How can I make your stay more comfortable tonight?</div>
+            <div class="im-user">Can I order room service?</div>
+            <div class="im-bot">Of course! Our kitchen is open until midnight. Shall I send you the menu?</div>
+          </div>
+          <div class="im-input">
+            <span class="im-input-field">Type a message...</span>
+            <div class="im-send">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#0D1F3C" stroke-width="3" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="inroom-copy">
+        <p class="eyebrow">Smart stays</p>
+        <h2>Your personal concierge, always on</h2>
+        <p>Every Ada Hotels guest has access to an AI-powered in-room concierge — available 24 hours a day, seven days a week, in your language.</p>
+        <div class="inroom-features">
+          <div class="inroom-feature">
+            <div class="if-icon">&#127860;</div>
+            <div class="if-text"><strong>Room service & dining</strong>Order food and drinks directly from your room at any hour.</div>
+          </div>
+          <div class="inroom-feature">
+            <div class="if-icon">&#127968;</div>
+            <div class="if-text"><strong>Housekeeping requests</strong>Extra towels, pillows, late checkout — sorted instantly.</div>
+          </div>
+          <div class="inroom-feature">
+            <div class="if-icon">&#128205;</div>
+            <div class="if-text"><strong>Local recommendations</strong>Restaurants, attractions and transport, tailored to you.</div>
+          </div>
+        </div>
+        <a class="btn-navy" href="inroom.html" style="align-self:flex-start;margin-top:8px">Explore the experience &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Promo banner -->
+<section class="promo-banner">
+  <div class="wrap">
+    <div class="promo-inner">
+      <div class="promo-copy">
+        <p class="eyebrow">Ada Rewards</p>
+        <h2 class="promo-title">Every stay earns you more</h2>
+        <p class="promo-sub">Join Ada Rewards and unlock member rates, complimentary upgrades and exclusive benefits across all 450+ properties. Your loyalty deserves to be rewarded.</p>
+        <div class="promo-cta">
+          <a class="btn-gold" href="index.html">Join for free</a>
+          <a class="btn-outline-white" href="index.html">Learn more</a>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px;flex-shrink:0">
+        <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(201,168,76,0.3);border-radius:10px;padding:24px 32px;text-align:center">
+          <div style="font-family:'Playfair Display',serif;font-size:42px;font-weight:700;color:var(--ah-gold-light);line-height:1">450+</div>
+          <div style="font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-top:4px">Hotels worldwide</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(201,168,76,0.3);border-radius:10px;padding:24px 32px;text-align:center">
+          <div style="font-family:'Playfair Display',serif;font-size:42px;font-weight:700;color:var(--ah-gold-light);line-height:1">2M+</div>
+          <div style="font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-top:4px">Happy guests</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="index.html" style="align-self:flex-start">
+          <div class="brand-mark">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <text x="14" y="21" font-family="Playfair Display, serif" font-size="20" font-weight="700" fill="#0D1F3C" text-anchor="middle">AH</text>
+            </svg>
+          </div>
+          <div class="brand-name-wrap">
+            <span class="brand-title">Ada Hotels</span>
+            <span class="brand-tag">Exceptional stays worldwide</span>
+          </div>
+        </a>
+        <p>Exceptional stays crafted for the modern traveller. From city-centre landmarks to hidden coastal retreats.</p>
+      </div>
+      <div class="footer-col">
+        <span class="footer-head">Hotels</span>
+        <a href="index.html">Find a hotel</a>
+        <a href="index.html">Special offers</a>
+        <a href="index.html">New openings</a>
+        <a href="index.html">Gift cards</a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-head">Experiences</span>
+        <a href="inroom.html">In-room concierge</a>
+        <a href="index.html">Spa &amp; wellness</a>
+        <a href="index.html">Dining</a>
+        <a href="index.html">Meetings &amp; events</a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-head">Help</span>
+        <a href="index.html">Manage booking</a>
+        <a href="index.html">Contact us</a>
+        <a href="index.html">Cancellation policy</a>
+        <a href="index.html">Accessibility</a>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <span>Ada Hotels is a demo experience. Prices and properties are illustrative only.</span>
+      <span>&copy; 2026 Ada Hotels</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Filter tabs
+  document.querySelectorAll('.filter-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      document.querySelectorAll('.filter-tab').forEach(function(t) { t.classList.remove('active'); });
+      tab.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
