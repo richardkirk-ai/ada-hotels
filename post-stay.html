@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ada Hotels — Post-Stay</title>
+<link rel="stylesheet" href="ada-hotels.css">
+<style>
+
+/* ── Demo nav ─────────────────────────────────────────────── */
+.demo-nav-bar {
+  background: #0D1F3C; border-bottom: 1px solid rgba(201,168,76,0.25);
+  position: sticky; top: 0; z-index: 200;
+}
+.demo-nav-row {
+  display: flex; align-items: center; gap: 0; max-width: 1240px;
+  margin: 0 auto; padding: 0 32px; overflow-x: auto; scrollbar-width: none;
+}
+.demo-nav-row::-webkit-scrollbar { display: none; }
+.demo-nav-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(201,168,76,0.7); padding: 0 16px 0 0; white-space: nowrap;
+  flex-shrink: 0; border-right: 1px solid rgba(255,255,255,0.1);
+  margin-right: 4px; line-height: 42px;
+}
+.demo-nav-row-2 .demo-nav-label { color: rgba(255,255,255,0.4); }
+.demo-nav-tab {
+  display: flex; align-items: center; gap: 6px; padding: 0 16px;
+  font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.55);
+  text-decoration: none; white-space: nowrap; line-height: 42px;
+  border-bottom: 2px solid transparent; transition: color 150ms, border-color 150ms;
+}
+.demo-nav-tab:hover { color: rgba(255,255,255,0.85); }
+.demo-nav-tab.active { color: #C9A84C; border-bottom-color: #C9A84C; font-weight: 600; }
+.demo-nav-row-2 { border-top: 1px solid rgba(255,255,255,0.06); }
+
+/* ── Post-stay page ───────────────────────────────────────── */
+.ps-hero {
+  background: var(--ah-navy-grad);
+  padding: 72px 0 56px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.ps-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 120%, rgba(201,168,76,0.15) 0%, transparent 55%),
+    repeating-linear-gradient(45deg, rgba(201,168,76,0.018) 0px, rgba(201,168,76,0.018) 1px, transparent 1px, transparent 52px);
+}
+.ps-hero-inner { position: relative; z-index: 1; }
+.ps-hero .eyebrow { color: var(--ah-gold-light); margin-bottom: 14px; }
+.ps-hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px,5vw,60px);
+  font-weight: 700;
+  color: var(--ah-white);
+  line-height: 1.1;
+  margin-bottom: 14px;
+}
+.ps-hero p { font-size: 17px; color: rgba(255,255,255,0.7); max-width: 52ch; margin: 0 auto; }
+
+/* Stars row */
+.stars-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 28px auto 0;
+}
+.star-btn {
+  font-size: 34px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 150ms, filter 150ms;
+  line-height: 1;
+  filter: grayscale(0.3);
+}
+.star-btn:hover, .star-btn.lit { filter: none; transform: scale(1.15); }
+.star-submitted {
+  font-size: 14px;
+  color: var(--ah-gold-light);
+  margin-top: 10px;
+  display: none;
+}
+
+/* Body */
+.ps-body { background: var(--ah-cream); padding: 0 0 80px; }
+
+/* Summary card */
+.stay-summary-card {
+  background: var(--ah-white);
+  border: 1px solid var(--ah-border);
+  border-radius: 12px;
+  box-shadow: 0 8px 40px rgba(13,31,60,0.1);
+  margin-top: -28px;
+  position: relative;
+  z-index: 10;
+  overflow: hidden;
+}
+.ssc-head {
+  background: var(--ah-navy);
+  padding: 24px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.ssc-head h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ah-white);
+}
+.ssc-head span { font-size: 13px; color: rgba(255,255,255,0.55); }
+.ssc-body { padding: 28px 32px; }
+.ssc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.ssc-item {}
+.ssc-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--ah-gold); margin-bottom: 6px;
+}
+.ssc-val { font-size: 15px; font-weight: 600; color: var(--ah-navy); }
+.ssc-sub { font-size: 12px; color: var(--ah-text-3); margin-top: 2px; }
+
+/* Loyalty panel */
+.loyalty-panel {
+  margin-top: 24px;
+  background: var(--ah-gold-pale);
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 10px;
+  padding: 24px 28px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+}
+.lp-item { text-align: center; }
+.lp-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--ah-navy);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.lp-label { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ah-gold); }
+.lp-sub { font-size: 12px; color: var(--ah-text-2); margin-top: 4px; }
+
+/* Chat section */
+.ps-chat-section { padding: 48px 0 0; }
+.ps-chat-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(24px,3vw,36px);
+  font-weight: 700;
+  color: var(--ah-navy);
+  margin-bottom: 8px;
+}
+.ps-chat-section p { color: var(--ah-text-2); margin-bottom: 28px; }
+.ps-chat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.ps-chat-prompt {
+  padding: 18px 20px;
+  background: var(--ah-white);
+  border: 1px solid var(--ah-border);
+  border-radius: 10px;
+  font-size: 14px;
+  color: var(--ah-text-2);
+  cursor: pointer;
+  transition: all 150ms;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ps-chat-prompt:hover {
+  border-color: var(--ah-gold);
+  color: var(--ah-navy);
+  background: var(--ah-gold-pale);
+  box-shadow: 0 2px 12px rgba(201,168,76,0.15);
+}
+.ps-chat-prompt span { font-size: 18px; flex-shrink: 0; }
+
+/* Loop CTA */
+.loop-cta {
+  background: var(--ah-navy-grad);
+  border-radius: 12px;
+  padding: 48px 40px;
+  margin-top: 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.loop-cta::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 100%, rgba(201,168,76,0.12) 0%, transparent 55%);
+}
+.loop-cta-inner { position: relative; z-index: 1; }
+.loop-cta .eyebrow { color: var(--ah-gold-light); margin-bottom: 14px; }
+.loop-cta h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(26px,4vw,44px);
+  font-weight: 700;
+  color: var(--ah-white);
+  margin-bottom: 12px;
+  line-height: 1.15;
+}
+.loop-cta p { font-size: 16px; color: rgba(255,255,255,0.65); max-width: 50ch; margin: 0 auto 28px; }
+.loop-cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+@media (max-width: 900px) {
+  .ssc-grid { grid-template-columns: 1fr 1fr; }
+  .loyalty-panel { grid-template-columns: 1fr; gap: 16px; text-align: left; }
+  .ps-chat-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .ps-chat-grid { grid-template-columns: 1fr; }
+  .ssc-body { padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<script>
+const HOTEL_CONFIG = {
+  botHandle:    "ada-hotels-ai-agent-demo",
+  hotelName:    "Ada Hotels",
+  guestName:    "Anna",
+  guestFull:    "Anna Chambers",
+  bookingRef:   "AH-291847",
+  property:     "Ada Hotel Mayfair, London",
+  primaryColor: "#0D1F3C",
+  accentColor:  "#C9A84C",
+};
+</script>
+
+<!-- Header -->
+<header class="site-header">
+  <a class="brand" href="index.html">
+    <div class="brand-mark">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <text x="14" y="21" font-family="Playfair Display, serif" font-size="20" font-weight="700" fill="#0D1F3C" text-anchor="middle">AH</text>
+      </svg>
+    </div>
+    <div class="brand-name-wrap">
+      <span class="brand-title">Ada Hotels</span>
+      <span class="brand-tag">Exceptional stays worldwide</span>
+    </div>
+  </a>
+  <nav class="site-nav">
+    <a href="index.html">Hotels</a>
+    <a href="inroom.html">In-Room</a>
+    <a href="index.html">Dining</a>
+    <a href="index.html">Offers</a>
+  </nav>
+  <div class="header-actions">
+    <div class="user-pill">
+      <span class="user-avatar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="8" r="4" fill="#0D1F3C"/>
+          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#0D1F3C" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="user-name">Anna C.</span>
+    </div>
+  </div>
+</header>
+
+<!-- Demo nav -->
+<div class="demo-nav-bar">
+  <div class="demo-nav-row">
+    <span class="demo-nav-label">Guest Journey</span>
+    <a class="demo-nav-tab" href="pre-arrival.html">✦ Pre-Arrival</a>
+    <a class="demo-nav-tab" href="voice.html">📞 Voice Call</a>
+    <a class="demo-nav-tab" href="email.html">✉️ Email</a>
+    <a class="demo-nav-tab" href="inroom.html">🛎 In-Room</a>
+    <a class="demo-nav-tab active" href="post-stay.html">⭐ Post-Stay</a>
+  </div>
+  <div class="demo-nav-row demo-nav-row-2">
+    <span class="demo-nav-label">Omnichannel</span>
+    <a class="demo-nav-tab" href="pre-arrival.html">💬 Custom Front End</a>
+    <a class="demo-nav-tab" href="voice.html">🎙 Voice</a>
+    <a class="demo-nav-tab" href="email.html">📧 Email</a>
+    <a class="demo-nav-tab" href="inroom.html">📱 QR Code</a>
+    <a class="demo-nav-tab active" href="post-stay.html">📋 Survey</a>
+  </div>
+</div>
+
+<!-- Hero -->
+<div class="ps-hero">
+  <div class="wrap ps-hero-inner">
+    <p class="eyebrow">Scenario 05 — Post-Stay Survey</p>
+    <h1>Thank you, Anna.</h1>
+    <p>We hope your stay at Ada Hotel Mayfair was everything you hoped for. How was your experience?</p>
+    <div class="stars-row" id="starsRow">
+      <button class="star-btn lit" onclick="rateStar(1)">★</button>
+      <button class="star-btn lit" onclick="rateStar(2)">★</button>
+      <button class="star-btn lit" onclick="rateStar(3)">★</button>
+      <button class="star-btn lit" onclick="rateStar(4)">★</button>
+      <button class="star-btn lit" onclick="rateStar(5)">★</button>
+    </div>
+    <div class="star-submitted" id="starSubmitted">⭐ Thank you — 5 stars submitted</div>
+  </div>
+</div>
+
+<!-- Body -->
+<div class="ps-body">
+  <div class="wrap">
+
+    <!-- Stay summary card -->
+    <div class="stay-summary-card">
+      <div class="ssc-head">
+        <h2>Your stay · AH-291847</h2>
+        <span>Checked out Sat 13 Sep 2026</span>
+      </div>
+      <div class="ssc-body">
+        <div class="ssc-grid">
+          <div class="ssc-item">
+            <div class="ssc-label">Property</div>
+            <div class="ssc-val">Ada Hotel Mayfair</div>
+            <div class="ssc-sub">London, United Kingdom</div>
+          </div>
+          <div class="ssc-item">
+            <div class="ssc-label">Room</div>
+            <div class="ssc-val">Deluxe King · 412</div>
+            <div class="ssc-sub">Quiet corner room</div>
+          </div>
+          <div class="ssc-item">
+            <div class="ssc-label">Duration</div>
+            <div class="ssc-val">4 nights</div>
+            <div class="ssc-sub">9 – 13 September</div>
+          </div>
+          <div class="ssc-item">
+            <div class="ssc-label">Highlights</div>
+            <div class="ssc-val">EV · Roux dinner</div>
+            <div class="ssc-sub">Late checkout granted</div>
+          </div>
+        </div>
+
+        <!-- Loyalty -->
+        <div class="loyalty-panel">
+          <div class="lp-item">
+            <div class="lp-number">+480</div>
+            <div class="lp-label">Points earned</div>
+            <div class="lp-sub">This stay</div>
+          </div>
+          <div class="lp-item">
+            <div class="lp-number">3,840</div>
+            <div class="lp-label">Total balance</div>
+            <div class="lp-sub">Ada Rewards</div>
+          </div>
+          <div class="lp-item">
+            <div class="lp-number">Gold</div>
+            <div class="lp-label">Status</div>
+            <div class="lp-sub">Maintained · next tier 5,000 pts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Post-stay chat prompts -->
+    <div class="ps-chat-section">
+      <p class="eyebrow" style="margin-bottom:8px">Continue the conversation</p>
+      <h2>Ada is still here for you</h2>
+      <p>Your Ada concierge doesn't switch off at checkout. Try one of these to get started.</p>
+      <div class="ps-chat-grid">
+        <div class="ps-chat-prompt" onclick="sendPrompt('I left something in my room')">
+          <span>🧳</span>I left something in room 412
+        </div>
+        <div class="ps-chat-prompt" onclick="sendPrompt('Can I get a copy of my invoice?')">
+          <span>🧾</span>Can I get a copy of my invoice?
+        </div>
+        <div class="ps-chat-prompt" onclick="sendPrompt('I want to book my next stay')">
+          <span>📅</span>Book my next stay at Ada Hotels
+        </div>
+        <div class="ps-chat-prompt" onclick="sendPrompt('How do I redeem my loyalty points?')">
+          <span>⭐</span>How do I redeem my loyalty points?
+        </div>
+        <div class="ps-chat-prompt" onclick="sendPrompt('I had an issue during my stay I want to report')">
+          <span>📣</span>I had an issue during my stay
+        </div>
+        <div class="ps-chat-prompt" onclick="sendPrompt('What is the cancellation policy?')">
+          <span>📋</span>Check cancellation policy
+        </div>
+      </div>
+    </div>
+
+    <!-- Loop CTA -->
+    <div class="loop-cta">
+      <div class="loop-cta-inner">
+        <p class="eyebrow">Five guest moments. One agent.</p>
+        <h2>The journey begins again.</h2>
+        <p>From your next booking to your next stay — Ada travels with you every step of the way.</p>
+        <div class="loop-cta-btns">
+          <a class="btn-gold" href="index.html">Plan your next stay</a>
+          <a class="btn-outline-white" href="pre-arrival.html">Restart the demo</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="index.html" style="align-self:flex-start">
+          <div class="brand-mark">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <text x="14" y="21" font-family="Playfair Display, serif" font-size="20" font-weight="700" fill="#0D1F3C" text-anchor="middle">AH</text>
+            </svg>
+          </div>
+          <div class="brand-name-wrap">
+            <span class="brand-title">Ada Hotels</span>
+            <span class="brand-tag">Exceptional stays worldwide</span>
+          </div>
+        </a>
+        <p>Exceptional stays crafted for the modern traveller.</p>
+      </div>
+      <div class="footer-col">
+        <span class="footer-head">Guest Journey</span>
+        <a href="pre-arrival.html">Pre-Arrival</a>
+        <a href="voice.html">Voice Call</a>
+        <a href="email.html">Email</a>
+        <a href="inroom.html">In-Room</a>
+        <a href="post-stay.html">Post-Stay</a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-head">Experiences</span>
+        <a href="inroom.html">In-room concierge</a>
+        <a href="index.html">Dining</a>
+        <a href="index.html">Spa &amp; wellness</a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-head">Help</span>
+        <a href="index.html">Manage booking</a>
+        <a href="index.html">Contact us</a>
+        <a href="index.html">Cancellation policy</a>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <span>Ada Hotels is a demo experience. Prices and properties are illustrative only.</span>
+      <span>&copy; 2026 Ada Hotels</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+let currentRating = 5;
+
+function rateStar(n) {
+  currentRating = n;
+  document.querySelectorAll('.star-btn').forEach(function(s, i) {
+    s.classList.toggle('lit', i < n);
+  });
+  document.getElementById('starSubmitted').style.display = 'block';
+}
+
+function sendPrompt(text) {
+  if (window.adaEmbed && adaEmbed.toggle) {
+    adaEmbed.toggle();
+  }
+}
+
+window.adaSettings = {
+  handle: HOTEL_CONFIG.botHandle,
+  metaFields: {
+    journey_stage: "post_stay",
+    guest_name:    HOTEL_CONFIG.guestFull,
+    booking_ref:   HOTEL_CONFIG.bookingRef,
+    property:      HOTEL_CONFIG.property,
+    loyalty_tier:  "Gold",
+  }
+};
+</script>
+<script src="https://static.ada.support/embed2.js" async></script>
+
+</body>
+</html>

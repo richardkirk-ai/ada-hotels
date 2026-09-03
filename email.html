@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ada Hotels — Email</title>
+<link rel="stylesheet" href="ada-hotels.css">
+<style>
+
+/* ── Demo nav ─────────────────────────────────────────────── */
+.demo-nav-bar {
+  background: #0D1F3C; border-bottom: 1px solid rgba(201,168,76,0.25);
+  position: sticky; top: 0; z-index: 200;
+}
+.demo-nav-row {
+  display: flex; align-items: center; gap: 0; max-width: 1240px;
+  margin: 0 auto; padding: 0 32px; overflow-x: auto; scrollbar-width: none;
+}
+.demo-nav-row::-webkit-scrollbar { display: none; }
+.demo-nav-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(201,168,76,0.7); padding: 0 16px 0 0; white-space: nowrap;
+  flex-shrink: 0; border-right: 1px solid rgba(255,255,255,0.1);
+  margin-right: 4px; line-height: 42px;
+}
+.demo-nav-row-2 .demo-nav-label { color: rgba(255,255,255,0.4); }
+.demo-nav-tab {
+  display: flex; align-items: center; gap: 6px; padding: 0 16px;
+  font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.55);
+  text-decoration: none; white-space: nowrap; line-height: 42px;
+  border-bottom: 2px solid transparent; transition: color 150ms, border-color 150ms;
+}
+.demo-nav-tab:hover { color: rgba(255,255,255,0.85); }
+.demo-nav-tab.active { color: #C9A84C; border-bottom-color: #C9A84C; font-weight: 600; }
+.demo-nav-row-2 { border-top: 1px solid rgba(255,255,255,0.06); }
+
+/* ── Email client layout ──────────────────────────────────── */
+.email-client {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  height: calc(100vh - 140px);
+  min-height: 640px;
+  border-top: 1px solid var(--ah-border);
+}
+
+/* Left rail */
+.email-rail {
+  background: var(--ah-white);
+  border-right: 1px solid var(--ah-border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.email-rail-head {
+  padding: 20px 20px 12px;
+  border-bottom: 1px solid var(--ah-border);
+}
+.email-rail-head h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ah-navy);
+  margin-bottom: 4px;
+}
+.email-rail-head span {
+  font-size: 11px;
+  color: var(--ah-text-3);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.email-rail-inner {
+  overflow-y: auto;
+  flex: 1;
+}
+.email-thread-item {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--ah-border);
+  cursor: pointer;
+  transition: background 120ms;
+  position: relative;
+}
+.email-thread-item:hover { background: var(--ah-cream); }
+.email-thread-item.active { background: var(--ah-gold-pale); border-left: 3px solid var(--ah-gold); }
+.email-thread-item.unread .eti-subject { font-weight: 700; }
+.eti-from { font-size: 12px; font-weight: 600; color: var(--ah-navy); margin-bottom: 3px; }
+.eti-subject { font-size: 12px; color: var(--ah-text); margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.eti-preview { font-size: 11px; color: var(--ah-text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.eti-time { font-size: 11px; color: var(--ah-text-3); position: absolute; top: 14px; right: 20px; }
+.eti-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--ah-gold);
+  position: absolute;
+  left: 8px; top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Main pane */
+.email-main {
+  background: var(--ah-cream);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.email-main-toolbar {
+  background: var(--ah-white);
+  border-bottom: 1px solid var(--ah-border);
+  padding: 14px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-shrink: 0;
+}
+.email-main-toolbar h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ah-navy);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.email-toolbar-btns { display: flex; gap: 8px; }
+.email-tb-btn {
+  padding: 7px 14px;
+  border-radius: 5px;
+  border: 1px solid var(--ah-border);
+  background: var(--ah-white);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ah-text-2);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.email-tb-btn:hover { background: var(--ah-cream); }
+.email-tb-btn.primary {
+  background: var(--ah-navy);
+  color: var(--ah-white);
+  border-color: var(--ah-navy);
+}
+
+.email-thread {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Email messages */
+.email-msg {
+  background: var(--ah-white);
+  border: 1px solid var(--ah-border);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: box-shadow 150ms;
+  animation: slide-in 0.4s ease both;
+}
+.email-msg:hover { box-shadow: 0 4px 16px rgba(13,31,60,0.08); }
+@keyframes slide-in { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+
+.email-msg-head {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--ah-border);
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.email-msg-avatar {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 14px;
+  flex-shrink: 0;
+}
+.email-msg-avatar.guest {
+  background: var(--ah-navy);
+  color: var(--ah-white);
+}
+.email-msg-avatar.hotel {
+  background: var(--ah-gold-grad);
+  color: var(--ah-navy);
+}
+.email-msg-avatar.ada {
+  background: linear-gradient(135deg, #0D1F3C 0%, #1E3662 100%);
+  color: var(--ah-gold);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+.email-msg-meta { flex: 1; min-width: 0; }
+.email-msg-from { font-size: 14px; font-weight: 700; color: var(--ah-navy); margin-bottom: 2px; }
+.email-msg-to { font-size: 12px; color: var(--ah-text-3); }
+.email-msg-time { font-size: 11px; color: var(--ah-text-3); white-space: nowrap; flex-shrink: 0; }
+
+.email-msg-body {
+  padding: 20px;
+  font-size: 14px;
+  color: var(--ah-text);
+  line-height: 1.7;
+}
+.email-msg-body p { margin-bottom: 12px; }
+.email-msg-body p:last-child { margin-bottom: 0; }
+.email-msg-body strong { color: var(--ah-navy); }
+.email-msg-body .highlight {
+  background: var(--ah-gold-pale);
+  border-left: 3px solid var(--ah-gold);
+  padding: 12px 16px;
+  border-radius: 0 6px 6px 0;
+  margin: 14px 0;
+}
+.email-confirm-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 12px 0;
+}
+.email-confirm-table td {
+  padding: 7px 12px;
+  border-bottom: 1px solid var(--ah-border);
+}
+.email-confirm-table td:first-child {
+  font-weight: 600;
+  color: var(--ah-text-2);
+  width: 40%;
+}
+
+/* Compose bar */
+.compose-bar {
+  background: var(--ah-white);
+  border-top: 1px solid var(--ah-border);
+  padding: 14px 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.compose-input {
+  flex: 1;
+  height: 38px;
+  border: 1px solid var(--ah-border);
+  border-radius: 6px;
+  padding: 0 14px;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--ah-text);
+  background: var(--ah-cream);
+  outline: none;
+}
+.compose-input::placeholder { color: var(--ah-text-3); }
+.compose-send {
+  width: 38px; height: 38px;
+  border-radius: 6px;
+  background: var(--ah-gold-grad);
+  display: flex; align-items: center; justify-content: center;
+  border: none; cursor: pointer;
+  flex-shrink: 0;
+  font-size: 16px;
+  color: var(--ah-navy);
+}
+
+.ada-powered {
+  font-size: 11px;
+  color: var(--ah-text-3);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.ada-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--ah-green);
+  animation: blink 1.4s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+@media (max-width: 780px) {
+  .email-client { grid-template-columns: 1fr; }
+  .email-rail { height: 220px; }
+}
+</style>
+</head>
+<body>
+
+<script>
+const HOTEL_CONFIG = {
+  botHandle:    "ada-hotels-ai-agent-demo",
+  hotelName:    "Ada Hotels",
+  guestName:    "Anna",
+  guestFull:    "Anna Chambers",
+  bookingRef:   "AH-291847",
+  property:     "Ada Hotel Mayfair, London",
+  primaryColor: "#0D1F3C",
+  accentColor:  "#C9A84C",
+};
+</script>
+
+<!-- Header -->
+<header class="site-header">
+  <a class="brand" href="index.html">
+    <div class="brand-mark">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <text x="14" y="21" font-family="Playfair Display, serif" font-size="20" font-weight="700" fill="#0D1F3C" text-anchor="middle">AH</text>
+      </svg>
+    </div>
+    <div class="brand-name-wrap">
+      <span class="brand-title">Ada Hotels</span>
+      <span class="brand-tag">Exceptional stays worldwide</span>
+    </div>
+  </a>
+  <nav class="site-nav">
+    <a href="index.html">Hotels</a>
+    <a href="inroom.html">In-Room</a>
+    <a href="index.html">Dining</a>
+    <a href="index.html">Offers</a>
+  </nav>
+  <div class="header-actions">
+    <div class="user-pill">
+      <span class="user-avatar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="8" r="4" fill="#0D1F3C"/>
+          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#0D1F3C" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="user-name">Anna C.</span>
+    </div>
+  </div>
+</header>
+
+<!-- Demo nav -->
+<div class="demo-nav-bar">
+  <div class="demo-nav-row">
+    <span class="demo-nav-label">Guest Journey</span>
+    <a class="demo-nav-tab" href="pre-arrival.html">✦ Pre-Arrival</a>
+    <a class="demo-nav-tab" href="voice.html">📞 Voice Call</a>
+    <a class="demo-nav-tab active" href="email.html">✉️ Email</a>
+    <a class="demo-nav-tab" href="inroom.html">🛎 In-Room</a>
+    <a class="demo-nav-tab" href="post-stay.html">⭐ Post-Stay</a>
+  </div>
+  <div class="demo-nav-row demo-nav-row-2">
+    <span class="demo-nav-label">Omnichannel</span>
+    <a class="demo-nav-tab" href="pre-arrival.html">💬 Custom Front End</a>
+    <a class="demo-nav-tab" href="voice.html">🎙 Voice</a>
+    <a class="demo-nav-tab active" href="email.html">📧 Email</a>
+    <a class="demo-nav-tab" href="inroom.html">📱 QR Code</a>
+    <a class="demo-nav-tab" href="post-stay.html">📋 Survey</a>
+  </div>
+</div>
+
+<!-- Email client -->
+<div class="email-client">
+
+  <!-- Left rail -->
+  <div class="email-rail">
+    <div class="email-rail-head">
+      <h3>anna.chambers@me.com</h3>
+      <span>Inbox · 3 unread</span>
+    </div>
+    <div class="email-rail-inner">
+
+      <div class="email-thread-item active unread" onclick="setActive(this)">
+        <div class="eti-dot"></div>
+        <div class="eti-from" style="padding-left:12px">Ada Hotels</div>
+        <div class="eti-subject" style="padding-left:12px">Re: Reservation amendment · AH-291847</div>
+        <div class="eti-preview" style="padding-left:12px">Your booking has been updated as requested…</div>
+        <div class="eti-time">Now</div>
+      </div>
+
+      <div class="email-thread-item" onclick="setActive(this)">
+        <div class="eti-from">Ada Hotels</div>
+        <div class="eti-subject">Your booking is confirmed — AH-291847</div>
+        <div class="eti-preview">We look forward to welcoming you to…</div>
+        <div class="eti-time">2d ago</div>
+      </div>
+
+      <div class="email-thread-item" onclick="setActive(this)">
+        <div class="eti-from">Ada Rewards</div>
+        <div class="eti-subject">Gold member exclusive: September offer</div>
+        <div class="eti-preview">As a Gold member you're entitled to…</div>
+        <div class="eti-time">3d ago</div>
+      </div>
+
+      <div class="email-thread-item" onclick="setActive(this)">
+        <div class="eti-from">Ada Hotels Mayfair</div>
+        <div class="eti-subject">Pre-arrival welcome from Ada Mayfair</div>
+        <div class="eti-preview">Your room is ready — here's what to expect…</div>
+        <div class="eti-time">4d ago</div>
+      </div>
+
+      <div class="email-thread-item" onclick="setActive(this)">
+        <div class="eti-from">Ada Hotels</div>
+        <div class="eti-subject">Loyalty points update — August stay</div>
+        <div class="eti-preview">You earned 840 points on your last visit…</div>
+        <div class="eti-time">12d ago</div>
+      </div>
+
+      <div class="email-thread-item" onclick="setActive(this)">
+        <div class="eti-from">Ada Hotels Edinburgh</div>
+        <div class="eti-subject">Thank you for your stay</div>
+        <div class="eti-preview">We hope you enjoyed your recent visit…</div>
+        <div class="eti-time">24d ago</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Main pane -->
+  <div class="email-main">
+
+    <!-- Toolbar -->
+    <div class="email-main-toolbar">
+      <h2>Reservation amendment · AH-291847</h2>
+      <div class="email-toolbar-btns">
+        <button class="email-tb-btn">Archive</button>
+        <button class="email-tb-btn">Reply</button>
+        <button class="email-tb-btn primary">Reply all</button>
+      </div>
+    </div>
+
+    <!-- Thread -->
+    <div class="email-thread" id="emailThread">
+
+      <!-- Anna's original email -->
+      <div class="email-msg" style="animation-delay:0s">
+        <div class="email-msg-head">
+          <div class="email-msg-avatar guest">AC</div>
+          <div class="email-msg-meta">
+            <div class="email-msg-from">Anna Chambers &lt;anna.chambers@me.com&gt;</div>
+            <div class="email-msg-to">To: reservations@ada-hotels.com</div>
+          </div>
+          <div class="email-msg-time">Tue 8 Sep · 11:22am</div>
+        </div>
+        <div class="email-msg-body">
+          <p>Hello,</p>
+          <p>I'd like to request an amendment to my upcoming booking. My reference is <strong>AH-291847</strong>.</p>
+          <p>I'd like to change my check-in date from <strong>Wednesday 10 September</strong> to <strong>Tuesday 9 September</strong> if you have availability in my room type. I'm arriving from Edinburgh and my train gets in at around 5pm.</p>
+          <p>Please let me know if this is possible and whether there would be any difference in cost.</p>
+          <p>Kind regards,<br>Anna Chambers</p>
+        </div>
+      </div>
+
+      <!-- Ada automated acknowledgement -->
+      <div class="email-msg" style="animation-delay:0.2s">
+        <div class="email-msg-head">
+          <div class="email-msg-avatar ada">ADA</div>
+          <div class="email-msg-meta">
+            <div class="email-msg-from">Ada Hotels · AI Agent &lt;concierge@ada-hotels.com&gt;</div>
+            <div class="email-msg-to">To: anna.chambers@me.com · Powered by Ada</div>
+          </div>
+          <div class="email-msg-time">Tue 8 Sep · 11:22am</div>
+        </div>
+        <div class="email-msg-body">
+          <p>Hi Anna,</p>
+          <p>Thank you for your email. I've received your request to amend booking <strong>AH-291847</strong> and I'm checking availability for you now — this will only take a moment.</p>
+          <p>You'll receive a full confirmation from me shortly.</p>
+          <p>Warm regards,<br>Ada — Your personal concierge<br>Ada Hotels Mayfair</p>
+        </div>
+      </div>
+
+      <!-- Ada confirmation -->
+      <div class="email-msg" style="animation-delay:0.5s">
+        <div class="email-msg-head">
+          <div class="email-msg-avatar ada">ADA</div>
+          <div class="email-msg-meta">
+            <div class="email-msg-from">Ada Hotels · AI Agent &lt;concierge@ada-hotels.com&gt;</div>
+            <div class="email-msg-to">To: anna.chambers@me.com · Powered by Ada</div>
+          </div>
+          <div class="email-msg-time">Tue 8 Sep · 11:23am</div>
+        </div>
+        <div class="email-msg-body">
+          <p>Hi Anna,</p>
+          <p>Great news — I've been able to update your booking. Your Deluxe King room is available from Tuesday 9 September, and I've moved your check-in forward by one night at no additional cost as a courtesy for Gold members.</p>
+          <div class="highlight">
+            <strong>Booking updated — AH-291847</strong>
+          </div>
+          <table class="email-confirm-table">
+            <tr><td>Property</td><td>Ada Hotel Mayfair, London</td></tr>
+            <tr><td>Room</td><td>Deluxe King · Room 412</td></tr>
+            <tr><td>New check-in</td><td><strong>Tuesday 9 September · from 3:00pm</strong></td></tr>
+            <tr><td>Check-out</td><td>Saturday 13 September · by 11:00am</td></tr>
+            <tr><td>Nights</td><td>4 (updated from 3)</td></tr>
+            <tr><td>Additional cost</td><td>Nil — Gold member courtesy</td></tr>
+          </table>
+          <p>Your EV charging bay and Friday dinner reservation at Roux at The Landau remain in place. If you need anything else before your arrival, just reply to this email or open Ada on the hotel website.</p>
+          <p>We look forward to welcoming you tomorrow evening, Anna.</p>
+          <p>Warm regards,<br>Ada — Your personal concierge<br>Ada Hotels Mayfair · <a href="#" style="color:var(--ah-gold);text-decoration:none">ada-hotels.com</a></p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Compose bar -->
+    <div class="compose-bar">
+      <input class="compose-input" placeholder="Reply to Ada Hotels…" readonly>
+      <button class="compose-send">✈</button>
+      <span class="ada-powered"><div class="ada-dot"></div> Ada AI · response time &lt;60s</span>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+function setActive(el) {
+  document.querySelectorAll('.email-thread-item').forEach(function(i) { i.classList.remove('active'); });
+  el.classList.add('active');
+  el.classList.remove('unread');
+  const dot = el.querySelector('.eti-dot');
+  if (dot) dot.style.display = 'none';
+}
+</script>
+
+</body>
+</html>

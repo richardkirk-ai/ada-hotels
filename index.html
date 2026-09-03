@@ -589,6 +589,52 @@
   </div>
 </header>
 
+<!-- Demo nav -->
+<style>
+.demo-nav-bar {
+  background: #0D1F3C; border-bottom: 1px solid rgba(201,168,76,0.25);
+}
+.demo-nav-row {
+  display: flex; align-items: center; gap: 0; max-width: 1240px;
+  margin: 0 auto; padding: 0 32px; overflow-x: auto; scrollbar-width: none;
+}
+.demo-nav-row::-webkit-scrollbar { display: none; }
+.demo-nav-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(201,168,76,0.7); padding: 0 16px 0 0; white-space: nowrap;
+  flex-shrink: 0; border-right: 1px solid rgba(255,255,255,0.1);
+  margin-right: 4px; line-height: 42px;
+}
+.demo-nav-row-2 .demo-nav-label { color: rgba(255,255,255,0.4); }
+.demo-nav-tab {
+  display: flex; align-items: center; gap: 6px; padding: 0 16px;
+  font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.55);
+  text-decoration: none; white-space: nowrap; line-height: 42px;
+  border-bottom: 2px solid transparent; transition: color 150ms, border-color 150ms;
+}
+.demo-nav-tab:hover { color: rgba(255,255,255,0.85); }
+.demo-nav-tab.active { color: #C9A84C; border-bottom-color: #C9A84C; font-weight: 600; }
+.demo-nav-row-2 { border-top: 1px solid rgba(255,255,255,0.06); }
+</style>
+<div class="demo-nav-bar">
+  <div class="demo-nav-row">
+    <span class="demo-nav-label">Guest Journey</span>
+    <a class="demo-nav-tab" href="pre-arrival.html">✦ Pre-Arrival</a>
+    <a class="demo-nav-tab" href="voice.html">📞 Voice Call</a>
+    <a class="demo-nav-tab" href="email.html">✉️ Email</a>
+    <a class="demo-nav-tab" href="inroom.html">🛎 In-Room</a>
+    <a class="demo-nav-tab" href="post-stay.html">⭐ Post-Stay</a>
+  </div>
+  <div class="demo-nav-row demo-nav-row-2">
+    <span class="demo-nav-label">Omnichannel</span>
+    <a class="demo-nav-tab" href="pre-arrival.html">💬 Custom Front End</a>
+    <a class="demo-nav-tab" href="voice.html">🎙 Voice</a>
+    <a class="demo-nav-tab" href="email.html">📧 Email</a>
+    <a class="demo-nav-tab" href="inroom.html">📱 QR Code</a>
+    <a class="demo-nav-tab" href="post-stay.html">📋 Survey</a>
+  </div>
+</div>
+
 <!-- Hero -->
 <section class="hero">
   <div class="hero-bg"></div>
@@ -930,10 +976,18 @@
   });
 </script>
 
-<!-- Ada embed -->
+<!-- HOTEL_CONFIG & Ada embed -->
+<script>
+const HOTEL_CONFIG = {
+  botHandle:    "ada-hotels-ai-agent-demo",
+  hotelName:    "Ada Hotels",
+  primaryColor: "#0D1F3C",
+  accentColor:  "#C9A84C",
+};
+</script>
 <script>
 window.adaSettings = {
-  handle: "scandic-hotels-ai-agent-demo"
+  handle: HOTEL_CONFIG.botHandle
 };
 </script>
 <script src="https://static.ada.support/embed2.js" async></script>
