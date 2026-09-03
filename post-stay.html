@@ -276,24 +276,14 @@ const HOTEL_CONFIG = {
 </header>
 
 <!-- Demo nav -->
-<div class="demo-nav-bar">
+<nav class="demo-nav-bar">
   <div class="demo-nav-row">
-    <span class="demo-nav-label">Guest Journey</span>
-    <a class="demo-nav-tab" href="pre-arrival.html">✦ Pre-Arrival</a>
-    <a class="demo-nav-tab" href="voice.html">📞 Voice Call</a>
-    <a class="demo-nav-tab" href="email.html">✉️ Email</a>
-    <a class="demo-nav-tab" href="inroom.html">🛎 In-Room</a>
+    <a class="demo-nav-tab" href="index.html">🏨 Book In</a>
+    <a class="demo-nav-tab" href="pre-stay.html">✦ Pre-Stay</a>
+    <a class="demo-nav-tab" href="in-stay.html">🛎 In-Stay</a>
     <a class="demo-nav-tab active" href="post-stay.html">⭐ Post-Stay</a>
   </div>
-  <div class="demo-nav-row demo-nav-row-2">
-    <span class="demo-nav-label">Omnichannel</span>
-    <a class="demo-nav-tab" href="pre-arrival.html">💬 Custom Front End</a>
-    <a class="demo-nav-tab" href="voice.html">🎙 Voice</a>
-    <a class="demo-nav-tab" href="email.html">📧 Email</a>
-    <a class="demo-nav-tab" href="inroom.html">📱 QR Code</a>
-    <a class="demo-nav-tab active" href="post-stay.html">📋 Survey</a>
-  </div>
-</div>
+</nav>
 
 <!-- Hero -->
 <div class="ps-hero">
@@ -367,29 +357,40 @@ const HOTEL_CONFIG = {
       </div>
     </div>
 
-    <!-- Post-stay chat prompts -->
+    <!-- Post-stay phone survey -->
     <div class="ps-chat-section">
-      <p class="eyebrow" style="margin-bottom:8px">Continue the conversation</p>
-      <h2>Ada is still here for you</h2>
-      <p>Your Ada concierge doesn't switch off at checkout. Try one of these to get started.</p>
-      <div class="ps-chat-grid">
-        <div class="ps-chat-prompt" onclick="sendPrompt('I left something in my room')">
-          <span>🧳</span>I left something in room 412
+      <p class="eyebrow" style="margin-bottom:8px">Closing the loop</p>
+      <h2>A dynamic survey — delivered by phone</h2>
+      <p>Within 24 hours of checkout, Ada places a personalised outbound call to Anna. The survey is not a generic script — it's shaped by everything Ada already knows about this stay.</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:8px">
+        <div style="background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:10px">
+          <div style="font-size:24px">📞</div>
+          <div style="font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#C9A84C">How it works</div>
+          <div style="font-size:14px;color:#374151;line-height:1.65">Ada places a short outbound call to Anna's mobile on the morning after checkout. The call takes around two minutes. No hold music, no transfer — just a natural voice conversation.</div>
         </div>
-        <div class="ps-chat-prompt" onclick="sendPrompt('Can I get a copy of my invoice?')">
-          <span>🧾</span>Can I get a copy of my invoice?
+        <div style="background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:10px">
+          <div style="font-size:24px">🧠</div>
+          <div style="font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#C9A84C">Personalised questions</div>
+          <div style="font-size:14px;color:#374151;line-height:1.65">Because Ada handled Anna's maintenance issue and restaurant reservation, it asks specifically about room comfort and the dining experience at The Garden — not a generic five-star prompt.</div>
         </div>
-        <div class="ps-chat-prompt" onclick="sendPrompt('I want to book my next stay')">
-          <span>📅</span>Book my next stay at Ada Hotels
+        <div style="background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:10px">
+          <div style="font-size:24px">📊</div>
+          <div style="font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#C9A84C">Structured feedback</div>
+          <div style="font-size:14px;color:#374151;line-height:1.65">Responses are captured across four dimensions: room comfort, dining, service quality, and overall experience. Sentiment and scores are logged automatically to Anna's guest profile.</div>
         </div>
-        <div class="ps-chat-prompt" onclick="sendPrompt('How do I redeem my loyalty points?')">
-          <span>⭐</span>How do I redeem my loyalty points?
+        <div style="background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:10px">
+          <div style="font-size:24px">🔄</div>
+          <div style="font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#C9A84C">Back into the journey</div>
+          <div style="font-size:14px;color:#374151;line-height:1.65">Feedback flows directly into Ada's memory. When Anna next books, the proactive message on the booking page is shaped by what she told us — closing the loop before the next stay even begins.</div>
         </div>
-        <div class="ps-chat-prompt" onclick="sendPrompt('I had an issue during my stay I want to report')">
-          <span>📣</span>I had an issue during my stay
-        </div>
-        <div class="ps-chat-prompt" onclick="sendPrompt('What is the cancellation policy?')">
-          <span>📋</span>Check cancellation policy
+      </div>
+
+      <div style="margin-top:28px;background:linear-gradient(135deg,#0D1F3C,#1E3662);border-radius:12px;padding:28px 32px;display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+        <div style="font-size:36px">📱</div>
+        <div style="flex:1;min-width:200px">
+          <div style="font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#C9A84C;margin-bottom:6px">Sample outbound call · Anna Chambers</div>
+          <div style="font-size:15px;color:rgba(255,255,255,0.85);line-height:1.6">"Hi Anna, it's Ada from Ada Hotel Mayfair — just calling to see how your stay was this week. We noticed you had a late-night issue with your air conditioning. We're really sorry about that. How did we handle it for you overall?"</div>
         </div>
       </div>
     </div>
@@ -402,7 +403,7 @@ const HOTEL_CONFIG = {
         <p>From your next booking to your next stay — Ada travels with you every step of the way.</p>
         <div class="loop-cta-btns">
           <a class="btn-gold" href="index.html">Plan your next stay</a>
-          <a class="btn-outline-white" href="pre-arrival.html">Restart the demo</a>
+          <a class="btn-outline-white" href="index.html">Restart the demo</a>
         </div>
       </div>
     </div>

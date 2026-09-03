@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ada Hotels — In-Stay</title>
+<link rel="stylesheet" href="ada-hotels.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── Demo nav ─────────────────────────────────────────────── */
+.demo-nav-bar {
+  background: #0D1F3C; border-bottom: 1px solid rgba(201,168,76,0.25);
+  position: sticky; top: 0; z-index: 200;
+}
+.demo-nav-row {
+  display: flex; align-items: center; gap: 0; max-width: 1240px;
+  margin: 0 auto; padding: 0 32px; overflow-x: auto; scrollbar-width: none;
+}
+.demo-nav-row::-webkit-scrollbar { display: none; }
+.demo-nav-tab {
+  display: flex; align-items: center; gap: 6px; padding: 0 20px;
+  font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.55);
+  text-decoration: none; white-space: nowrap; line-height: 46px;
+  border-bottom: 2px solid transparent; transition: color 150ms, border-color 150ms;
+}
+.demo-nav-tab:hover { color: rgba(255,255,255,0.85); }
+.demo-nav-tab.active { color: #C9A84C; border-bottom-color: #C9A84C; font-weight: 600; }
+
+/* ── Page hero ───────────────────────────────────────────── */
+.page-hero {
+  background: linear-gradient(160deg, #0D1F3C 0%, #1E3662 60%, #0D1F3C 100%);
+  padding: 56px 0 48px;
+  position: relative;
+  overflow: hidden;
+}
+.page-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.1) 0%, transparent 50%),
+    repeating-linear-gradient(45deg, rgba(201,168,76,0.015) 0px, rgba(201,168,76,0.015) 1px, transparent 1px, transparent 52px);
+}
+.page-hero-inner { position: relative; z-index: 1; }
+.page-hero .eyebrow { color: rgba(201,168,76,0.85); margin-bottom: 10px; }
+.page-hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px,4vw,48px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+.page-hero p { font-size: 16px; color: rgba(255,255,255,0.65); max-width: 54ch; }
+
+/* ── Two-column layout ─────────────────────────────────── */
+.instay-body { padding: 64px 0 80px; background: #FAF7F2; }
+.instay-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+
+/* ── QR panel ─────────────────────────────────────────── */
+.qr-section {}
+.scenario-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  color: #C9A84C; margin-bottom: 8px;
+}
+.scenario-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(20px,2.5vw,30px);
+  font-weight: 700;
+  color: #0D1F3C;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+.scenario-desc { font-size: 14px; color: #6B7280; margin-bottom: 28px; line-height: 1.6; }
+
+.qr-card {
+  background: #fff;
+  border: 1px solid #E5E7EB;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 8px 32px rgba(13,31,60,0.1);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.qr-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #0D1F3C, #C9A84C, #0D1F3C);
+}
+.qr-eyebrow {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  color: #C9A84C; margin-bottom: 8px;
+}
+.qr-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #0D1F3C;
+  margin-bottom: 20px;
+}
+.qr-code-wrap {
+  display: inline-block;
+  padding: 16px;
+  background: #fff;
+  border: 2px solid #0D1F3C;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 16px rgba(13,31,60,0.12);
+}
+.qr-sub {
+  font-size: 13px;
+  color: #6B7280;
+  line-height: 1.55;
+  max-width: 28ch;
+  margin: 0 auto 20px;
+}
+.qr-room-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 18px;
+  background: rgba(13,31,60,0.05);
+  border: 1px solid rgba(13,31,60,0.15);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #0D1F3C;
+}
+
+/* ── Chat panel ────────────────────────────────────────── */
+.chat-section {}
+.chat-window {
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #E5E7EB;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(13,31,60,0.1);
+}
+.cw-header {
+  background: #0D1F3C;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.cw-avatar {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #C9A84C, #E8C96C);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.cw-info { flex: 1; }
+.cw-name { font-size: 13px; font-weight: 700; color: #fff; }
+.cw-status { font-size: 11px; color: rgba(255,255,255,0.55); }
+.cw-status::before { content: '● '; color: #4ADE80; }
+.cw-msgs {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #F8F6F2;
+  min-height: 380px;
+}
+.cw-msg {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  max-width: 84%;
+}
+.cw-msg.bot { align-self: flex-start; }
+.cw-msg.guest { align-self: flex-end; }
+.cw-bubble {
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.cw-msg.bot .cw-bubble {
+  background: #fff;
+  border: 1px solid #E5E7EB;
+  color: #111827;
+  border-radius: 4px 10px 10px 10px;
+}
+.cw-msg.guest .cw-bubble {
+  background: #0D1F3C;
+  color: #fff;
+  border-radius: 10px 4px 10px 10px;
+}
+.cw-time { font-size: 10px; color: #9CA3AF; padding: 0 4px; }
+.cw-msg.guest .cw-time { text-align: right; }
+.cw-ticket-tag {
+  margin: 0 16px;
+  padding: 10px 14px;
+  background: #FFFBEB;
+  border: 1px solid #FCD34D;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #92400E;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cw-input-bar {
+  padding: 12px 16px;
+  background: #fff;
+  border-top: 1px solid #E5E7EB;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cw-input-field {
+  flex: 1;
+  font-size: 13px;
+  color: #9CA3AF;
+  background: #F9FAFB;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  padding: 9px 14px;
+}
+.cw-send-btn {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: #C9A84C;
+  border: none;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+  .instay-grid { grid-template-columns: 1fr; gap: 40px; }
+}
+</style>
+</head>
+<body>
+
+<script>
+const HOTEL_CONFIG = {
+  botHandle:    "ada-hotels-ai-agent-demo",
+  hotelName:    "Ada Hotels",
+  guestName:    "Anna",
+  guestFull:    "Anna Chambers",
+  bookingRef:   "AH-291847",
+  property:     "Ada Hotel Mayfair, London",
+  roomNumber:   "412",
+  checkIn:      "Tue 9 Sep 2026",
+  checkOut:     "Sat 13 Sep 2026",
+  primaryColor: "#0D1F3C",
+  accentColor:  "#C9A84C",
+};
+</script>
+
+<!-- Header -->
+<header class="site-header">
+  <a class="brand" href="index.html">
+    <div class="brand-mark">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <text x="14" y="21" font-family="Playfair Display, serif" font-size="20" font-weight="700" fill="#0D1F3C" text-anchor="middle">AH</text>
+      </svg>
+    </div>
+    <div class="brand-name-wrap">
+      <span class="brand-title">Ada Hotels</span>
+      <span class="brand-tag">Exceptional stays worldwide</span>
+    </div>
+  </a>
+  <nav class="site-nav">
+    <a href="index.html">Hotels</a>
+    <a href="index.html">Dining</a>
+    <a href="index.html">Offers</a>
+  </nav>
+  <div class="header-actions">
+    <div class="user-pill">
+      <span class="user-avatar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="8" r="4" fill="#0D1F3C"/>
+          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#0D1F3C" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="user-name">Anna C.</span>
+    </div>
+  </div>
+</header>
+
+<!-- Demo nav -->
+<nav class="demo-nav-bar">
+  <div class="demo-nav-row">
+    <a class="demo-nav-tab" href="index.html">🏨 Book In</a>
+    <a class="demo-nav-tab" href="pre-stay.html">✦ Pre-Stay</a>
+    <a class="demo-nav-tab active" href="in-stay.html">🛎 In-Stay</a>
+    <a class="demo-nav-tab" href="post-stay.html">⭐ Post-Stay</a>
+  </div>
+</nav>
+
+<!-- Page hero -->
+<div class="page-hero">
+  <div class="wrap page-hero-inner">
+    <p class="eyebrow">In-Stay · QR code + chat</p>
+    <h1>Your room, your concierge</h1>
+    <p>A simple QR code on Anna's bedside table opens a direct line to Ada — no app download, no hold music. Every request handled in seconds.</p>
+  </div>
+</div>
+
+<!-- Body -->
+<div class="instay-body">
+  <div class="wrap">
+    <div class="instay-grid">
+
+      <!-- LEFT: QR Code -->
+      <div class="qr-section">
+        <div class="scenario-label">📱 Channel · QR Code</div>
+        <div class="scenario-title">Scan to connect with your in-room concierge</div>
+        <div class="scenario-desc">Printed on a card on the bedside table in every Ada Hotels room. One scan opens a chat session — pre-authenticated with the guest's room and booking details.</div>
+
+        <div class="qr-card">
+          <div class="qr-eyebrow">Ada Hotel Mayfair · Room 412</div>
+          <div class="qr-heading">Your personal concierge is one scan away</div>
+
+          <!-- Decorative QR code SVG -->
+          <div class="qr-code-wrap">
+            <svg width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="QR code for Ada Hotels in-room concierge">
+              <!-- Finder patterns -->
+              <rect x="10" y="10" width="50" height="50" rx="4" fill="#0D1F3C"/>
+              <rect x="18" y="18" width="34" height="34" rx="2" fill="#FAF7F2"/>
+              <rect x="24" y="24" width="22" height="22" rx="1" fill="#0D1F3C"/>
+              <rect x="120" y="10" width="50" height="50" rx="4" fill="#0D1F3C"/>
+              <rect x="128" y="18" width="34" height="34" rx="2" fill="#FAF7F2"/>
+              <rect x="134" y="24" width="22" height="22" rx="1" fill="#0D1F3C"/>
+              <rect x="10" y="120" width="50" height="50" rx="4" fill="#0D1F3C"/>
+              <rect x="18" y="128" width="34" height="34" rx="2" fill="#FAF7F2"/>
+              <rect x="24" y="134" width="22" height="22" rx="1" fill="#0D1F3C"/>
+              <!-- Data modules (decorative) -->
+              <rect x="72" y="10" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="84" y="10" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="96" y="10" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="72" y="22" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="96" y="22" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="72" y="34" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="84" y="34" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="96" y="34" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="10" y="72" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="22" y="72" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="34" y="84" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="46" y="72" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="58" y="84" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="10" y="96" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="34" y="96" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="46" y="96" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="120" y="72" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="132" y="84" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="144" y="72" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="156" y="84" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="132" y="96" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="156" y="96" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="72" y="72" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="84" y="72" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="96" y="84" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="108" y="72" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="72" y="84" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="108" y="96" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="72" y="96" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="84" y="108" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="96" y="108" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="72" y="120" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="84" y="120" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="96" y="132" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="108" y="120" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="72" y="144" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="84" y="156" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="96" y="144" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="108" y="156" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="120" y="108" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="132" y="120" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="156" y="120" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="120" y="132" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="144" y="132" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="120" y="156" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="132" y="144" width="8" height="8" fill="#0D1F3C"/>
+              <rect x="156" y="144" width="8" height="8" fill="#0D1F3C"/>
+              <!-- Ada gold logo centre -->
+              <rect x="76" y="76" width="28" height="28" rx="4" fill="#FAF7F2" stroke="#C9A84C" stroke-width="1.5"/>
+              <text x="90" y="94" font-family="Playfair Display, serif" font-size="13" font-weight="700" fill="#0D1F3C" text-anchor="middle">AH</text>
+            </svg>
+          </div>
+
+          <p class="qr-sub">Point your phone camera at this code to open a private chat with your Ada concierge — available 24 hours a day.</p>
+          <div class="qr-room-badge">
+            🛏 Room 412 · Ada Hotel Mayfair
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Chat window -->
+      <div class="chat-section">
+        <div class="scenario-label">💬 Scenario · In-room chat</div>
+        <div class="scenario-title">Noisy air conditioning — 11:30 PM</div>
+        <div class="scenario-desc">Anna scans the QR code and reports a problem with her AC unit. Ada raises a maintenance ticket, offers a room move, and keeps Anna informed — all without waking any staff.</div>
+
+        <div class="chat-window">
+          <div class="cw-header">
+            <div class="cw-avatar">🏨</div>
+            <div class="cw-info">
+              <div class="cw-name">Ada Concierge · Room 412</div>
+              <div class="cw-status">Available now</div>
+            </div>
+          </div>
+
+          <div class="cw-msgs">
+
+            <div class="cw-msg bot">
+              <div class="cw-bubble">Good evening, Anna! Welcome to Ada Hotel Mayfair. How can I help you tonight?</div>
+              <div class="cw-time">11:31 PM</div>
+            </div>
+
+            <div class="cw-msg guest">
+              <div class="cw-bubble">Hi — my air conditioning is making a really loud rattling noise. It started about an hour ago and it's keeping me awake.</div>
+              <div class="cw-time">11:32 PM</div>
+            </div>
+
+            <div class="cw-msg bot">
+              <div class="cw-bubble">I'm so sorry to hear that, Anna — that's not the peaceful night you deserve. I've raised an urgent maintenance ticket for room 412 right now. An engineer will be in touch shortly to investigate.</div>
+              <div class="cw-time">11:32 PM</div>
+            </div>
+
+            <div class="cw-msg bot">
+              <div class="cw-bubble">In the meantime, we do have a quiet room available on the eighth floor with park views, if you'd prefer to move tonight. I can arrange that immediately — our night team will bring your key and help with anything you'd like to bring across.</div>
+              <div class="cw-time">11:32 PM</div>
+            </div>
+
+            <div class="cw-msg guest">
+              <div class="cw-bubble">I'm already in bed honestly — let's wait and see what the engineer says first. But thank you.</div>
+              <div class="cw-time">11:34 PM</div>
+            </div>
+
+            <div class="cw-msg bot">
+              <div class="cw-bubble">Of course — completely understood. I've added a note to your ticket that you'd prefer to stay in 412 if possible. The engineer will contact you directly before entering. I'll make sure our team follows up with you tomorrow morning as well. Sleep well, Anna 🌙</div>
+              <div class="cw-time">11:34 PM</div>
+            </div>
+
+          </div>
+
+          <div class="cw-ticket-tag">
+            🔧 Maintenance ticket #MT-9341 raised · Priority: Urgent · Room 412
+          </div>
+
+          <div class="cw-input-bar">
+            <div class="cw-input-field">Type a message...</div>
+            <button class="cw-send-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0D1F3C" stroke-width="2.5" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="index.html" style="align-self:flex-start">
+          <div class="brand-mark">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <text x="14" y="21" font-family="Playfair Display, serif" font-size="20" font-weight="700" fill="#0D1F3C" text-anchor="middle">AH</text>
+            </svg>
+          </div>
+          <div class="brand-name-wrap">
+            <span class="brand-title">Ada Hotels</span>
+            <span class="brand-tag">Exceptional stays worldwide</span>
+          </div>
+        </a>
+        <p>Exceptional stays crafted for the modern traveller.</p>
+      </div>
+      <div class="footer-col">
+        <span class="footer-head">Guest Journey</span>
+        <a href="index.html">Book In</a>
+        <a href="pre-stay.html">Pre-Stay</a>
+        <a href="in-stay.html">In-Stay</a>
+        <a href="post-stay.html">Post-Stay</a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-head">Experiences</span>
+        <a href="in-stay.html">In-room concierge</a>
+        <a href="index.html">Dining</a>
+        <a href="index.html">Spa &amp; wellness</a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-head">Help</span>
+        <a href="index.html">Manage booking</a>
+        <a href="index.html">Contact us</a>
+        <a href="index.html">Cancellation policy</a>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <span>Ada Hotels is a demo experience. Prices and properties are illustrative only.</span>
+      <span>&copy; 2026 Ada Hotels</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+window.adaSettings = {
+  handle: HOTEL_CONFIG.botHandle,
+  metaFields: {
+    journey_stage: "in_stay",
+    guest_name:    HOTEL_CONFIG.guestFull,
+    booking_ref:   HOTEL_CONFIG.bookingRef,
+    property:      HOTEL_CONFIG.property,
+    room_number:   HOTEL_CONFIG.roomNumber,
+  }
+};
+</script>
+<script src="https://static.ada.support/embed2.js" async></script>
+
+</body>
+</html>

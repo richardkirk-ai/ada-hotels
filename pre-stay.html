@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ada Hotels — Pre-Stay</title>
+<link rel="stylesheet" href="ada-hotels.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── Demo nav ─────────────────────────────────────────────── */
+.demo-nav-bar {
+  background: #0D1F3C; border-bottom: 1px solid rgba(201,168,76,0.25);
+  position: sticky; top: 0; z-index: 200;
+}
+.demo-nav-row {
+  display: flex; align-items: center; gap: 0; max-width: 1240px;
+  margin: 0 auto; padding: 0 32px; overflow-x: auto; scrollbar-width: none;
+}
+.demo-nav-row::-webkit-scrollbar { display: none; }
+.demo-nav-tab {
+  display: flex; align-items: center; gap: 6px; padding: 0 20px;
+  font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.55);
+  text-decoration: none; white-space: nowrap; line-height: 46px;
+  border-bottom: 2px solid transparent; transition: color 150ms, border-color 150ms;
+}
+.demo-nav-tab:hover { color: rgba(255,255,255,0.85); }
+.demo-nav-tab.active { color: #C9A84C; border-bottom-color: #C9A84C; font-weight: 600; }
+
+/* ── Page hero ───────────────────────────────────────────── */
+.page-hero {
+  background: linear-gradient(160deg, #0D1F3C 0%, #1E3662 60%, #0D1F3C 100%);
+  padding: 56px 0 48px;
+  position: relative;
+  overflow: hidden;
+}
+.page-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 80% 50%, rgba(201,168,76,0.1) 0%, transparent 50%),
+    repeating-linear-gradient(45deg, rgba(201,168,76,0.015) 0px, rgba(201,168,76,0.015) 1px, transparent 1px, transparent 52px);
+}
+.page-hero-inner { position: relative; z-index: 1; }
+.page-hero .eyebrow { color: rgba(201,168,76,0.85); margin-bottom: 10px; }
+.page-hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px,4vw,48px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+.page-hero p { font-size: 16px; color: rgba(255,255,255,0.65); max-width: 54ch; }
+
+/* ── Section dividers ───────────────────────────────────── */
+.scenario-section { padding: 64px 0; }
+.scenario-section:nth-child(even) { background: #FAF7F2; }
+.scenario-section:nth-child(odd) { background: #fff; }
+.scenario-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  color: #C9A84C; margin-bottom: 8px;
+}
+.scenario-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(22px,3vw,34px);
+  font-weight: 700;
+  color: #0D1F3C;
+  margin-bottom: 8px;
+  line-height: 1.15;
+}
+.scenario-desc { font-size: 15px; color: #6B7280; margin-bottom: 36px; max-width: 60ch; line-height: 1.6; }
+
+/* ── Voice call UI ──────────────────────────────────────── */
+.voice-panel {
+  background: #0A0F1C;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+  max-width: 760px;
+  margin: 0 auto;
+}
+.vc-status-bar {
+  background: #111827;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.vc-carrier { font-size: 12px; color: rgba(255,255,255,0.4); font-weight: 500; }
+.vc-time { font-size: 12px; color: rgba(255,255,255,0.4); }
+.vc-call-info {
+  padding: 32px 32px 24px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.vc-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(255,255,255,0.4); margin-bottom: 8px;
+}
+.vc-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.vc-number { font-size: 14px; color: rgba(255,255,255,0.45); margin-bottom: 16px; }
+.vc-duration {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 16px;
+  background: rgba(201,168,76,0.12);
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #C9A84C;
+}
+.vc-duration::before {
+  content: '';
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #4ADE80;
+  animation: pulse-dot 1.8s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.vc-transcript {
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-height: 420px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.1) transparent;
+}
+.vc-turn {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.vc-speaker {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 0 4px;
+}
+.vc-speaker.ada  { color: #C9A84C; }
+.vc-speaker.anna { color: rgba(255,255,255,0.4); }
+.vc-bubble {
+  padding: 11px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.55;
+  max-width: 90%;
+}
+.vc-bubble.ada  {
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.2);
+  color: rgba(255,255,255,0.88);
+  align-self: flex-start;
+  border-radius: 4px 10px 10px 10px;
+}
+.vc-bubble.anna {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.75);
+  align-self: flex-end;
+  border-radius: 10px 4px 10px 10px;
+}
+.vc-controls {
+  padding: 20px 28px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.vc-btn {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  transition: transform 120ms;
+}
+.vc-btn:hover { transform: scale(1.08); }
+.vc-btn-mute  { background: rgba(255,255,255,0.1); }
+.vc-btn-end   { background: #EF4444; }
+.vc-btn-hold  { background: rgba(255,255,255,0.1); }
+.vc-btn-speaker { background: rgba(255,255,255,0.1); }
+.vc-ended-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-top: 4px;
+}
+
+/* ── Email client ─────────────────────────────────────────── */
+.email-panel {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #E5E7EB;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(13,31,60,0.1);
+  max-width: 760px;
+  margin: 0 auto;
+}
+.ep-header {
+  background: #0D1F3C;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ep-dots { display: flex; gap: 6px; }
+.ep-dot { width: 11px; height: 11px; border-radius: 50%; }
+.ep-dot-r { background: #EF4444; }
+.ep-dot-y { background: #F59E0B; }
+.ep-dot-g { background: #22C55E; }
+.ep-title { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.7); margin-left: 4px; }
+.ep-subject-bar {
+  padding: 16px 24px;
+  background: #F9FAFB;
+  border-bottom: 1px solid #E5E7EB;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ep-subject { font-size: 16px; font-weight: 700; color: #0D1F3C; }
+.ep-meta { font-size: 12px; color: #9CA3AF; }
+.ep-thread {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.ep-msg {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ep-msg-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ep-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.ep-avatar-guest { background: #E8F0FE; color: #1A56DB; }
+.ep-avatar-ada   { background: linear-gradient(135deg, #0D1F3C, #1E3662); color: #C9A84C; font-family: 'Playfair Display', serif; }
+.ep-sender { font-size: 13px; font-weight: 700; color: #111827; }
+.ep-sender-email { font-size: 12px; color: #6B7280; }
+.ep-timestamp { font-size: 11px; color: #9CA3AF; margin-left: auto; white-space: nowrap; }
+.ep-body {
+  margin-left: 46px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: #374151;
+  background: #F9FAFB;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  padding: 16px 18px;
+}
+.ep-body p { margin: 0 0 10px; }
+.ep-body p:last-child { margin-bottom: 0; }
+.ep-body .ep-sig { color: #6B7280; font-size: 13px; margin-top: 14px; padding-top: 12px; border-top: 1px solid #E5E7EB; }
+.ep-ada-body {
+  background: rgba(13,31,60,0.04);
+  border: 1px solid rgba(13,31,60,0.1);
+}
+.ep-resolution-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px;
+  background: #ECFDF5;
+  border: 1px solid #A7F3D0;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #065F46;
+  margin-left: 46px;
+}
+
+@media (max-width: 700px) {
+  .vc-transcript { padding: 16px; }
+  .vc-call-info  { padding: 24px 16px 16px; }
+  .ep-thread { padding: 16px; }
+  .ep-body  { margin-left: 0; }
+}
+</style>
+</head>
+<body>
+
+<script>
+const HOTEL_CONFIG = {
+  botHandle:    "ada-hotels-ai-agent-demo",
+  hotelName:    "Ada Hotels",
+  guestName:    "Anna",
+  guestFull:    "Anna Chambers",
+  bookingRef:   "AH-291847",
+  property:     "Ada Hotel Mayfair, London",
+  roomNumber:   "412",
+  checkIn:      "Tue 9 Sep 2026",
+  checkOut:     "Sat 13 Sep 2026",
+  primaryColor: "#0D1F3C",
+  accentColor:  "#C9A84C",
+};
+</script>
+
+<!-- Header -->
+<header class="site-header">
+  <a class="brand" href="index.html">
+    <div class="brand-mark">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <text x="14" y="21" font-family="Playfair Display, serif" font-size="20" font-weight="700" fill="#0D1F3C" text-anchor="middle">AH</text>
+      </svg>
+    </div>
+    <div class="brand-name-wrap">
+      <span class="brand-title">Ada Hotels</span>
+      <span class="brand-tag">Exceptional stays worldwide</span>
+    </div>
+  </a>
+  <nav class="site-nav">
+    <a href="index.html">Hotels</a>
+    <a href="index.html">Dining</a>
+    <a href="index.html">Offers</a>
+  </nav>
+  <div class="header-actions">
+    <div class="user-pill">
+      <span class="user-avatar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="8" r="4" fill="#0D1F3C"/>
+          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#0D1F3C" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="user-name">Anna C.</span>
+    </div>
+  </div>
+</header>
+
+<!-- Demo nav -->
+<nav class="demo-nav-bar">
+  <div class="demo-nav-row">
+    <a class="demo-nav-tab" href="index.html">🏨 Book In</a>
+    <a class="demo-nav-tab active" href="pre-stay.html">✦ Pre-Stay</a>
+    <a class="demo-nav-tab" href="in-stay.html">🛎 In-Stay</a>
+    <a class="demo-nav-tab" href="post-stay.html">⭐ Post-Stay</a>
+  </div>
+</nav>
+
+<!-- Page hero -->
+<div class="page-hero">
+  <div class="wrap page-hero-inner">
+    <p class="eyebrow">Pre-Stay · Two channels, one agent</p>
+    <h1>Before Anna even arrives</h1>
+    <p>Ada orchestrates every pre-stay touchpoint — from a restaurant reservation by phone, to a last-minute email request — all without human intervention.</p>
+  </div>
+</div>
+
+<!-- ── SCENARIO 1: VOICE CALL ─────────────────────────────── -->
+<section class="scenario-section">
+  <div class="wrap">
+    <div class="scenario-label">📞 Scenario 01 · Voice</div>
+    <div class="scenario-title">Anna calls to book a restaurant</div>
+    <div class="scenario-desc">Three days before check-in, Anna calls the Ada Hotels dining line to reserve a table for her arrival dinner. The Ada voice agent handles the full booking — no hold music, no transfer.</div>
+
+    <div class="voice-panel">
+      <div class="vc-status-bar">
+        <span class="vc-carrier">Ada Hotels · Dining Line</span>
+        <span class="vc-time">3 days before check-in</span>
+      </div>
+
+      <div class="vc-call-info">
+        <div class="vc-label">Incoming call to</div>
+        <div class="vc-name">Ada Hotels · Restaurant Reservations</div>
+        <div class="vc-number">+44 20 7946 0800</div>
+        <div class="vc-duration">2:47 · Call ended</div>
+      </div>
+
+      <div class="vc-transcript">
+
+        <div class="vc-turn">
+          <span class="vc-speaker ada">Ada AI</span>
+          <div class="vc-bubble ada">Thank you for calling Ada Hotels. You're through to our dining reservations line. I'm Ada, your AI concierge. How can I help you today?</div>
+        </div>
+
+        <div class="vc-turn">
+          <span class="vc-speaker anna">Anna Chambers</span>
+          <div class="vc-bubble anna">Hi, yes — I'd like to book a table for dinner. We're checking in on Tuesday the ninth of September.</div>
+        </div>
+
+        <div class="vc-turn">
+          <span class="vc-speaker ada">Ada AI</span>
+          <div class="vc-bubble ada">Lovely — welcome in advance, and what a wonderful time to visit London. Could I take your booking reference or name to pull up your reservation?</div>
+        </div>
+
+        <div class="vc-turn">
+          <span class="vc-speaker anna">Anna Chambers</span>
+          <div class="vc-bubble anna">It's Anna Chambers. Booking reference AH-291847.</div>
+        </div>
+
+        <div class="vc-turn">
+          <span class="vc-speaker ada">Ada AI</span>
+          <div class="vc-bubble ada">Perfect, Anna — I have your booking for Ada Hotel Mayfair, checking in Tuesday the ninth, checking out Saturday the thirteenth. Now, we have three dining options for your stay: The Conservatory, which is our classic British brasserie; Roux at the Mayfair, which is our fine dining room; and The Garden, our Thai and South-East Asian restaurant. Do any of those appeal?</div>
+        </div>
+
+        <div class="vc-turn">
+          <span class="vc-speaker anna">Anna Chambers</span>
+          <div class="vc-bubble anna">The Garden sounds perfect actually — Thai food, yes please. It'd be for Friday evening, the twelfth. Eight o'clock if possible, for three people.</div>
+        </div>
+
+        <div class="vc-turn">
+          <span class="vc-speaker ada">Ada AI</span>
+          <div class="vc-bubble ada">Wonderful choice — The Garden has a beautiful terrace for September evenings. Let me check availability for Friday the twelfth at eight PM, for three guests... I can confirm a table for three at The Garden on Friday the twelfth of September at 8 PM. Shall I go ahead and book that for you?</div>
+        </div>
+
+        <div class="vc-turn">
+          <span class="vc-speaker anna">Anna Chambers</span>
+          <div class="vc-bubble anna">Yes please, that's great.</div>
+        </div>
+
+        <div class="vc-turn">
+          <span class="vc-speaker ada">Ada AI</span>
+          <div class="vc-bubble ada">All confirmed, Anna. Table for three at The Garden on Friday twelfth of September at 8 PM, linked to booking AH-291847. You'll receive a confirmation to the email on your account. Is there anything else I can help arrange before your stay?</div>
+        </div>
+
+        <div class="vc-turn">
+          <span class="vc-speaker anna">Anna Chambers</span>
+          <div class="vc-bubble anna">No, that's everything — thank you!</div>
+        </div>
+
+        <div class="vc-turn">
+          <span class="vc-speaker ada">Ada AI</span>
+          <div class="vc-bubble ada">My pleasure, Anna. We look forward to welcoming you to Ada Hotel Mayfair on Tuesday. Enjoy the rest of your week!</div>
+        </div>
+
+      </div>
+
+      <div class="vc-controls">
+        <button class="vc-btn vc-btn-mute" title="Mute">🔇</button>
+        <button class="vc-btn vc-btn-hold" title="Hold">⏸</button>
+        <button class="vc-btn vc-btn-end" title="End call" style="width:60px;height:60px;font-size:22px">📵</button>
+        <button class="vc-btn vc-btn-speaker" title="Speaker">🔊</button>
+        <span class="vc-ended-badge">● Call ended · 2:47</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SCENARIO 2: EMAIL ──────────────────────────────────── -->
+<section class="scenario-section">
+  <div class="wrap">
+    <div class="scenario-label">✉️ Scenario 02 · Email</div>
+    <div class="scenario-title">Anna emails — she's running late</div>
+    <div class="scenario-desc">On the day of her dinner reservation, Anna's train is delayed. She fires off a quick email to change her 8 PM booking to 9 PM. Ada handles the amendment instantly, with no waiting.</div>
+
+    <div class="email-panel">
+      <div class="ep-header">
+        <div class="ep-dots">
+          <div class="ep-dot ep-dot-r"></div>
+          <div class="ep-dot ep-dot-y"></div>
+          <div class="ep-dot ep-dot-g"></div>
+        </div>
+        <span class="ep-title">Inbox — Anna Chambers · anna.chambers@gmail.com</span>
+      </div>
+
+      <div class="ep-subject-bar">
+        <div class="ep-subject">RE: Dining Reservation — The Garden · Fri 12 Sep · 8:00 PM</div>
+        <div class="ep-meta">Confirmation #DIN-8847 · Ada Hotel Mayfair Dining · 2 messages</div>
+      </div>
+
+      <div class="ep-thread">
+
+        <!-- Anna's email -->
+        <div class="ep-msg">
+          <div class="ep-msg-header">
+            <div class="ep-avatar ep-avatar-guest">AC</div>
+            <div>
+              <div class="ep-sender">Anna Chambers</div>
+              <div class="ep-sender-email">anna.chambers@gmail.com</div>
+            </div>
+            <div class="ep-timestamp">Fri 12 Sep · 5:43 PM</div>
+          </div>
+          <div class="ep-body">
+            <p>Hi,</p>
+            <p>My train has been delayed so I'm running late — I won't make the 8 PM reservation at The Garden tonight. Is it possible to push the table back to 9 PM instead? Still three of us.</p>
+            <p>Sorry for the short notice. Booking ref is AH-291847.</p>
+            <div class="ep-sig">Thanks,<br>Anna</div>
+          </div>
+        </div>
+
+        <!-- Ada's response -->
+        <div class="ep-msg">
+          <div class="ep-msg-header">
+            <div class="ep-avatar ep-avatar-ada">AH</div>
+            <div>
+              <div class="ep-sender">Ada Hotels Concierge</div>
+              <div class="ep-sender-email">concierge@ada-hotels.com</div>
+            </div>
+            <div class="ep-timestamp">Fri 12 Sep · 5:44 PM</div>
+          </div>
+          <div class="ep-body ep-ada-body">
+            <p>Dear Anna,</p>
+            <p>No trouble at all — I've amended your reservation at The Garden from 8:00 PM to <strong>9:00 PM this evening</strong>, Friday 12 September, for three guests. Your table will be held.</p>
+            <p>The team at The Garden have been notified and look forward to welcoming you. Please don't rush — we'll have everything ready when you arrive.</p>
+            <p>Is there anything else I can help with before your arrival?</p>
+            <div class="ep-sig">Warm regards,<br><strong>Ada Concierge</strong><br>Ada Hotel Mayfair · +44 20 7946 0800</div>
+          </div>
+        </div>
+
+        <div class="ep-resolution-tag">
+          ✓ Reservation amended · 9:00 PM confirmed · responded in 47 seconds
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="index.html" style="align-self:flex-start">
+          <div class="brand-mark">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <text x="14" y="21" font-family="Playfair Display, serif" font-size="20" font-weight="700" fill="#0D1F3C" text-anchor="middle">AH</text>
+            </svg>
+          </div>
+          <div class="brand-name-wrap">
+            <span class="brand-title">Ada Hotels</span>
+            <span class="brand-tag">Exceptional stays worldwide</span>
+          </div>
+        </a>
+        <p>Exceptional stays crafted for the modern traveller.</p>
+      </div>
+      <div class="footer-col">
+        <span class="footer-head">Guest Journey</span>
+        <a href="index.html">Book In</a>
+        <a href="pre-stay.html">Pre-Stay</a>
+        <a href="in-stay.html">In-Stay</a>
+        <a href="post-stay.html">Post-Stay</a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-head">Experiences</span>
+        <a href="in-stay.html">In-room concierge</a>
+        <a href="index.html">Dining</a>
+        <a href="index.html">Spa &amp; wellness</a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-head">Help</span>
+        <a href="index.html">Manage booking</a>
+        <a href="index.html">Contact us</a>
+        <a href="index.html">Cancellation policy</a>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <span>Ada Hotels is a demo experience. Prices and properties are illustrative only.</span>
+      <span>&copy; 2026 Ada Hotels</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+window.adaSettings = {
+  handle: HOTEL_CONFIG.botHandle,
+  metaFields: {
+    journey_stage: "pre_stay",
+    guest_name:    HOTEL_CONFIG.guestFull,
+    booking_ref:   HOTEL_CONFIG.bookingRef,
+    property:      HOTEL_CONFIG.property,
+  }
+};
+</script>
+<script src="https://static.ada.support/embed2.js" async></script>
+
+</body>
+</html>
