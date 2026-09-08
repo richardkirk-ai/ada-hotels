@@ -54,17 +54,16 @@
 }
 .page-hero p { font-size: 16px; color: rgba(255,255,255,0.65); max-width: 54ch; }
 
-/* ── Two-column layout ─────────────────────────────────── */
-.instay-body { padding: 64px 0 80px; background: #FAF7F2; }
+/* ── Body ─────────────────────────────────────────────────── */
+.instay-body { padding: 72px 0 96px; background: #FAF7F2; }
 .instay-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 56px;
+  gap: 64px;
   align-items: start;
 }
 
-/* ── QR panel ─────────────────────────────────────────── */
-.qr-section {}
+/* ── Scenario label / title / desc ───────────────────────── */
 .scenario-label {
   display: inline-flex; align-items: center; gap: 8px;
   font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
@@ -78,167 +77,451 @@
   margin-bottom: 8px;
   line-height: 1.2;
 }
-.scenario-desc { font-size: 14px; color: #6B7280; margin-bottom: 28px; line-height: 1.6; }
+.scenario-desc { font-size: 14px; color: #6B7280; margin-bottom: 28px; line-height: 1.6; max-width: 50ch; }
 
-.qr-card {
-  background: #fff;
-  border: 1px solid #E5E7EB;
+/* ── Realistic hotel room card ───────────────────────────── */
+.hotel-card-wrap {
+  perspective: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.hotel-card {
+  width: 100%;
+  max-width: 380px;
+  background: #FEFCF8;
   border-radius: 16px;
-  padding: 32px;
-  box-shadow: 0 8px 32px rgba(13,31,60,0.1);
-  text-align: center;
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.04),
+    0 8px 24px rgba(13,31,60,0.12),
+    0 32px 64px rgba(13,31,60,0.10),
+    inset 0 0 0 1px rgba(201,168,76,0.3);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Paper texture overlay */
+.hotel-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  border-radius: 16px;
+}
+
+.hc-top-band {
+  background: linear-gradient(135deg, #0D1F3C 0%, #1A3562 50%, #0D1F3C 100%);
+  padding: 20px 24px 18px;
   position: relative;
   overflow: hidden;
 }
-.qr-card::before {
+.hc-top-band::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #0D1F3C, #C9A84C, #0D1F3C);
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 80% 50%, rgba(201,168,76,0.18) 0%, transparent 60%),
+    repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 22px);
 }
-.qr-eyebrow {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
-  color: #C9A84C; margin-bottom: 8px;
+.hc-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  z-index: 1;
 }
-.qr-heading {
-  font-family: 'Playfair Display', serif;
-  font-size: 18px;
-  font-weight: 700;
-  color: #0D1F3C;
-  margin-bottom: 20px;
+.hc-monogram {
+  width: 40px; height: 40px;
+  background: linear-gradient(135deg, #C9A84C, #E8C96C);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
 }
-.qr-code-wrap {
-  display: inline-block;
-  padding: 16px;
-  background: #fff;
-  border: 2px solid #0D1F3C;
-  border-radius: 12px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 16px rgba(13,31,60,0.12);
-}
-.qr-sub {
-  font-size: 13px;
-  color: #6B7280;
-  line-height: 1.55;
-  max-width: 28ch;
-  margin: 0 auto 20px;
-}
-.qr-room-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 8px 18px;
-  background: rgba(13,31,60,0.05);
-  border: 1px solid rgba(13,31,60,0.15);
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 600;
-  color: #0D1F3C;
+.hc-monogram svg { display: block; }
+.hc-name-wrap { display: flex; flex-direction: column; }
+.hc-name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: #fff; line-height: 1.1; }
+.hc-tagline { font-size: 9px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(201,168,76,0.7); }
+
+.hc-gold-rule {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #C9A84C 30%, #C9A84C 70%, transparent);
+  opacity: 0.5;
 }
 
-/* ── Chat panel ────────────────────────────────────────── */
-.chat-section {}
-.chat-window {
-  background: #fff;
-  border-radius: 16px;
-  border: 1px solid #E5E7EB;
-  overflow: hidden;
-  box-shadow: 0 8px 32px rgba(13,31,60,0.1);
+.hc-body {
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
 }
-.cw-header {
-  background: #0D1F3C;
-  padding: 14px 18px;
+
+.hc-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #0D1F3C;
+  text-align: center;
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+}
+
+.hc-qr-wrap {
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: center;
+  padding: 14px;
+  background: #fff;
+  border-radius: 12px;
+  border: 1.5px solid rgba(13,31,60,0.12);
+  box-shadow: 0 2px 12px rgba(13,31,60,0.08);
 }
-.cw-avatar {
-  width: 38px; height: 38px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #C9A84C, #E8C96C);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 16px;
-  flex-shrink: 0;
-}
-.cw-info { flex: 1; }
-.cw-name { font-size: 13px; font-weight: 700; color: #fff; }
-.cw-status { font-size: 11px; color: rgba(255,255,255,0.55); }
-.cw-status::before { content: '● '; color: #4ADE80; }
-.cw-msgs {
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  background: #F8F6F2;
-  min-height: 380px;
-}
-.cw-msg {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  max-width: 84%;
-}
-.cw-msg.bot { align-self: flex-start; }
-.cw-msg.guest { align-self: flex-end; }
-.cw-bubble {
-  padding: 10px 14px;
-  border-radius: 10px;
-  font-size: 13px;
+
+.hc-instructions {
+  font-size: 11px;
+  color: #6B7280;
+  text-align: center;
   line-height: 1.55;
+  max-width: 28ch;
 }
-.cw-msg.bot .cw-bubble {
-  background: #fff;
-  border: 1px solid #E5E7EB;
-  color: #111827;
-  border-radius: 4px 10px 10px 10px;
-}
-.cw-msg.guest .cw-bubble {
-  background: #0D1F3C;
-  color: #fff;
-  border-radius: 10px 4px 10px 10px;
-}
-.cw-time { font-size: 10px; color: #9CA3AF; padding: 0 4px; }
-.cw-msg.guest .cw-time { text-align: right; }
-.cw-ticket-tag {
-  margin: 0 16px;
-  padding: 10px 14px;
-  background: #FFFBEB;
-  border: 1px solid #FCD34D;
-  border-radius: 8px;
-  font-size: 12px;
-  color: #92400E;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.cw-input-bar {
-  padding: 12px 16px;
-  background: #fff;
-  border-top: 1px solid #E5E7EB;
+
+.hc-divider {
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 10px;
 }
-.cw-input-field {
+.hc-divider::before, .hc-divider::after {
+  content: '';
   flex: 1;
-  font-size: 13px;
-  color: #9CA3AF;
-  background: #F9FAFB;
-  border: 1px solid #E5E7EB;
-  border-radius: 8px;
-  padding: 9px 14px;
+  height: 1px;
+  background: rgba(13,31,60,0.1);
 }
-.cw-send-btn {
-  width: 34px; height: 34px;
+.hc-divider span {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(13,31,60,0.3);
+  white-space: nowrap;
+}
+
+.hc-room-info {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.hc-room-block { display: flex; flex-direction: column; gap: 2px; }
+.hc-room-label { font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #9CA3AF; }
+.hc-room-value { font-size: 15px; font-weight: 700; color: #0D1F3C; font-family: 'Playfair Display', serif; }
+.hc-room-sub { font-size: 11px; color: #6B7280; }
+
+.hc-concierge-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  background: rgba(13,31,60,0.05);
+  border: 1px solid rgba(13,31,60,0.12);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #0D1F3C;
+}
+.hc-concierge-badge::before {
+  content: '';
+  width: 6px; height: 6px;
   border-radius: 50%;
-  background: #C9A84C;
-  border: none;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
+  background: #4ADE80;
   flex-shrink: 0;
 }
 
+.hc-footer {
+  padding: 14px 24px;
+  background: rgba(13,31,60,0.04);
+  border-top: 1px solid rgba(13,31,60,0.07);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.hc-footer-text { font-size: 10px; color: #9CA3AF; font-weight: 500; }
+.hc-footer-url { font-size: 10px; color: #C9A84C; font-weight: 600; letter-spacing: 0.03em; }
+
+.card-shadow-note {
+  font-size: 12px;
+  color: #9CA3AF;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ── Phone frame + live chat ─────────────────────────────── */
+.phone-outer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.phone-frame {
+  width: 340px;
+  background: #1A1A1A;
+  border-radius: 48px;
+  padding: 12px;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.1),
+    0 24px 64px rgba(0,0,0,0.35),
+    inset 0 0 0 1px rgba(0,0,0,0.5);
+  position: relative;
+}
+
+.phone-screen {
+  background: #FAF7F2;
+  border-radius: 38px;
+  overflow: hidden;
+  height: 680px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.phone-notch {
+  position: absolute;
+  top: 0; left: 50%; transform: translateX(-50%);
+  width: 120px; height: 32px;
+  background: #1A1A1A;
+  border-radius: 0 0 20px 20px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.phone-notch-camera {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: #2A2A2A;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.phone-notch-speaker {
+  width: 40px; height: 5px;
+  border-radius: 3px;
+  background: #2A2A2A;
+}
+
+/* Chat app inside phone */
+.chat-app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #fff;
+}
+
+.ca-statusbar {
+  height: 44px;
+  background: #0D1F3C;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 20px 8px;
+  flex-shrink: 0;
+}
+.ca-statusbar-time { font-size: 12px; font-weight: 700; color: #fff; }
+.ca-statusbar-icons { display: flex; gap: 5px; align-items: center; }
+.ca-statusbar-icons svg { width: 14px; height: 14px; fill: #fff; }
+
+.ca-header {
+  background: #0D1F3C;
+  padding: 10px 16px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.ca-back {
+  color: rgba(255,255,255,0.6);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 2px 6px 2px 0;
+}
+.ca-avatar {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #C9A84C, #E8C96C);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.ca-info { flex: 1; }
+.ca-name { font-size: 14px; font-weight: 700; color: #fff; line-height: 1.2; }
+.ca-sub { font-size: 11px; color: rgba(255,255,255,0.6); display: flex; align-items: center; gap: 4px; }
+.ca-sub::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #4ADE80; flex-shrink: 0; }
+#ca-online-text { transition: opacity 0.3s; }
+
+.ca-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 14px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #F8F5F0;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(13,31,60,0.15) transparent;
+}
+
+.ca-date-divider {
+  align-self: center;
+  font-size: 10px;
+  font-weight: 600;
+  color: #9CA3AF;
+  background: rgba(255,255,255,0.8);
+  border: 1px solid #E5E7EB;
+  border-radius: 999px;
+  padding: 3px 12px;
+  margin: 4px 0;
+}
+
+.ca-msg {
+  display: flex;
+  flex-direction: column;
+  max-width: 82%;
+  gap: 3px;
+}
+.ca-msg.bot { align-self: flex-start; }
+.ca-msg.user { align-self: flex-end; }
+
+.ca-bubble {
+  padding: 10px 13px;
+  border-radius: 14px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.ca-msg.bot .ca-bubble {
+  background: #fff;
+  color: #111827;
+  border: 1px solid #E5E7EB;
+  border-radius: 4px 14px 14px 14px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.ca-msg.user .ca-bubble {
+  background: #0D1F3C;
+  color: #fff;
+  border-radius: 14px 4px 14px 14px;
+}
+.ca-msg-time { font-size: 9.5px; color: #9CA3AF; padding: 0 3px; }
+.ca-msg.user .ca-msg-time { text-align: right; }
+
+.ca-typing {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 14px;
+  background: #fff;
+  border: 1px solid #E5E7EB;
+  border-radius: 4px 14px 14px 14px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  display: none;
+}
+.ca-typing.visible { display: flex; }
+.ca-typing-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #9CA3AF;
+  animation: tdot 1.2s ease-in-out infinite;
+}
+.ca-typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.ca-typing-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes tdot {
+  0%, 80%, 100% { transform: scale(0.7); opacity: 0.4; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+.ca-system-msg {
+  align-self: center;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #92400E;
+  background: #FFFBEB;
+  border: 1px solid #FCD34D;
+  border-radius: 999px;
+  padding: 5px 12px;
+  text-align: center;
+  max-width: 90%;
+}
+
+.ca-input-area {
+  background: #fff;
+  border-top: 1px solid #E5E7EB;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.ca-input {
+  flex: 1;
+  border: 1.5px solid #E5E7EB;
+  border-radius: 24px;
+  padding: 9px 14px;
+  font-size: 13px;
+  font-family: inherit;
+  color: #111827;
+  background: #F9FAFB;
+  outline: none;
+  transition: border-color 0.15s;
+  resize: none;
+}
+.ca-input:focus { border-color: #0D1F3C; background: #fff; }
+.ca-input::placeholder { color: #9CA3AF; }
+.ca-send {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: #C9A84C;
+  border: none;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s, transform 0.1s;
+}
+.ca-send:hover { background: #B8973B; transform: scale(1.05); }
+.ca-send:disabled { background: #E5E7EB; cursor: not-allowed; transform: none; }
+.ca-send svg { display: block; }
+
+/* connecting overlay */
+.ca-connecting {
+  position: absolute;
+  inset: 0;
+  background: rgba(13,31,60,0.92);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  z-index: 50;
+  transition: opacity 0.4s;
+}
+.ca-connecting.hidden { opacity: 0; pointer-events: none; }
+.ca-spinner {
+  width: 40px; height: 40px;
+  border: 3px solid rgba(201,168,76,0.3);
+  border-top-color: #C9A84C;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.ca-connecting-text { font-size: 13px; color: rgba(255,255,255,0.7); font-weight: 500; }
+
 @media (max-width: 900px) {
-  .instay-grid { grid-template-columns: 1fr; gap: 40px; }
+  .instay-grid { grid-template-columns: 1fr; gap: 48px; }
+  .phone-frame { width: 100%; max-width: 340px; margin: 0 auto; }
 }
 </style>
 </head>
@@ -260,8 +543,18 @@ const HOTEL_CONFIG = {
 };
 </script>
 
+<!-- Demo nav -->
+<nav class="demo-nav-bar">
+  <div class="demo-nav-row">
+    <a class="demo-nav-tab" href="index.html">🏨 Book In</a>
+    <a class="demo-nav-tab" href="pre-stay.html">✦ Pre-Stay</a>
+    <a class="demo-nav-tab active" href="in-stay.html">🛎 In-Stay</a>
+    <a class="demo-nav-tab" href="post-stay.html">⭐ Post-Stay</a>
+  </div>
+</nav>
+
 <!-- Header -->
-<header class="site-header">
+<header class="site-header solid">
   <a class="brand" href="index.html">
     <div class="brand-mark">
       <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
@@ -291,22 +584,12 @@ const HOTEL_CONFIG = {
   </div>
 </header>
 
-<!-- Demo nav -->
-<nav class="demo-nav-bar">
-  <div class="demo-nav-row">
-    <a class="demo-nav-tab" href="index.html">🏨 Book In</a>
-    <a class="demo-nav-tab" href="pre-stay.html">✦ Pre-Stay</a>
-    <a class="demo-nav-tab active" href="in-stay.html">🛎 In-Stay</a>
-    <a class="demo-nav-tab" href="post-stay.html">⭐ Post-Stay</a>
-  </div>
-</nav>
-
 <!-- Page hero -->
 <div class="page-hero">
   <div class="wrap page-hero-inner">
-    <p class="eyebrow">In-Stay · QR code + chat</p>
+    <p class="eyebrow">In-Stay · QR code + live chat</p>
     <h1>Your room, your concierge</h1>
-    <p>A simple QR code on Anna's bedside table opens a direct line to Ada — no app download, no hold music. Every request handled in seconds.</p>
+    <p>A card on Anna's bedside table. One scan. A direct line to Ada — no app, no hold music. Every request handled in seconds, 24 hours a day.</p>
   </div>
 </div>
 
@@ -315,150 +598,238 @@ const HOTEL_CONFIG = {
   <div class="wrap">
     <div class="instay-grid">
 
-      <!-- LEFT: QR Code -->
-      <div class="qr-section">
+      <!-- LEFT: Realistic hotel room card -->
+      <div class="hotel-card-wrap">
         <div class="scenario-label">📱 Channel · QR Code</div>
-        <div class="scenario-title">Scan to connect with your in-room concierge</div>
-        <div class="scenario-desc">Printed on a card on the bedside table in every Ada Hotels room. One scan opens a chat session — pre-authenticated with the guest's room and booking details.</div>
+        <div class="scenario-title">The card on Anna's bedside table</div>
+        <div class="scenario-desc">Printed and placed in every room. Scans open a pre-authenticated chat session — guest name, room and booking already loaded.</div>
 
-        <div class="qr-card">
-          <div class="qr-eyebrow">Ada Hotel Mayfair · Room 412</div>
-          <div class="qr-heading">Your personal concierge is one scan away</div>
-
-          <!-- Decorative QR code SVG -->
-          <div class="qr-code-wrap">
-            <svg width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="QR code for Ada Hotels in-room concierge">
-              <!-- Finder patterns -->
-              <rect x="10" y="10" width="50" height="50" rx="4" fill="#0D1F3C"/>
-              <rect x="18" y="18" width="34" height="34" rx="2" fill="#FAF7F2"/>
-              <rect x="24" y="24" width="22" height="22" rx="1" fill="#0D1F3C"/>
-              <rect x="120" y="10" width="50" height="50" rx="4" fill="#0D1F3C"/>
-              <rect x="128" y="18" width="34" height="34" rx="2" fill="#FAF7F2"/>
-              <rect x="134" y="24" width="22" height="22" rx="1" fill="#0D1F3C"/>
-              <rect x="10" y="120" width="50" height="50" rx="4" fill="#0D1F3C"/>
-              <rect x="18" y="128" width="34" height="34" rx="2" fill="#FAF7F2"/>
-              <rect x="24" y="134" width="22" height="22" rx="1" fill="#0D1F3C"/>
-              <!-- Data modules (decorative) -->
-              <rect x="72" y="10" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="84" y="10" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="96" y="10" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="72" y="22" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="96" y="22" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="72" y="34" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="84" y="34" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="96" y="34" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="10" y="72" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="22" y="72" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="34" y="84" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="46" y="72" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="58" y="84" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="10" y="96" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="34" y="96" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="46" y="96" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="120" y="72" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="132" y="84" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="144" y="72" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="156" y="84" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="132" y="96" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="156" y="96" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="72" y="72" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="84" y="72" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="96" y="84" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="108" y="72" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="72" y="84" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="108" y="96" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="72" y="96" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="84" y="108" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="96" y="108" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="72" y="120" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="84" y="120" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="96" y="132" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="108" y="120" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="72" y="144" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="84" y="156" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="96" y="144" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="108" y="156" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="120" y="108" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="132" y="120" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="156" y="120" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="120" y="132" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="144" y="132" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="120" y="156" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="132" y="144" width="8" height="8" fill="#0D1F3C"/>
-              <rect x="156" y="144" width="8" height="8" fill="#0D1F3C"/>
-              <!-- Ada gold logo centre -->
-              <rect x="76" y="76" width="28" height="28" rx="4" fill="#FAF7F2" stroke="#C9A84C" stroke-width="1.5"/>
-              <text x="90" y="94" font-family="Playfair Display, serif" font-size="13" font-weight="700" fill="#0D1F3C" text-anchor="middle">AH</text>
-            </svg>
+        <div class="hotel-card">
+          <!-- Top band -->
+          <div class="hc-top-band">
+            <div class="hc-brand">
+              <div class="hc-monogram">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <text x="12" y="17" font-family="Playfair Display, serif" font-size="14" font-weight="700" fill="#0D1F3C" text-anchor="middle">AH</text>
+                </svg>
+              </div>
+              <div class="hc-name-wrap">
+                <span class="hc-name">Ada Hotels</span>
+                <span class="hc-tagline">Exceptional stays worldwide</span>
+              </div>
+            </div>
           </div>
 
-          <p class="qr-sub">Point your phone camera at this code to open a private chat with your Ada concierge — available 24 hours a day.</p>
-          <div class="qr-room-badge">
-            🛏 Room 412 · Ada Hotel Mayfair
+          <div class="hc-gold-rule"></div>
+
+          <!-- Card body -->
+          <div class="hc-body">
+            <div class="hc-headline">Your personal concierge<br>is always available</div>
+
+            <!-- Realistic QR code SVG -->
+            <div class="hc-qr-wrap">
+              <svg width="168" height="168" viewBox="0 0 210 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="QR code for Ada Hotels in-room concierge">
+                <rect width="210" height="210" fill="#fff"/>
+                <!-- Finder pattern TL -->
+                <rect x="7" y="7" width="49" height="49" rx="3" fill="#0D1F3C"/>
+                <rect x="14" y="14" width="35" height="35" rx="2" fill="#fff"/>
+                <rect x="21" y="21" width="21" height="21" fill="#0D1F3C"/>
+                <!-- Finder pattern TR -->
+                <rect x="154" y="7" width="49" height="49" rx="3" fill="#0D1F3C"/>
+                <rect x="161" y="14" width="35" height="35" rx="2" fill="#fff"/>
+                <rect x="168" y="21" width="21" height="21" fill="#0D1F3C"/>
+                <!-- Finder pattern BL -->
+                <rect x="7" y="154" width="49" height="49" rx="3" fill="#0D1F3C"/>
+                <rect x="14" y="161" width="35" height="35" rx="2" fill="#fff"/>
+                <rect x="21" y="168" width="21" height="21" fill="#0D1F3C"/>
+                <!-- Timing patterns -->
+                <rect x="63" y="7" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="77" y="7" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="91" y="7" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="105" y="7" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="119" y="7" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="133" y="7" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="7" y="63" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="7" y="77" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="7" y="91" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="7" y="105" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="7" y="119" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="7" y="133" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="63" y="196" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="77" y="196" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="91" y="196" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="105" y="196" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="196" y="63" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="196" y="77" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="196" y="91" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="196" y="105" width="7" height="7" fill="#0D1F3C"/>
+                <!-- Data modules – dense pattern -->
+                <rect x="63" y="63" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="77" y="63" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="91" y="77" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="105" y="63" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="119" y="77" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="133" y="63" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="147" y="77" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="63" y="91" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="91" y="91" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="119" y="91" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="147" y="91" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="77" y="105" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="105" y="105" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="133" y="105" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="63" y="119" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="91" y="119" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="105" y="119" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="147" y="119" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="77" y="133" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="119" y="133" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="133" y="133" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="63" y="147" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="91" y="147" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="147" y="147" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="77" y="161" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="105" y="161" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="133" y="161" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="63" y="175" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="119" y="175" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="147" y="175" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="77" y="189" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="133" y="189" width="7" height="7" fill="#0D1F3C"/>
+                <!-- Right side data -->
+                <rect x="161" y="63" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="175" y="77" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="189" y="63" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="161" y="91" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="189" y="91" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="175" y="105" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="161" y="119" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="189" y="119" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="175" y="133" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="161" y="147" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="189" y="147" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="161" y="161" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="175" y="175" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="189" y="189" width="7" height="7" fill="#0D1F3C"/>
+                <!-- Bottom left quadrant extras -->
+                <rect x="21" y="63" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="35" y="63" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="49" y="77" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="21" y="91" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="49" y="91" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="35" y="105" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="21" y="119" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="49" y="119" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="35" y="133" width="7" height="7" fill="#0D1F3C"/>
+                <rect x="21" y="147" width="7" height="7" fill="#0D1F3C"/>
+                <!-- Centre logo -->
+                <rect x="89" y="89" width="32" height="32" rx="4" fill="#fff" stroke="#C9A84C" stroke-width="1.5"/>
+                <text x="105" y="109" font-family="Playfair Display, serif" font-size="12" font-weight="700" fill="#0D1F3C" text-anchor="middle">AH</text>
+              </svg>
+            </div>
+
+            <div class="hc-instructions">Point your phone camera at this code to open a secure chat with your Ada concierge</div>
+
+            <div class="hc-divider"><span>Guest Details</span></div>
+
+            <div class="hc-room-info">
+              <div class="hc-room-block">
+                <span class="hc-room-label">Room</span>
+                <span class="hc-room-value">412</span>
+                <span class="hc-room-sub">Standard King</span>
+              </div>
+              <div class="hc-room-block" style="text-align:center">
+                <span class="hc-room-label">Property</span>
+                <span class="hc-room-value" style="font-size:12px;font-family:Inter,sans-serif">Ada Hotel Mayfair</span>
+                <span class="hc-room-sub">London</span>
+              </div>
+              <div class="hc-room-block" style="text-align:right">
+                <span class="hc-room-label">Check-out</span>
+                <span class="hc-room-value" style="font-size:12px;font-family:Inter,sans-serif">13 Sep</span>
+                <span class="hc-room-sub">4 nights</span>
+              </div>
+            </div>
+
+            <div class="hc-concierge-badge">24/7 concierge · instant response</div>
+          </div>
+
+          <div class="hc-footer">
+            <span class="hc-footer-text">Powered by</span>
+            <span class="hc-footer-url">ada.support</span>
           </div>
         </div>
+
+        <p class="card-shadow-note">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Placed on every bedside table at check-in
+        </p>
       </div>
 
-      <!-- RIGHT: Chat window -->
-      <div class="chat-section">
-        <div class="scenario-label">💬 Scenario · In-room chat</div>
-        <div class="scenario-title">Noisy air conditioning — 11:30 PM</div>
-        <div class="scenario-desc">Anna scans the QR code and reports a problem with her AC unit. Ada raises a maintenance ticket, offers a room move, and keeps Anna informed — all without waking any staff.</div>
+      <!-- RIGHT: Phone frame + working live chat -->
+      <div class="phone-outer">
+        <div class="scenario-label">💬 Live Chat · Ada Concierge</div>
+        <div class="scenario-title">Try it — type a message</div>
+        <div class="scenario-desc">This is a live connection to the Ada Hotels AI agent. Try: <em>"The air conditioning is making a loud noise"</em> to see a real in-stay response.</div>
 
-        <div class="chat-window">
-          <div class="cw-header">
-            <div class="cw-avatar">🏨</div>
-            <div class="cw-info">
-              <div class="cw-name">Ada Concierge · Room 412</div>
-              <div class="cw-status">Available now</div>
-            </div>
+        <div class="phone-frame">
+          <div class="phone-notch">
+            <div class="phone-notch-speaker"></div>
+            <div class="phone-notch-camera"></div>
           </div>
+          <div class="phone-screen">
 
-          <div class="cw-msgs">
-
-            <div class="cw-msg bot">
-              <div class="cw-bubble">Good evening, Anna! Welcome to Ada Hotel Mayfair. How can I help you tonight?</div>
-              <div class="cw-time">11:31 PM</div>
+            <!-- Connecting overlay -->
+            <div class="ca-connecting" id="ca-connecting">
+              <div class="ca-spinner"></div>
+              <div class="ca-connecting-text">Connecting to Ada Concierge…</div>
             </div>
 
-            <div class="cw-msg guest">
-              <div class="cw-bubble">Hi — my air conditioning is making a really loud rattling noise. It started about an hour ago and it's keeping me awake.</div>
-              <div class="cw-time">11:32 PM</div>
-            </div>
+            <div class="chat-app">
+              <!-- Status bar -->
+              <div class="ca-statusbar">
+                <span class="ca-statusbar-time">11:32 PM</span>
+                <div class="ca-statusbar-icons">
+                  <svg viewBox="0 0 24 24"><path d="M1 1l22 22M16.72 11.06A10.94 10.94 0 0 1 19 12.55M5 12.55a10.94 10.94 0 0 1 5.17-2.39M10.71 5.05A16 16 0 0 1 22.56 9M1.42 9a15.91 15.91 0 0 1 4.7-2.88M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+                  <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="11" rx="2" fill="white"/><path d="M22 11v2" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+                </div>
+              </div>
 
-            <div class="cw-msg bot">
-              <div class="cw-bubble">I'm so sorry to hear that, Anna — that's not the peaceful night you deserve. I've raised an urgent maintenance ticket for room 412 right now. An engineer will be in touch shortly to investigate.</div>
-              <div class="cw-time">11:32 PM</div>
-            </div>
+              <!-- Chat header -->
+              <div class="ca-header">
+                <div class="ca-back">‹</div>
+                <div class="ca-avatar">🏨</div>
+                <div class="ca-info">
+                  <div class="ca-name">Ada Concierge</div>
+                  <div class="ca-sub"><span id="ca-online-text">Connecting…</span></div>
+                </div>
+              </div>
 
-            <div class="cw-msg bot">
-              <div class="cw-bubble">In the meantime, we do have a quiet room available on the eighth floor with park views, if you'd prefer to move tonight. I can arrange that immediately — our night team will bring your key and help with anything you'd like to bring across.</div>
-              <div class="cw-time">11:32 PM</div>
-            </div>
+              <!-- Messages area -->
+              <div class="ca-messages" id="ca-messages">
+                <div class="ca-date-divider">Tonight · Room 412</div>
+              </div>
 
-            <div class="cw-msg guest">
-              <div class="cw-bubble">I'm already in bed honestly — let's wait and see what the engineer says first. But thank you.</div>
-              <div class="cw-time">11:34 PM</div>
-            </div>
+              <!-- Typing indicator (sits outside scroll, injected dynamically) -->
+              <div class="ca-typing" id="ca-typing">
+                <div class="ca-typing-dot"></div>
+                <div class="ca-typing-dot"></div>
+                <div class="ca-typing-dot"></div>
+              </div>
 
-            <div class="cw-msg bot">
-              <div class="cw-bubble">Of course — completely understood. I've added a note to your ticket that you'd prefer to stay in 412 if possible. The engineer will contact you directly before entering. I'll make sure our team follows up with you tomorrow morning as well. Sleep well, Anna 🌙</div>
-              <div class="cw-time">11:34 PM</div>
-            </div>
+              <!-- Input -->
+              <div class="ca-input-area">
+                <input type="text" class="ca-input" id="ca-input" placeholder="Message Ada Concierge…" disabled autocomplete="off"/>
+                <button class="ca-send" id="ca-send" disabled>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0D1F3C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"/>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2" fill="#0D1F3C" stroke="none"/>
+                  </svg>
+                </button>
+              </div>
+            </div><!-- /chat-app -->
 
-          </div>
-
-          <div class="cw-ticket-tag">
-            🔧 Maintenance ticket #MT-9341 raised · Priority: Urgent · Room 412
-          </div>
-
-          <div class="cw-input-bar">
-            <div class="cw-input-field">Type a message...</div>
-            <button class="cw-send-btn">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0D1F3C" stroke-width="2.5" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-            </button>
-          </div>
-        </div>
+          </div><!-- /phone-screen -->
+        </div><!-- /phone-frame -->
       </div>
 
     </div>
@@ -510,9 +881,12 @@ const HOTEL_CONFIG = {
   </div>
 </footer>
 
+<!-- Ada headless chat -->
 <script>
 window.adaSettings = {
   handle: HOTEL_CONFIG.botHandle,
+  headless: true,
+  enableProgrammaticControl: true,
   metaFields: {
     journey_stage: "in_stay",
     guest_name:    HOTEL_CONFIG.guestFull,
@@ -522,7 +896,130 @@ window.adaSettings = {
   }
 };
 </script>
-<script src="https://static.ada.support/embed2.js" async></script>
+<script src="https://static.ada.support/embed2.js"></script>
+<script>
+(function() {
+  var msgs = document.getElementById('ca-messages');
+  var typingEl = document.getElementById('ca-typing');
+  var inputEl = document.getElementById('ca-input');
+  var sendBtn = document.getElementById('ca-send');
+  var connecting = document.getElementById('ca-connecting');
+  var onlineText = document.getElementById('ca-online-text');
+  var renderedIds = new Set();
+  var isReady = false;
+
+  function scrollToBottom() {
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function stripHtml(str) {
+    var tmp = document.createElement('div');
+    tmp.innerHTML = str;
+    return tmp.textContent || tmp.innerText || str;
+  }
+
+  function renderMessage(msg) {
+    if (!msg || renderedIds.has(msg.id)) return;
+    if (msg.role === 'user') return; // skip echoed user messages — we render them immediately on send
+    renderedIds.add(msg.id);
+
+    var body = msg.body || '';
+    // Strip HTML tags for clean display
+    body = stripHtml(body).trim();
+    if (!body) return;
+
+    var wrap = document.createElement('div');
+    wrap.className = 'ca-msg bot';
+    wrap.innerHTML =
+      '<div class="ca-bubble">' + escHtml(body) + '</div>' +
+      '<div class="ca-msg-time">' + nowTime() + '</div>';
+    msgs.appendChild(wrap);
+    scrollToBottom();
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  }
+
+  function nowTime() {
+    var d = new Date();
+    return d.toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit'});
+  }
+
+  function showTyping() { typingEl.classList.add('visible'); scrollToBottom(); }
+  function hideTyping() { typingEl.classList.remove('visible'); }
+
+  function setReady() {
+    if (isReady) return;
+    isReady = true;
+    connecting.classList.add('hidden');
+    inputEl.disabled = false;
+    sendBtn.disabled = false;
+    onlineText.textContent = 'Available now';
+    // Load any messages already in the conversation (welcome message)
+    try {
+      adaEmbed.getMessages().then(function(history) {
+        if (history && history.messages) {
+          history.messages.forEach(renderMessage);
+        }
+      }).catch(function(){});
+    } catch(e) {}
+  }
+
+  function sendMessage() {
+    var text = inputEl.value.trim();
+    if (!text || !isReady) return;
+    inputEl.value = '';
+    sendBtn.disabled = true;
+
+    // Render user bubble immediately
+    var wrap = document.createElement('div');
+    wrap.className = 'ca-msg user';
+    wrap.innerHTML =
+      '<div class="ca-bubble">' + escHtml(text) + '</div>' +
+      '<div class="ca-msg-time">' + nowTime() + '</div>';
+    msgs.appendChild(wrap);
+    scrollToBottom();
+
+    showTyping();
+
+    adaEmbed.sendMessage(text).then(function() {
+      sendBtn.disabled = false;
+    }).catch(function() {
+      hideTyping();
+      sendBtn.disabled = false;
+    });
+  }
+
+  sendBtn.addEventListener('click', sendMessage);
+  inputEl.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+  });
+
+  // Subscribe to Ada events
+  function wireEvents() {
+    try {
+      adaEmbed.subscribeEvent('ada:ready', setReady);
+      adaEmbed.subscribeEvent('ada:message:received', function(e) {
+        hideTyping();
+        if (e && e.message) renderMessage(e.message);
+      });
+      adaEmbed.subscribeEvent('ada:typing:start', function() { showTyping(); });
+    } catch(err) {
+      // embed not yet loaded — retry
+      setTimeout(wireEvents, 200);
+    }
+  }
+
+  // Wait for embed2.js to load
+  if (typeof adaEmbed !== 'undefined') {
+    wireEvents();
+  } else {
+    window.addEventListener('load', wireEvents);
+    setTimeout(wireEvents, 1000);
+  }
+})();
+</script>
 
 </body>
 </html>

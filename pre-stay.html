@@ -202,18 +202,14 @@
 }
 
 /* ── Email client ─────────────────────────────────────────── */
-.email-panel {
-  background: #fff;
-  border-radius: 12px;
-  border: 1px solid #E5E7EB;
-  overflow: hidden;
-  box-shadow: 0 8px 40px rgba(13,31,60,0.1);
+.email-wrap {
   max-width: 760px;
   margin: 0 auto;
 }
-.ep-header {
-  background: #0D1F3C;
-  padding: 16px 24px;
+.email-chrome {
+  background: #1E2533;
+  border-radius: 12px 12px 0 0;
+  padding: 12px 16px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -223,27 +219,97 @@
 .ep-dot-r { background: #EF4444; }
 .ep-dot-y { background: #F59E0B; }
 .ep-dot-g { background: #22C55E; }
-.ep-title { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.7); margin-left: 4px; }
-.ep-subject-bar {
-  padding: 16px 24px;
-  background: #F9FAFB;
-  border-bottom: 1px solid #E5E7EB;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+.ep-window-title {
+  flex: 1;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.5);
+  text-align: center;
 }
-.ep-subject { font-size: 16px; font-weight: 700; color: #0D1F3C; }
+
+.email-panel {
+  background: #fff;
+  border-radius: 0 0 12px 12px;
+  border: 1px solid #E5E7EB;
+  border-top: none;
+  overflow: hidden;
+  box-shadow: 0 12px 48px rgba(13,31,60,0.12);
+}
+
+.ep-topbar {
+  background: #F3F4F6;
+  border-bottom: 1px solid #E5E7EB;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  height: 44px;
+}
+.ep-tab {
+  font-size: 13px;
+  font-weight: 600;
+  color: #6B7280;
+  padding: 0 4px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid transparent;
+}
+.ep-tab.active {
+  color: #0D1F3C;
+  border-bottom-color: #C9A84C;
+}
+.ep-tab-badge {
+  background: #0D1F3C;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 1px 6px;
+  margin-left: 6px;
+}
+
+.ep-subject-bar {
+  padding: 16px 24px 14px;
+  border-bottom: 1px solid #E5E7EB;
+}
+.ep-subject-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 6px;
+}
+.ep-subject { font-size: 17px; font-weight: 700; color: #0D1F3C; line-height: 1.3; }
+.ep-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
 .ep-meta { font-size: 12px; color: #9CA3AF; }
+.ep-intent-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.ep-badge-intent { background: #EEF2FF; color: #4338CA; border: 1px solid #C7D2FE; }
+.ep-badge-resolved { background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0; }
+
 .ep-thread {
-  padding: 24px;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 20px;
 }
 .ep-msg {
+  padding: 20px 24px;
+  border-bottom: 1px solid #F3F4F6;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 .ep-msg-header {
   display: flex;
@@ -251,52 +317,93 @@
   gap: 10px;
 }
 .ep-avatar {
-  width: 36px; height: 36px;
+  width: 38px; height: 38px;
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   flex-shrink: 0;
 }
 .ep-avatar-guest { background: #E8F0FE; color: #1A56DB; }
-.ep-avatar-ada   { background: linear-gradient(135deg, #0D1F3C, #1E3662); color: #C9A84C; font-family: 'Playfair Display', serif; }
+.ep-avatar-ada   { background: linear-gradient(135deg, #0D1F3C, #1E3662); color: #C9A84C; font-family: 'Playfair Display', serif; font-size: 12px; }
+.ep-sender-wrap { flex: 1; display: flex; flex-direction: column; gap: 1px; }
 .ep-sender { font-size: 13px; font-weight: 700; color: #111827; }
-.ep-sender-email { font-size: 12px; color: #6B7280; }
-.ep-timestamp { font-size: 11px; color: #9CA3AF; margin-left: auto; white-space: nowrap; }
+.ep-sender-email { font-size: 11px; color: #6B7280; }
+.ep-ada-label {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: #C9A84C;
+  background: rgba(13,31,60,0.05);
+  padding: 2px 7px;
+  border-radius: 999px;
+  border: 1px solid rgba(201,168,76,0.3);
+  margin-top: 2px;
+  width: fit-content;
+}
+.ep-timestamp { font-size: 11px; color: #9CA3AF; white-space: nowrap; display: flex; align-items: center; gap: 4px; }
+.ep-instant-badge {
+  background: #EFF6FF;
+  color: #1D4ED8;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 999px;
+  border: 1px solid #BFDBFE;
+}
+
 .ep-body {
-  margin-left: 46px;
+  margin-left: 48px;
   font-size: 14px;
-  line-height: 1.65;
+  line-height: 1.7;
   color: #374151;
-  background: #F9FAFB;
-  border: 1px solid #E5E7EB;
-  border-radius: 8px;
-  padding: 16px 18px;
 }
 .ep-body p { margin: 0 0 10px; }
 .ep-body p:last-child { margin-bottom: 0; }
-.ep-body .ep-sig { color: #6B7280; font-size: 13px; margin-top: 14px; padding-top: 12px; border-top: 1px solid #E5E7EB; }
-.ep-ada-body {
-  background: rgba(13,31,60,0.04);
-  border: 1px solid rgba(13,31,60,0.1);
+.ep-body .ep-sig {
+  color: #6B7280;
+  font-size: 13px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #E5E7EB;
+  line-height: 1.6;
 }
-.ep-resolution-tag {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 6px 14px;
-  background: #ECFDF5;
-  border: 1px solid #A7F3D0;
+
+.ep-tags {
+  margin-left: 48px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+.ep-tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 9px;
   border-radius: 999px;
-  font-size: 12px;
+  font-size: 10.5px;
   font-weight: 600;
-  color: #065F46;
-  margin-left: 46px;
 }
+.ep-tag-intent  { background: #EEF2FF; color: #4338CA; border: 1px solid #C7D2FE; }
+.ep-tag-kb      { background: #F0FDF4; color: #166534; border: 1px solid #BBF7D0; }
+.ep-tag-action  { background: #FFF7ED; color: #92400E; border: 1px solid #FDE68A; }
+.ep-tag-resolved{ background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0; }
+
+.ep-compose {
+  padding: 14px 24px;
+  background: #F9FAFB;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid #E5E7EB;
+}
+.ep-compose-avatar { width: 30px; height: 30px; border-radius: 50%; background: #E8F0FE; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #1A56DB; flex-shrink: 0; }
+.ep-compose-input { flex: 1; font-size: 13px; color: #9CA3AF; background: #fff; border: 1px solid #E5E7EB; border-radius: 999px; padding: 7px 14px; cursor: pointer; }
+.ep-compose-btn { font-size: 12px; font-weight: 600; color: #0D1F3C; background: #E5E7EB; border: none; border-radius: 999px; padding: 7px 14px; cursor: pointer; }
 
 @media (max-width: 700px) {
   .vc-transcript { padding: 16px; }
   .vc-call-info  { padding: 24px 16px 16px; }
-  .ep-thread { padding: 16px; }
   .ep-body  { margin-left: 0; }
+  .ep-tags  { margin-left: 0; }
 }
 </style>
 </head>
@@ -318,8 +425,18 @@ const HOTEL_CONFIG = {
 };
 </script>
 
+<!-- Demo nav -->
+<nav class="demo-nav-bar">
+  <div class="demo-nav-row">
+    <a class="demo-nav-tab" href="index.html">🏨 Book In</a>
+    <a class="demo-nav-tab active" href="pre-stay.html">✦ Pre-Stay</a>
+    <a class="demo-nav-tab" href="in-stay.html">🛎 In-Stay</a>
+    <a class="demo-nav-tab" href="post-stay.html">⭐ Post-Stay</a>
+  </div>
+</nav>
+
 <!-- Header -->
-<header class="site-header">
+<header class="site-header solid">
   <a class="brand" href="index.html">
     <div class="brand-mark">
       <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
@@ -348,16 +465,6 @@ const HOTEL_CONFIG = {
     </div>
   </div>
 </header>
-
-<!-- Demo nav -->
-<nav class="demo-nav-bar">
-  <div class="demo-nav-row">
-    <a class="demo-nav-tab" href="index.html">🏨 Book In</a>
-    <a class="demo-nav-tab active" href="pre-stay.html">✦ Pre-Stay</a>
-    <a class="demo-nav-tab" href="in-stay.html">🛎 In-Stay</a>
-    <a class="demo-nav-tab" href="post-stay.html">⭐ Post-Stay</a>
-  </div>
-</nav>
 
 <!-- Page hero -->
 <div class="page-hero">
@@ -465,62 +572,94 @@ const HOTEL_CONFIG = {
     <div class="scenario-title">Anna emails — she's running late</div>
     <div class="scenario-desc">On the day of her dinner reservation, Anna's train is delayed. She fires off a quick email to change her 8 PM booking to 9 PM. Ada handles the amendment instantly, with no waiting.</div>
 
-    <div class="email-panel">
-      <div class="ep-header">
+    <div class="email-wrap">
+      <!-- Window chrome -->
+      <div class="email-chrome">
         <div class="ep-dots">
           <div class="ep-dot ep-dot-r"></div>
           <div class="ep-dot ep-dot-y"></div>
           <div class="ep-dot ep-dot-g"></div>
         </div>
-        <span class="ep-title">Inbox — Anna Chambers · anna.chambers@gmail.com</span>
+        <span class="ep-window-title">Inbox — anna.chambers@gmail.com</span>
       </div>
 
-      <div class="ep-subject-bar">
-        <div class="ep-subject">RE: Dining Reservation — The Garden · Fri 12 Sep · 8:00 PM</div>
-        <div class="ep-meta">Confirmation #DIN-8847 · Ada Hotel Mayfair Dining · 2 messages</div>
-      </div>
+      <div class="email-panel">
+        <!-- Tab bar -->
+        <div class="ep-topbar">
+          <div class="ep-tab active">Inbox <span class="ep-tab-badge">1</span></div>
+          <div class="ep-tab">Sent</div>
+          <div class="ep-tab">Drafts</div>
+        </div>
 
-      <div class="ep-thread">
-
-        <!-- Anna's email -->
-        <div class="ep-msg">
-          <div class="ep-msg-header">
-            <div class="ep-avatar ep-avatar-guest">AC</div>
-            <div>
-              <div class="ep-sender">Anna Chambers</div>
-              <div class="ep-sender-email">anna.chambers@gmail.com</div>
-            </div>
-            <div class="ep-timestamp">Fri 12 Sep · 5:43 PM</div>
+        <!-- Subject bar -->
+        <div class="ep-subject-bar">
+          <div class="ep-subject-row">
+            <div class="ep-subject">RE: Dining Reservation — The Garden · Fri 12 Sep · 8:00 PM</div>
           </div>
-          <div class="ep-body">
-            <p>Hi,</p>
-            <p>My train has been delayed so I'm running late — I won't make the 8 PM reservation at The Garden tonight. Is it possible to push the table back to 9 PM instead? Still three of us.</p>
-            <p>Sorry for the short notice. Booking ref is AH-291847.</p>
-            <div class="ep-sig">Thanks,<br>Anna</div>
+          <div class="ep-meta-row">
+            <span class="ep-meta">Confirmation #DIN-8847 · 2 messages</span>
+            <span class="ep-intent-badge ep-badge-intent">🎯 dining_amendment</span>
+            <span class="ep-intent-badge ep-badge-resolved">✅ Resolved</span>
           </div>
         </div>
 
-        <!-- Ada's response -->
-        <div class="ep-msg">
-          <div class="ep-msg-header">
-            <div class="ep-avatar ep-avatar-ada">AH</div>
-            <div>
-              <div class="ep-sender">Ada Hotels Concierge</div>
-              <div class="ep-sender-email">concierge@ada-hotels.com</div>
+        <!-- Thread -->
+        <div class="ep-thread">
+
+          <!-- Anna's email -->
+          <div class="ep-msg">
+            <div class="ep-msg-header">
+              <div class="ep-avatar ep-avatar-guest">AC</div>
+              <div class="ep-sender-wrap">
+                <div class="ep-sender">Anna Chambers</div>
+                <div class="ep-sender-email">anna.chambers@gmail.com → concierge@ada-hotels.com</div>
+              </div>
+              <div class="ep-timestamp">Fri 12 Sep · 5:43 PM</div>
             </div>
-            <div class="ep-timestamp">Fri 12 Sep · 5:44 PM</div>
+            <div class="ep-body">
+              <p>Hi,</p>
+              <p>My train has been delayed so I'm running late — I won't make the 8 PM reservation at The Garden tonight. Is it possible to push the table back to 9 PM instead? Still three of us.</p>
+              <p>Sorry for the short notice. Booking ref is AH-291847.</p>
+              <div class="ep-sig">Thanks,<br>Anna</div>
+            </div>
           </div>
-          <div class="ep-body ep-ada-body">
-            <p>Dear Anna,</p>
-            <p>No trouble at all — I've amended your reservation at The Garden from 8:00 PM to <strong>9:00 PM this evening</strong>, Friday 12 September, for three guests. Your table will be held.</p>
-            <p>The team at The Garden have been notified and look forward to welcoming you. Please don't rush — we'll have everything ready when you arrive.</p>
-            <p>Is there anything else I can help with before your arrival?</p>
-            <div class="ep-sig">Warm regards,<br><strong>Ada Concierge</strong><br>Ada Hotel Mayfair · +44 20 7946 0800</div>
+
+          <!-- Ada's reply -->
+          <div class="ep-msg" style="background:rgba(13,31,60,0.02);">
+            <div class="ep-msg-header">
+              <div class="ep-avatar ep-avatar-ada">AH</div>
+              <div class="ep-sender-wrap">
+                <div class="ep-sender">Ada Hotels Concierge</div>
+                <div class="ep-sender-email">concierge@ada-hotels.com → anna.chambers@gmail.com</div>
+                <div class="ep-ada-label">✦ Assistant · Powered by Ada</div>
+              </div>
+              <div class="ep-timestamp">
+                Fri 12 Sep · 5:44 PM
+                <span class="ep-instant-badge">⚡ 47 sec</span>
+              </div>
+            </div>
+            <div class="ep-body">
+              <p>Dear Anna,</p>
+              <p>No trouble at all — I've amended your reservation at The Garden from 8:00 PM to <strong>9:00 PM this evening</strong>, Friday 12 September, for three guests. Your table will be held.</p>
+              <p>The team at The Garden have been notified and look forward to welcoming you. Please don't rush — we'll have everything ready when you arrive.</p>
+              <p>Is there anything else I can help with before your arrival?</p>
+              <div class="ep-sig">Warm regards,<br><strong>Ada Concierge</strong><br>Ada Hotel Mayfair · +44 20 7946 0800</div>
+            </div>
+            <div class="ep-tags">
+              <span class="ep-tag ep-tag-intent">🎯 dining_amendment</span>
+              <span class="ep-tag ep-tag-kb">📚 KB: dining-reservation-policy</span>
+              <span class="ep-tag ep-tag-action">🧰 Action: amend_reservation</span>
+              <span class="ep-tag ep-tag-resolved">✅ Resolved · 2 intents</span>
+            </div>
           </div>
+
         </div>
 
-        <div class="ep-resolution-tag">
-          ✓ Reservation amended · 9:00 PM confirmed · responded in 47 seconds
+        <!-- Compose bar -->
+        <div class="ep-compose">
+          <div class="ep-compose-avatar">AC</div>
+          <div class="ep-compose-input">Reply to Ada Hotels Concierge…</div>
+          <button class="ep-compose-btn">Reply</button>
         </div>
 
       </div>

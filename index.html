@@ -576,40 +576,8 @@
 </head>
 <body>
 
-<!-- Header -->
-<header class="site-header">
-  <a class="brand" href="index.html">
-    <div class="brand-mark">
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-        <text x="14" y="21" font-family="Playfair Display, serif" font-size="20" font-weight="700" fill="#0D1F3C" text-anchor="middle">AH</text>
-      </svg>
-    </div>
-    <div class="brand-name-wrap">
-      <span class="brand-title">Ada Hotels</span>
-      <span class="brand-tag">Exceptional stays worldwide</span>
-    </div>
-  </a>
-  <nav class="site-nav">
-    <a href="index.html" class="active">Hotels</a>
-    <a href="inroom.html">In-Room</a>
-    <a href="index.html">Dining</a>
-    <a href="index.html">Offers</a>
-  </nav>
-  <div class="header-actions">
-    <div class="user-pill">
-      <span class="user-avatar">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-          <circle cx="12" cy="8" r="4" fill="#0D1F3C"/>
-          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#0D1F3C" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-      </span>
-      <span class="user-name">Kirky_123</span>
-    </div>
-  </div>
-</header>
-
 <!-- Demo nav -->
-<nav class="demo-nav-bar" style="position:sticky;top:0;z-index:200;">
+<nav class="demo-nav-bar">
   <div class="demo-nav-row">
     <a class="demo-nav-tab active" href="index.html">🏨 Book In</a>
     <a class="demo-nav-tab" href="pre-stay.html">✦ Pre-Stay</a>
@@ -618,9 +586,41 @@
   </div>
 </nav>
 
-<!-- Hero -->
+<!-- Hero (site-header lives inside so position:absolute is relative to hero) -->
 <section class="hero">
   <div class="hero-bg"></div>
+
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <div class="brand-mark">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <text x="14" y="21" font-family="Playfair Display, serif" font-size="20" font-weight="700" fill="#0D1F3C" text-anchor="middle">AH</text>
+        </svg>
+      </div>
+      <div class="brand-name-wrap">
+        <span class="brand-title">Ada Hotels</span>
+        <span class="brand-tag">Exceptional stays worldwide</span>
+      </div>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html" class="active">Hotels</a>
+      <a href="inroom.html">In-Room</a>
+      <a href="index.html">Dining</a>
+      <a href="index.html">Offers</a>
+    </nav>
+    <div class="header-actions">
+      <div class="user-pill">
+        <span class="user-avatar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="8" r="4" fill="#0D1F3C"/>
+            <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#0D1F3C" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="user-name">Kirky_123</span>
+      </div>
+    </div>
+  </header>
+
   <div class="hero-content">
     <p class="eyebrow">Exceptional stays, everywhere</p>
     <h1 class="hero-title">Where will your story begin?</h1>
