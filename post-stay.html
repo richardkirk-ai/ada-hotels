@@ -6,24 +6,16 @@
 <title>Ada Hotels — Post-Stay</title>
 <link rel="stylesheet" href="ada-hotels.css">
 <style>
-
 /* ── Demo nav ─────────────────────────────────────────────── */
 .demo-nav-bar {
   background: #0D1F3C; border-bottom: 1px solid rgba(201,168,76,0.25);
   position: sticky; top: 0; z-index: 200;
 }
 .demo-nav-row {
-  display: flex; align-items: center; gap: 0; max-width: 1240px;
+  display: flex; align-items: center; max-width: 1240px;
   margin: 0 auto; padding: 0 32px; overflow-x: auto; scrollbar-width: none;
 }
 .demo-nav-row::-webkit-scrollbar { display: none; }
-.demo-nav-label {
-  font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
-  color: rgba(201,168,76,0.7); padding: 0 16px 0 0; white-space: nowrap;
-  flex-shrink: 0; border-right: 1px solid rgba(255,255,255,0.1);
-  margin-right: 4px; line-height: 42px;
-}
-.demo-nav-row-2 .demo-nav-label { color: rgba(255,255,255,0.4); }
 .demo-nav-tab {
   display: flex; align-items: center; gap: 6px; padding: 0 16px;
   font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.55);
@@ -32,13 +24,13 @@
 }
 .demo-nav-tab:hover { color: rgba(255,255,255,0.85); }
 .demo-nav-tab.active { color: #C9A84C; border-bottom-color: #C9A84C; font-weight: 600; }
-.demo-nav-row-2 { border-top: 1px solid rgba(255,255,255,0.06); }
 
-/* ── Post-stay page ───────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════
+   HERO
+══════════════════════════════════════════════════════════ */
 .ps-hero {
-  background: var(--ah-navy-grad);
-  padding: 72px 0 56px;
-  text-align: center;
+  background: linear-gradient(160deg, #070F1E 0%, #0D1F3C 60%, #162B50 100%);
+  padding: 80px 0 64px;
   position: relative;
   overflow: hidden;
 }
@@ -46,185 +38,501 @@
   content: '';
   position: absolute; inset: 0;
   background:
-    radial-gradient(ellipse at 50% 120%, rgba(201,168,76,0.15) 0%, transparent 55%),
-    repeating-linear-gradient(45deg, rgba(201,168,76,0.018) 0px, rgba(201,168,76,0.018) 1px, transparent 1px, transparent 52px);
+    radial-gradient(ellipse 900px 500px at 70% 50%, rgba(201,168,76,0.07) 0%, transparent 65%),
+    repeating-linear-gradient(135deg, rgba(201,168,76,0.012) 0, rgba(201,168,76,0.012) 1px, transparent 1px, transparent 64px);
 }
-.ps-hero-inner { position: relative; z-index: 1; }
-.ps-hero .eyebrow { color: var(--ah-gold-light); margin-bottom: 14px; }
-.ps-hero h1 {
+.ps-hero-inner {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 1fr 400px; gap: 64px; align-items: center;
+}
+.ps-hero-text .eyebrow { color: rgba(201,168,76,0.8); margin-bottom: 18px; }
+.ps-hero-text h1 {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(32px,5vw,60px);
-  font-weight: 700;
-  color: var(--ah-white);
-  line-height: 1.1;
-  margin-bottom: 14px;
+  font-size: clamp(36px,5vw,64px); font-weight: 700; color: #fff;
+  line-height: 1.05; margin-bottom: 20px; letter-spacing: -0.02em;
 }
-.ps-hero p { font-size: 17px; color: rgba(255,255,255,0.7); max-width: 52ch; margin: 0 auto; }
-
-/* Stars row */
-.stars-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin: 28px auto 0;
+.ps-hero-text h1 em { font-style: normal; color: #C9A84C; }
+.ps-hero-text p { font-size: 17px; color: rgba(255,255,255,0.65); max-width: 46ch; line-height: 1.7; }
+.ps-hero-stats {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 36px;
 }
-.star-btn {
-  font-size: 34px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: transform 150ms, filter 150ms;
-  line-height: 1;
-  filter: grayscale(0.3);
+.ps-hero-stat {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px; padding: 18px 20px;
 }
-.star-btn:hover, .star-btn.lit { filter: none; transform: scale(1.15); }
-.star-submitted {
-  font-size: 14px;
-  color: var(--ah-gold-light);
-  margin-top: 10px;
-  display: none;
-}
-
-/* Body */
-.ps-body { background: var(--ah-cream); padding: 0 0 80px; }
-
-/* Summary card */
-.stay-summary-card {
-  background: var(--ah-white);
-  border: 1px solid var(--ah-border);
-  border-radius: 12px;
-  box-shadow: 0 8px 40px rgba(13,31,60,0.1);
-  margin-top: -28px;
-  position: relative;
-  z-index: 10;
-  overflow: hidden;
-}
-.ssc-head {
-  background: var(--ah-navy);
-  padding: 24px 32px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-.ssc-head h2 {
+.ps-hero-stat-val {
   font-family: 'Playfair Display', serif;
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--ah-white);
+  font-size: 32px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 4px;
+  font-variant-numeric: tabular-nums;
 }
-.ssc-head span { font-size: 13px; color: rgba(255,255,255,0.55); }
-.ssc-body { padding: 28px 32px; }
-.ssc-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-}
-.ssc-item {}
-.ssc-label {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
-  color: var(--ah-gold); margin-bottom: 6px;
-}
-.ssc-val { font-size: 15px; font-weight: 600; color: var(--ah-navy); }
-.ssc-sub { font-size: 12px; color: var(--ah-text-3); margin-top: 2px; }
+.ps-hero-stat-val span { font-size: 16px; color: rgba(255,255,255,0.4); }
+.ps-hero-stat-lbl { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(201,168,76,0.75); }
 
-/* Loyalty panel */
-.loyalty-panel {
-  margin-top: 24px;
-  background: var(--ah-gold-pale);
-  border: 1px solid rgba(201,168,76,0.3);
-  border-radius: 10px;
-  padding: 24px 28px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 24px;
+/* Phone illustration in hero */
+.ps-hero-phone {
+  display: flex; align-items: center; justify-content: center;
 }
-.lp-item { text-align: center; }
-.lp-number {
+.phone-frame {
+  width: 260px; background: #111827;
+  border-radius: 32px; border: 2px solid rgba(255,255,255,0.12);
+  box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
+  overflow: hidden; position: relative;
+}
+.phone-notch {
+  background: #111827; height: 28px; display: flex; align-items: center; justify-content: center;
+}
+.phone-notch-pill {
+  width: 80px; height: 20px; background: #000; border-radius: 10px;
+}
+.phone-screen {
+  background: linear-gradient(180deg, #0A1628 0%, #0D1F3C 100%);
+  padding: 24px 20px 28px;
+}
+.phone-call-header { text-align: center; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.phone-caller { font-size: 11px; color: rgba(255,255,255,0.4); margin-bottom: 6px; }
+.phone-caller-name { font-size: 18px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+.phone-call-status {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; color: #22C55E; font-weight: 600;
+}
+.phone-call-dot {
+  width: 7px; height: 7px; background: #22C55E; border-radius: 50%;
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.7); }
+}
+.phone-timer {
+  text-align: center; font-size: 36px; font-weight: 300; color: #fff;
+  font-variant-numeric: tabular-nums; margin: 20px 0;
+  font-family: system-ui, sans-serif; letter-spacing: 0.04em;
+}
+.phone-waveform-small {
+  height: 40px; overflow: hidden; margin: 0 -4px;
+}
+.phone-btns {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 20px;
+}
+.phone-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+}
+.phone-btn-circle {
+  width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.1); font-size: 18px;
+}
+.phone-btn-circle.red { background: #ef4444; }
+.phone-btn-circle.green { background: #22c55e; }
+.phone-btn-lbl { font-size: 10px; color: rgba(255,255,255,0.4); }
+
+/* ══════════════════════════════════════════════════════════
+   CALL PLAYER
+══════════════════════════════════════════════════════════ */
+.call-section {
+  background: #070F1E;
+  padding: 80px 0;
+}
+.call-section-head {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  margin-bottom: 40px; gap: 24px; flex-wrap: wrap;
+}
+.call-section-head h2 {
   font-family: 'Playfair Display', serif;
-  font-size: 36px;
-  font-weight: 700;
-  color: var(--ah-navy);
-  line-height: 1;
-  margin-bottom: 6px;
+  font-size: clamp(28px,3.5vw,44px); font-weight: 700; color: #fff; line-height: 1.1;
 }
-.lp-label { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ah-gold); }
-.lp-sub { font-size: 12px; color: var(--ah-text-2); margin-top: 4px; }
+.call-section-head p { font-size: 14px; color: rgba(255,255,255,0.45); max-width: 36ch; text-align: right; line-height: 1.6; }
 
-/* Chat section */
-.ps-chat-section { padding: 48px 0 0; }
-.ps-chat-section h2 {
+/* Audio player bar */
+.audio-bar {
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px; padding: 16px 20px;
+  display: flex; align-items: center; gap: 16px; margin-bottom: 32px;
+}
+.audio-play-btn {
+  width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+  background: #C9A84C; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: filter 150ms, transform 150ms; font-size: 16px;
+}
+.audio-play-btn:hover { filter: brightness(1.1); transform: scale(1.05); }
+.audio-play-btn svg { width: 16px; height: 16px; fill: #0D1F3C; }
+.audio-bar-info { flex: 1; min-width: 0; }
+.audio-bar-title { font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+.audio-bar-sub { font-size: 11px; color: rgba(255,255,255,0.4); }
+.audio-progress-wrap { flex: 2; display: flex; flex-direction: column; gap: 6px; }
+.audio-progress-track {
+  height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; cursor: pointer; position: relative;
+}
+.audio-progress-fill {
+  height: 100%; background: #C9A84C; border-radius: 2px; width: 0%;
+  transition: width 0.5s linear; pointer-events: none;
+}
+.audio-time {
+  font-size: 11px; color: rgba(255,255,255,0.4); font-variant-numeric: tabular-nums;
+  font-family: system-ui, sans-serif;
+}
+.audio-live-badge {
+  flex-shrink: 0; display: flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: #22C55E;
+}
+.audio-live-dot {
+  width: 7px; height: 7px; background: #22C55E; border-radius: 50%;
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
+
+/* Waveform canvas */
+.waveform-wrap {
+  height: 64px; margin-bottom: 32px; position: relative; cursor: pointer;
+}
+#waveformCanvas {
+  width: 100%; height: 100%; border-radius: 8px;
+}
+
+/* Transcript + captures layout */
+.call-body {
+  display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start;
+}
+.transcript-scroll {
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px; padding: 24px;
+  max-height: 520px; overflow-y: auto; scroll-behavior: smooth;
+}
+.transcript-scroll::-webkit-scrollbar { width: 4px; }
+.transcript-scroll::-webkit-scrollbar-track { background: transparent; }
+.transcript-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+
+.t-msg {
+  display: flex; gap: 12px; margin-bottom: 20px; opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 400ms ease, transform 400ms ease;
+}
+.t-msg.visible { opacity: 1; transform: none; }
+.t-msg.t-ada { flex-direction: row; }
+.t-msg.t-anna { flex-direction: row-reverse; }
+
+.t-avatar {
+  width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; margin-top: 2px;
+}
+.t-msg.t-ada .t-avatar { background: rgba(201,168,76,0.2); color: #C9A84C; }
+.t-msg.t-anna .t-avatar { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.6); }
+
+.t-content { max-width: 82%; }
+.t-meta {
+  font-size: 10px; color: rgba(255,255,255,0.3); margin-bottom: 5px;
+  font-variant-numeric: tabular-nums;
+}
+.t-msg.t-anna .t-meta { text-align: right; }
+.t-bubble {
+  font-size: 14px; line-height: 1.65; padding: 12px 16px; border-radius: 14px;
+}
+.t-msg.t-ada .t-bubble {
+  background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.85);
+  border-top-left-radius: 4px;
+}
+.t-msg.t-anna .t-bubble {
+  background: rgba(201,168,76,0.15); color: rgba(255,255,255,0.9);
+  border-top-right-radius: 4px; text-align: right;
+}
+
+/* Capture sidebar */
+.captures-panel {
+  display: flex; flex-direction: column; gap: 12px; position: sticky; top: 24px;
+}
+.captures-panel-head {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.3); margin-bottom: 4px;
+}
+.capture-card {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px; padding: 14px 16px;
+  opacity: 0; transform: translateX(12px);
+  transition: opacity 400ms ease, transform 400ms ease;
+}
+.capture-card.visible { opacity: 1; transform: none; }
+.capture-card.c-green { border-left: 3px solid #22C55E; }
+.capture-card.c-gold { border-left: 3px solid #C9A84C; }
+.capture-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(255,255,255,0.4); margin-bottom: 6px;
+}
+.capture-value {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(24px,3vw,36px);
-  font-weight: 700;
-  color: var(--ah-navy);
-  margin-bottom: 8px;
+  font-size: 22px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 4px;
 }
-.ps-chat-section p { color: var(--ah-text-2); margin-bottom: 28px; }
-.ps-chat-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+.capture-card.c-green .capture-value { color: #4ADE80; }
+.capture-card.c-gold .capture-value { font-size: 14px; color: #F5C842; line-height: 1.4; }
+.capture-quote {
+  font-size: 11px; color: rgba(255,255,255,0.4); font-style: italic; line-height: 1.5;
 }
-.ps-chat-prompt {
-  padding: 18px 20px;
-  background: var(--ah-white);
-  border: 1px solid var(--ah-border);
-  border-radius: 10px;
-  font-size: 14px;
-  color: var(--ah-text-2);
-  cursor: pointer;
-  transition: all 150ms;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.ps-chat-prompt:hover {
-  border-color: var(--ah-gold);
-  color: var(--ah-navy);
-  background: var(--ah-gold-pale);
-  box-shadow: 0 2px 12px rgba(201,168,76,0.15);
-}
-.ps-chat-prompt span { font-size: 18px; flex-shrink: 0; }
 
-/* Loop CTA */
-.loop-cta {
-  background: var(--ah-navy-grad);
-  border-radius: 12px;
-  padding: 48px 40px;
-  margin-top: 48px;
+/* ══════════════════════════════════════════════════════════
+   SURVEY SCORES
+══════════════════════════════════════════════════════════ */
+.scores-section {
+  background: #FAF7F2; padding: 80px 0;
+}
+.scores-head { margin-bottom: 56px; }
+.scores-head .eyebrow { margin-bottom: 12px; }
+.scores-head h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px,3.5vw,44px); font-weight: 700; color: #0D1F3C;
+}
+.scores-layout {
+  display: grid; grid-template-columns: auto 1fr; gap: 64px; align-items: center;
+}
+
+/* NPS dial */
+.nps-dial-wrap {
+  display: flex; flex-direction: column; align-items: center; gap: 0;
+  flex-shrink: 0;
+}
+.nps-dial {
+  width: 280px; height: 156px; position: relative;
+}
+#npsCanvas { width: 100%; height: 100%; }
+.nps-center {
+  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
   text-align: center;
-  position: relative;
-  overflow: hidden;
 }
-.loop-cta::before {
+.nps-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 64px; font-weight: 700; color: #0D1F3C; line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.nps-denom { font-size: 20px; font-weight: 400; color: #8A96A8; }
+.nps-badge {
+  display: inline-flex; align-items: center; gap: 7px; margin-top: 10px;
+  background: #D1FAE5; border: 1px solid #6EE7B7; border-radius: 20px;
+  padding: 5px 14px; font-size: 12px; font-weight: 700; color: #065F46;
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.nps-badge::before { content: ''; display: block; width: 8px; height: 8px; background: #22C55E; border-radius: 50%; }
+.nps-zones {
+  display: flex; gap: 16px; margin-top: 16px; font-size: 11px; color: #8A96A8;
+}
+.nps-zone { display: flex; align-items: center; gap: 5px; }
+.nps-zone-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+/* Score tiles */
+.score-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.score-tile {
+  background: #fff; border: 1px solid #E2DDD4; border-radius: 12px;
+  padding: 24px 24px 20px; overflow: hidden; position: relative;
+}
+.score-tile-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; }
+.score-tile-icon { font-size: 24px; line-height: 1; }
+.score-tile-tag {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  background: #D1FAE5; color: #065F46; padding: 4px 10px; border-radius: 12px;
+}
+.score-tile-lbl {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  color: #C9A84C; margin-bottom: 8px;
+}
+.score-tile-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px; font-weight: 700; color: #0D1F3C; line-height: 1;
+  font-variant-numeric: tabular-nums; margin-bottom: 4px;
+}
+.score-tile-val span { font-size: 18px; font-weight: 400; color: #8A96A8; }
+.score-tile-note { font-size: 12px; color: #6B7280; margin-top: 6px; font-style: italic; }
+.score-bar-track {
+  height: 4px; background: #F3F4F6; border-radius: 2px; margin-top: 16px; overflow: hidden;
+}
+.score-bar-fill {
+  height: 100%; background: linear-gradient(90deg, #1B7A4A, #22C55E); border-radius: 2px;
+  width: 0%; transition: width 1.2s cubic-bezier(0.25,0,0,1);
+}
+
+/* ══════════════════════════════════════════════════════════
+   INSIGHTS
+══════════════════════════════════════════════════════════ */
+.insights-section { background: #0D1F3C; padding: 80px 0; }
+.insights-head { margin-bottom: 48px; }
+.insights-head .eyebrow { color: rgba(201,168,76,0.8); margin-bottom: 12px; }
+.insights-head h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(26px,3vw,40px); font-weight: 700; color: #fff;
+}
+.insights-head p { font-size: 15px; color: rgba(255,255,255,0.5); max-width: 56ch; margin-top: 8px; line-height: 1.7; }
+
+.insights-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.insight-card {
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px; padding: 28px; position: relative; overflow: hidden;
+}
+.insight-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+.insight-card.ic-note::before { background: #C9A84C; }
+.insight-card.ic-flag::before { background: #F59E0B; }
+.insight-card.ic-star::before { background: #22C55E; }
+.insight-icon { font-size: 28px; margin-bottom: 16px; }
+.insight-type {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35); margin-bottom: 10px;
+}
+.insight-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 10px; line-height: 1.35; }
+.insight-quote {
+  font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.7; font-style: italic;
+  border-left: 2px solid rgba(201,168,76,0.4); padding-left: 12px; margin-bottom: 16px;
+}
+.insight-action {
+  font-size: 11px; font-weight: 600; color: rgba(201,168,76,0.8);
+  display: flex; align-items: center; gap: 6px;
+}
+.insight-action::before {
+  content: '→'; font-style: normal;
+}
+
+/* ══════════════════════════════════════════════════════════
+   JOURNEY LOOP
+══════════════════════════════════════════════════════════ */
+.loop-section { background: #FAF7F2; padding: 80px 0; }
+.loop-head { margin-bottom: 56px; }
+.loop-head .eyebrow { margin-bottom: 12px; }
+.loop-head h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(26px,3vw,40px); font-weight: 700; color: #0D1F3C; margin-bottom: 10px;
+}
+.loop-head p { font-size: 15px; color: #4A5568; max-width: 56ch; line-height: 1.7; }
+
+.journey-timeline {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 0;
+  position: relative; margin-bottom: 48px;
+}
+.journey-timeline::before {
+  content: '';
+  position: absolute; top: 28px; left: calc(10% + 8px); right: calc(10% + 8px); height: 2px;
+  background: repeating-linear-gradient(90deg, #C9A84C 0, #C9A84C 8px, transparent 8px, transparent 16px);
+  z-index: 0;
+}
+.journey-node { display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; z-index: 1; padding: 0 8px; }
+.journey-icon-wrap {
+  width: 56px; height: 56px; border-radius: 50%;
+  border: 2px solid #C9A84C; background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; margin-bottom: 16px; position: relative;
+  box-shadow: 0 4px 16px rgba(201,168,76,0.2);
+}
+.journey-icon-wrap.active {
+  background: #0D1F3C; border-color: #C9A84C;
+  box-shadow: 0 0 0 4px rgba(201,168,76,0.15), 0 4px 16px rgba(0,0,0,0.2);
+}
+.journey-step-lbl {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  color: #C9A84C; margin-bottom: 6px;
+}
+.journey-step-title { font-size: 13px; font-weight: 700; color: #0D1F3C; margin-bottom: 4px; line-height: 1.3; }
+.journey-step-sub { font-size: 11px; color: #6B7280; line-height: 1.5; }
+
+/* Context carried forward */
+.context-forward {
+  background: #fff; border: 1px solid #E2DDD4; border-radius: 14px; padding: 32px 36px;
+  display: grid; grid-template-columns: auto 1fr; gap: 32px; align-items: center;
+}
+.cf-icon { font-size: 48px; line-height: 1; }
+.cf-content {}
+.cf-title { font-size: 13px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #C9A84C; margin-bottom: 10px; }
+.cf-lead { font-size: 16px; font-weight: 600; color: #0D1F3C; margin-bottom: 16px; line-height: 1.5; }
+.cf-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.cf-tag {
+  display: flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border-radius: 20px; font-size: 12px; font-weight: 600;
+}
+.cf-tag.green { background: #D1FAE5; color: #065F46; border: 1px solid #A7F3D0; }
+.cf-tag.gold { background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; }
+.cf-tag.navy { background: #EFF6FF; color: #1E40AF; border: 1px solid #BFDBFE; }
+.cf-tag::before { content: '✓'; font-size: 10px; }
+
+/* ══════════════════════════════════════════════════════════
+   STAY SUMMARY (existing, refined)
+══════════════════════════════════════════════════════════ */
+.stay-section { background: #0D1F3C; padding: 80px 0; }
+.stay-section .eyebrow { color: rgba(201,168,76,0.8); margin-bottom: 12px; }
+.stay-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(24px,3vw,36px); font-weight: 700; color: #fff; margin-bottom: 32px;
+}
+.stay-card {
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px; overflow: hidden;
+}
+.stay-card-head {
+  padding: 24px 32px; display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,0.08); flex-wrap: wrap; gap: 12px;
+}
+.stay-card-head h3 { font-size: 17px; font-weight: 700; color: #fff; }
+.stay-card-head span { font-size: 13px; color: rgba(255,255,255,0.4); }
+.stay-card-body { padding: 28px 32px; }
+.stay-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 28px; }
+.stay-item {}
+.stay-lbl { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #C9A84C; margin-bottom: 6px; }
+.stay-val { font-size: 15px; font-weight: 600; color: #fff; }
+.stay-sub { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+.loyalty-row {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 10px; padding: 22px 28px;
+}
+.loy-item { text-align: center; }
+.loy-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 34px; font-weight: 700; color: #C9A84C; line-height: 1; margin-bottom: 4px;
+}
+.loy-lbl { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(201,168,76,0.6); }
+.loy-sub { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 3px; }
+
+/* ══════════════════════════════════════════════════════════
+   LOOP CTA
+══════════════════════════════════════════════════════════ */
+.final-cta {
+  background: linear-gradient(160deg, #070F1E 0%, #0D1F3C 100%);
+  padding: 80px 0; text-align: center; position: relative; overflow: hidden;
+}
+.final-cta::before {
   content: '';
   position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 50% 100%, rgba(201,168,76,0.12) 0%, transparent 55%);
+  background: radial-gradient(ellipse 800px 400px at 50% 100%, rgba(201,168,76,0.1) 0%, transparent 55%);
 }
-.loop-cta-inner { position: relative; z-index: 1; }
-.loop-cta .eyebrow { color: var(--ah-gold-light); margin-bottom: 14px; }
-.loop-cta h2 {
+.final-cta-inner { position: relative; z-index: 1; }
+.final-cta .eyebrow { color: rgba(201,168,76,0.8); margin-bottom: 16px; }
+.final-cta h2 {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(26px,4vw,44px);
-  font-weight: 700;
-  color: var(--ah-white);
-  margin-bottom: 12px;
-  line-height: 1.15;
+  font-size: clamp(32px,4.5vw,56px); font-weight: 700; color: #fff;
+  margin-bottom: 14px; line-height: 1.1;
 }
-.loop-cta p { font-size: 16px; color: rgba(255,255,255,0.65); max-width: 50ch; margin: 0 auto 28px; }
-.loop-cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.final-cta p { font-size: 16px; color: rgba(255,255,255,0.55); max-width: 48ch; margin: 0 auto 32px; line-height: 1.7; }
+.final-cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
-@media (max-width: 900px) {
-  .ssc-grid { grid-template-columns: 1fr 1fr; }
-  .loyalty-panel { grid-template-columns: 1fr; gap: 16px; text-align: left; }
-  .ps-chat-grid { grid-template-columns: 1fr 1fr; }
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .ps-hero-inner { grid-template-columns: 1fr; }
+  .ps-hero-phone { display: none; }
+  .scores-layout { grid-template-columns: 1fr; }
+  .nps-dial-wrap { flex-direction: row; align-items: center; gap: 32px; justify-content: center; }
+  .journey-timeline { grid-template-columns: 1fr; gap: 20px; }
+  .journey-timeline::before { display: none; }
+  .journey-node { flex-direction: row; text-align: left; gap: 16px; }
+  .journey-icon-wrap { flex-shrink: 0; margin-bottom: 0; }
+  .insights-grid { grid-template-columns: 1fr 1fr; }
+  .stay-grid { grid-template-columns: 1fr 1fr; }
 }
-@media (max-width: 640px) {
-  .ps-chat-grid { grid-template-columns: 1fr; }
-  .ssc-body { padding: 20px; }
+@media (max-width: 768px) {
+  .call-body { grid-template-columns: 1fr; }
+  .captures-panel { display: none; }
+  .score-tiles { grid-template-columns: 1fr; }
+  .insights-grid { grid-template-columns: 1fr; }
+  .context-forward { grid-template-columns: 1fr; }
+  .loyalty-row { grid-template-columns: 1fr; text-align: left; }
+  .ps-hero-stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .stay-grid { grid-template-columns: 1fr 1fr; }
+  .ps-hero-stats { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -284,131 +592,345 @@ const HOTEL_CONFIG = {
   </div>
 </header>
 
-<!-- Hero -->
-<div class="ps-hero">
+<!-- ══ HERO ══════════════════════════════════════════════════ -->
+<section class="ps-hero">
   <div class="wrap ps-hero-inner">
-    <p class="eyebrow">Scenario 05 — Post-Stay Survey</p>
-    <h1>Thank you, Anna.</h1>
-    <p>We hope your stay at Ada Hotel Mayfair was everything you hoped for. How was your experience?</p>
-    <div class="stars-row" id="starsRow">
-      <button class="star-btn lit" onclick="rateStar(1)">★</button>
-      <button class="star-btn lit" onclick="rateStar(2)">★</button>
-      <button class="star-btn lit" onclick="rateStar(3)">★</button>
-      <button class="star-btn lit" onclick="rateStar(4)">★</button>
-      <button class="star-btn lit" onclick="rateStar(5)">★</button>
+    <div class="ps-hero-text">
+      <p class="eyebrow">Scenario 05 — Post-Stay</p>
+      <h1>The <em>feedback loop</em> closes.</h1>
+      <p>Within 24 hours of checkout, Ada places a personalised outbound call to Anna — shaped by everything that happened during her stay. The answers don't disappear into a spreadsheet. They travel forward into her next visit.</p>
+      <div class="ps-hero-stats">
+        <div class="ps-hero-stat">
+          <div class="ps-hero-stat-val">3<span>min</span></div>
+          <div class="ps-hero-stat-lbl">Call duration</div>
+        </div>
+        <div class="ps-hero-stat">
+          <div class="ps-hero-stat-val">9<span>/10</span></div>
+          <div class="ps-hero-stat-lbl">NPS score</div>
+        </div>
+        <div class="ps-hero-stat">
+          <div class="ps-hero-stat-val">5</div>
+          <div class="ps-hero-stat-lbl">Data points captured</div>
+        </div>
+        <div class="ps-hero-stat">
+          <div class="ps-hero-stat-val">3</div>
+          <div class="ps-hero-stat-lbl">Insights extracted</div>
+        </div>
+      </div>
     </div>
-    <div class="star-submitted" id="starSubmitted">⭐ Thank you — 5 stars submitted</div>
+    <div class="ps-hero-phone">
+      <div class="phone-frame">
+        <div class="phone-notch"><div class="phone-notch-pill"></div></div>
+        <div class="phone-screen">
+          <div class="phone-call-header">
+            <div class="phone-caller">INCOMING CALL</div>
+            <div class="phone-caller-name">Ada Hotel Mayfair</div>
+            <div class="phone-call-status"><div class="phone-call-dot"></div>Connected</div>
+          </div>
+          <div class="phone-timer" id="heroTimer">3:24</div>
+          <canvas class="phone-waveform-small" id="heroWave" width="220" height="40"></canvas>
+          <div class="phone-btns">
+            <div class="phone-btn"><div class="phone-btn-circle">🔇</div><div class="phone-btn-lbl">Mute</div></div>
+            <div class="phone-btn"><div class="phone-btn-circle red">✕</div><div class="phone-btn-lbl">End</div></div>
+            <div class="phone-btn"><div class="phone-btn-circle">📢</div><div class="phone-btn-lbl">Speaker</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</section>
 
-<!-- Body -->
-<div class="ps-body">
+<!-- ══ CALL PLAYER ════════════════════════════════════════════ -->
+<section class="call-section">
   <div class="wrap">
-
-    <!-- Stay summary card -->
-    <div class="stay-summary-card">
-      <div class="ssc-head">
-        <h2>Your stay · AH-291847</h2>
-        <span>Checked out Sat 13 Sep 2026</span>
+    <div class="call-section-head">
+      <div>
+        <p class="eyebrow" style="color:rgba(201,168,76,0.7);margin-bottom:10px">The outbound survey call</p>
+        <h2 style="color:#fff">Connie calls Anna.<br>Anna tells us everything.</h2>
       </div>
-      <div class="ssc-body">
-        <div class="ssc-grid">
-          <div class="ssc-item">
-            <div class="ssc-label">Property</div>
-            <div class="ssc-val">Ada Hotel Mayfair</div>
-            <div class="ssc-sub">London, United Kingdom</div>
-          </div>
-          <div class="ssc-item">
-            <div class="ssc-label">Room</div>
-            <div class="ssc-val">Deluxe King · 412</div>
-            <div class="ssc-sub">Quiet corner room</div>
-          </div>
-          <div class="ssc-item">
-            <div class="ssc-label">Duration</div>
-            <div class="ssc-val">4 nights</div>
-            <div class="ssc-sub">9 – 13 September</div>
-          </div>
-          <div class="ssc-item">
-            <div class="ssc-label">Highlights</div>
-            <div class="ssc-val">EV · Roux dinner</div>
-            <div class="ssc-sub">Late checkout granted</div>
-          </div>
-        </div>
+      <p>Play the recording and watch Ada extract structured feedback in real time — NPS, ratings, and open-text insights, automatically stored to her guest profile.</p>
+    </div>
 
-        <!-- Loyalty -->
-        <div class="loyalty-panel">
-          <div class="lp-item">
-            <div class="lp-number">+480</div>
-            <div class="lp-label">Points earned</div>
-            <div class="lp-sub">This stay</div>
-          </div>
-          <div class="lp-item">
-            <div class="lp-number">3,840</div>
-            <div class="lp-label">Total balance</div>
-            <div class="lp-sub">Ada Rewards</div>
-          </div>
-          <div class="lp-item">
-            <div class="lp-number">Gold</div>
-            <div class="lp-label">Status</div>
-            <div class="lp-sub">Maintained · next tier 5,000 pts</div>
-          </div>
+    <!-- Audio bar -->
+    <div class="audio-bar">
+      <button class="audio-play-btn" id="playBtn" onclick="togglePlay()">
+        <svg id="playIcon" viewBox="0 0 16 16"><path d="M3 2l12 6-12 6z"/></svg>
+      </button>
+      <div class="audio-bar-info">
+        <div class="audio-bar-title">Post-Stay Survey Call — Anna Chambers</div>
+        <div class="audio-bar-sub">Ada Hotel Mayfair · 08 Sep 2026</div>
+      </div>
+      <div class="audio-progress-wrap">
+        <div class="audio-progress-track" id="progressTrack" onclick="seekAudio(event)">
+          <div class="audio-progress-fill" id="progressFill"></div>
         </div>
+        <div class="audio-time" id="audioTime">0:00 / 3:24</div>
+      </div>
+      <div class="audio-live-badge"><div class="audio-live-dot"></div>Ada Voice</div>
+    </div>
+
+    <!-- Waveform -->
+    <div class="waveform-wrap" onclick="seekFromWaveform(event)">
+      <canvas id="waveformCanvas"></canvas>
+    </div>
+
+    <!-- Transcript + captures -->
+    <div class="call-body">
+      <div class="transcript-scroll" id="transcriptScroll"></div>
+      <div class="captures-panel" id="capturesPanel">
+        <div class="captures-panel-head">Captured variables</div>
       </div>
     </div>
 
-    <!-- Post-stay phone survey -->
-    <div class="ps-chat-section">
-      <p class="eyebrow" style="margin-bottom:8px">Closing the loop</p>
-      <h2>A dynamic survey — delivered by phone</h2>
-      <p>Within 24 hours of checkout, Ada places a personalised outbound call to Anna. The survey is not a generic script — it's shaped by everything Ada already knows about this stay.</p>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:8px">
-        <div style="background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:10px">
-          <div style="font-size:24px">📞</div>
-          <div style="font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#C9A84C">How it works</div>
-          <div style="font-size:14px;color:#374151;line-height:1.65">Ada places a short outbound call to Anna's mobile on the morning after checkout. The call takes around two minutes. No hold music, no transfer — just a natural voice conversation.</div>
-        </div>
-        <div style="background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:10px">
-          <div style="font-size:24px">🧠</div>
-          <div style="font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#C9A84C">Personalised questions</div>
-          <div style="font-size:14px;color:#374151;line-height:1.65">Because Ada handled Anna's maintenance issue and restaurant reservation, it asks specifically about room comfort and the dining experience at The Garden — not a generic five-star prompt.</div>
-        </div>
-        <div style="background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:10px">
-          <div style="font-size:24px">📊</div>
-          <div style="font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#C9A84C">Structured feedback</div>
-          <div style="font-size:14px;color:#374151;line-height:1.65">Responses are captured across four dimensions: room comfort, dining, service quality, and overall experience. Sentiment and scores are logged automatically to Anna's guest profile.</div>
-        </div>
-        <div style="background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:10px">
-          <div style="font-size:24px">🔄</div>
-          <div style="font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#C9A84C">Back into the journey</div>
-          <div style="font-size:14px;color:#374151;line-height:1.65">Feedback flows directly into Ada's memory. When Anna next books, the proactive message on the booking page is shaped by what she told us — closing the loop before the next stay even begins.</div>
-        </div>
-      </div>
-
-      <div style="margin-top:28px;background:linear-gradient(135deg,#0D1F3C,#1E3662);border-radius:12px;padding:28px 32px;display:flex;align-items:center;gap:24px;flex-wrap:wrap">
-        <div style="font-size:36px">📱</div>
-        <div style="flex:1;min-width:200px">
-          <div style="font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#C9A84C;margin-bottom:6px">Sample outbound call · Anna Chambers</div>
-          <div style="font-size:15px;color:rgba(255,255,255,0.85);line-height:1.6">"Hi Anna, it's Ada from Ada Hotel Mayfair — just calling to see how your stay was this week. We noticed you had a late-night issue with your air conditioning. We're really sorry about that. How did we handle it for you overall?"</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Loop CTA -->
-    <div class="loop-cta">
-      <div class="loop-cta-inner">
-        <p class="eyebrow">Five guest moments. One agent.</p>
-        <h2>The journey begins again.</h2>
-        <p>From your next booking to your next stay — Ada travels with you every step of the way.</p>
-        <div class="loop-cta-btns">
-          <a class="btn-gold" href="index.html">Plan your next stay</a>
-          <a class="btn-outline-white" href="index.html">Restart the demo</a>
-        </div>
-      </div>
-    </div>
-
+    <audio id="callAudio" src="../Ada Hotels Feedback Survey Call Transcript.wav" preload="metadata"></audio>
   </div>
-</div>
+</section>
+
+<!-- ══ SURVEY SCORES ══════════════════════════════════════════ -->
+<section class="scores-section">
+  <div class="wrap">
+    <div class="scores-head">
+      <p class="eyebrow">Feedback results</p>
+      <h2>Anna's scores — September 2026</h2>
+    </div>
+    <div class="scores-layout">
+      <div class="nps-dial-wrap">
+        <div class="nps-dial">
+          <canvas id="npsCanvas" width="280" height="156"></canvas>
+          <div class="nps-center">
+            <div class="nps-number" id="npsNumber">—</div>
+            <div style="display:flex;align-items:baseline;gap:4px;justify-content:center">
+              <span style="font-size:14px;color:#8A96A8">out of 10</span>
+            </div>
+          </div>
+        </div>
+        <div class="nps-badge">Promoter</div>
+        <div class="nps-zones" style="margin-top:12px">
+          <div class="nps-zone"><div class="nps-zone-dot" style="background:#EF4444"></div>Detractor</div>
+          <div class="nps-zone"><div class="nps-zone-dot" style="background:#F59E0B"></div>Passive</div>
+          <div class="nps-zone"><div class="nps-zone-dot" style="background:#22C55E"></div>Promoter</div>
+        </div>
+      </div>
+
+      <div class="score-tiles">
+        <div class="score-tile">
+          <div class="score-tile-header">
+            <div class="score-tile-icon">🍜</div>
+            <div class="score-tile-tag">10 / 10</div>
+          </div>
+          <div class="score-tile-lbl">Jade Room — Dining</div>
+          <div class="score-tile-val" style="font-size:28px;margin-bottom:0">"Atmosphere was very nice"</div>
+          <div class="score-tile-note">Music level flagged for F&B team</div>
+          <div class="score-bar-track"><div class="score-bar-fill" data-width="100"></div></div>
+        </div>
+        <div class="score-tile">
+          <div class="score-tile-header">
+            <div class="score-tile-icon">💬</div>
+            <div class="score-tile-tag">10 / 10</div>
+          </div>
+          <div class="score-tile-lbl">AI Booking Experience</div>
+          <div class="score-tile-val" style="font-size:28px;margin-bottom:0">"Really easy via the chatbot"</div>
+          <div class="score-tile-note">Confirmed digital-first preference</div>
+          <div class="score-bar-track"><div class="score-bar-fill" data-width="100"></div></div>
+        </div>
+        <div class="score-tile">
+          <div class="score-tile-header">
+            <div class="score-tile-icon">🔇</div>
+            <div class="score-tile-tag">10 / 10</div>
+          </div>
+          <div class="score-tile-lbl">Noise Issue Handling</div>
+          <div class="score-tile-val" style="font-size:28px;margin-bottom:0">"Fully satisfied with resolution"</div>
+          <div class="score-tile-note">Previous complaint closed positively</div>
+          <div class="score-bar-track"><div class="score-bar-fill" data-width="100"></div></div>
+        </div>
+        <div class="score-tile">
+          <div class="score-tile-header">
+            <div class="score-tile-icon">🏨</div>
+            <div class="score-tile-tag">Mixed</div>
+          </div>
+          <div class="score-tile-lbl">Check-in Experience</div>
+          <div class="score-tile-val" style="font-size:28px;margin-bottom:0">"Took a bit long to check in"</div>
+          <div class="score-tile-note">Reception staffing flagged for ops</div>
+          <div class="score-bar-track"><div class="score-bar-fill" data-width="65" style="background:linear-gradient(90deg,#B45309,#F59E0B)"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ INSIGHTS ═══════════════════════════════════════════════ -->
+<section class="insights-section">
+  <div class="wrap">
+    <div class="insights-head">
+      <p class="eyebrow">What Ada learned</p>
+      <h2>Three insights. Extracted automatically.</h2>
+      <p>Open-text responses aren't just stored — Ada's AI processes them into structured signals that route to the right teams and attach to the guest record.</p>
+    </div>
+    <div class="insights-grid">
+      <div class="insight-card ic-note">
+        <div class="insight-icon">🎵</div>
+        <div class="insight-type">Dining Insight</div>
+        <div class="insight-title">Jade Room music level affects guest conversation</div>
+        <div class="insight-quote">"The music was maybe a bit too loud. It was quite hard to chat to my colleagues."</div>
+        <div class="insight-action">Routed to F&B Manager — The Jade Room</div>
+      </div>
+      <div class="insight-card ic-flag">
+        <div class="insight-icon">⏱</div>
+        <div class="insight-type">Operations Insight</div>
+        <div class="insight-title">Check-in queue time exceeds guest expectation</div>
+        <div class="insight-quote">"I think I just need more people on reception — it took a bit long to check in."</div>
+        <div class="insight-action">Flagged to Front Office for peak staffing review</div>
+      </div>
+      <div class="insight-card ic-star">
+        <div class="insight-icon">✨</div>
+        <div class="insight-type">Loyalty Signal</div>
+        <div class="insight-title">High-intent promoter — strong return likelihood</div>
+        <div class="insight-quote">"It's a fabulous hotel. It's a great location." — NPS 9, four categories rated 10.</div>
+        <div class="insight-action">Tagged as priority returning guest for next booking</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ JOURNEY LOOP ═══════════════════════════════════════════ -->
+<section class="loop-section">
+  <div class="wrap">
+    <div class="loop-head">
+      <p class="eyebrow">Closing the loop</p>
+      <h2>Feedback doesn't end the journey — it starts the next one.</h2>
+      <p>Everything Anna shared is stored to her guest profile. The moment she books her next stay, Ada already knows her preferences, her complaint history, and what delighted her. The welcome is personal before she even arrives.</p>
+    </div>
+
+    <div class="journey-timeline">
+      <div class="journey-node">
+        <div class="journey-icon-wrap">📞</div>
+        <div>
+          <div class="journey-step-lbl">Step 01</div>
+          <div class="journey-step-title">Outbound survey call</div>
+          <div class="journey-step-sub">24 hrs post-checkout</div>
+        </div>
+      </div>
+      <div class="journey-node">
+        <div class="journey-icon-wrap">🧠</div>
+        <div>
+          <div class="journey-step-lbl">Step 02</div>
+          <div class="journey-step-title">AI extracts insights</div>
+          <div class="journey-step-sub">Scores, sentiment, signals</div>
+        </div>
+      </div>
+      <div class="journey-node">
+        <div class="journey-icon-wrap active">👤</div>
+        <div>
+          <div class="journey-step-lbl">Step 03 — Now</div>
+          <div class="journey-step-title">Guest profile updated</div>
+          <div class="journey-step-sub">5 new data points stored</div>
+        </div>
+      </div>
+      <div class="journey-node">
+        <div class="journey-icon-wrap">🗓</div>
+        <div>
+          <div class="journey-step-lbl">Step 04</div>
+          <div class="journey-step-title">Anna books her next stay</div>
+          <div class="journey-step-sub">Ada recognises her immediately</div>
+        </div>
+      </div>
+      <div class="journey-node">
+        <div class="journey-icon-wrap">✦</div>
+        <div>
+          <div class="journey-step-lbl">Step 05</div>
+          <div class="journey-step-title">Personalised welcome</div>
+          <div class="journey-step-sub">Informed by this survey</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="context-forward">
+      <div class="cf-icon">🧳</div>
+      <div class="cf-content">
+        <div class="cf-title">Context that travels forward to Anna's next stay</div>
+        <div class="cf-lead">When Anna next visits Ada Hotel Mayfair, Connie already knows what matters to her — and the welcome reflects it before she even unpacks.</div>
+        <div class="cf-tags">
+          <div class="cf-tag green">Quiet upper-floor room preferred</div>
+          <div class="cf-tag green">Jade Room dining — repeat reservation likely</div>
+          <div class="cf-tag green">AI booking — digital-first, no phone needed</div>
+          <div class="cf-tag gold">Check-in: offer fast-track if available</div>
+          <div class="cf-tag gold">Music sensitivity — note for dining team</div>
+          <div class="cf-tag navy">NPS 9 — Promoter — acknowledge loyalty</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STAY SUMMARY ═══════════════════════════════════════════ -->
+<section class="stay-section">
+  <div class="wrap">
+    <p class="eyebrow">Stay on record</p>
+    <h2>Ada Hotel Mayfair · September 2026</h2>
+    <div class="stay-card">
+      <div class="stay-card-head">
+        <h3>Booking AH-291847</h3>
+        <span>Checked out Saturday, 13 September 2026</span>
+      </div>
+      <div class="stay-card-body">
+        <div class="stay-grid">
+          <div class="stay-item">
+            <div class="stay-lbl">Property</div>
+            <div class="stay-val">Ada Hotel Mayfair</div>
+            <div class="stay-sub">London, United Kingdom</div>
+          </div>
+          <div class="stay-item">
+            <div class="stay-lbl">Room</div>
+            <div class="stay-val">Deluxe King · 412</div>
+            <div class="stay-sub">Quiet corner, upper floor</div>
+          </div>
+          <div class="stay-item">
+            <div class="stay-lbl">Duration</div>
+            <div class="stay-val">4 nights</div>
+            <div class="stay-sub">9 – 13 September</div>
+          </div>
+          <div class="stay-item">
+            <div class="stay-lbl">Highlights</div>
+            <div class="stay-val">Jade Room dinner</div>
+            <div class="stay-sub">Late checkout · noise resolved</div>
+          </div>
+        </div>
+        <div class="loyalty-row">
+          <div class="loy-item">
+            <div class="loy-number">+480</div>
+            <div class="loy-lbl">Points earned</div>
+            <div class="loy-sub">This stay</div>
+          </div>
+          <div class="loy-item">
+            <div class="loy-number">3,840</div>
+            <div class="loy-lbl">Total balance</div>
+            <div class="loy-sub">Ada Rewards</div>
+          </div>
+          <div class="loy-item">
+            <div class="loy-number">Gold</div>
+            <div class="loy-lbl">Status</div>
+            <div class="loy-sub">Maintained · 1,160 pts to Platinum</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ════════════════════════════════════════════════════ -->
+<section class="final-cta">
+  <div class="wrap">
+    <div class="final-cta-inner">
+      <p class="eyebrow">Five guest moments. One agent.</p>
+      <h2>The journey begins again.</h2>
+      <p>From the first booking search to the post-stay survey call — Ada travels with your guests through every moment of the experience.</p>
+      <div class="final-cta-btns">
+        <a class="btn-gold" href="index.html">Plan Anna's next stay</a>
+        <a class="btn-outline-white" href="index.html">Restart the demo</a>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- Footer -->
 <footer class="site-footer">
@@ -430,15 +952,13 @@ const HOTEL_CONFIG = {
       </div>
       <div class="footer-col">
         <span class="footer-head">Guest Journey</span>
-        <a href="pre-arrival.html">Pre-Arrival</a>
-        <a href="voice.html">Voice Call</a>
-        <a href="email.html">Email</a>
-        <a href="inroom.html">In-Room</a>
+        <a href="pre-stay.html">Pre-Stay</a>
+        <a href="in-stay.html">In-Stay</a>
         <a href="post-stay.html">Post-Stay</a>
       </div>
       <div class="footer-col">
         <span class="footer-head">Experiences</span>
-        <a href="inroom.html">In-room concierge</a>
+        <a href="in-stay.html">In-room concierge</a>
         <a href="index.html">Dining</a>
         <a href="index.html">Spa &amp; wellness</a>
       </div>
@@ -457,22 +977,371 @@ const HOTEL_CONFIG = {
 </footer>
 
 <script>
-let currentRating = 5;
+/* ──────────────────────────────────────────────────────────
+   TRANSCRIPT DATA
+   Times in seconds, taken from conversation segment data
+─────────────────────────────────────────────────────────── */
+const TRANSCRIPT = [
+  { time: 1.7, speaker: 'ada', text: "Hi Anna, this is Connie from Ada Hotels. Thank you for your recent stay at Ada Hotel Mayfair. As a valued guest, your feedback is very important to us. Do you have two minutes to answer a few questions about your stay?" },
+  { time: 17.6, speaker: 'anna', text: "Uh, yeah. Sure." },
+  { time: 22.4, speaker: 'ada', text: "Great, thank you. Let's begin the survey." },
+  { time: 25.4, speaker: 'ada', text: "On a scale from zero to ten, how likely are you to recommend Ada Hotel Mayfair to a friend or colleague? Zero means not at all likely, ten means extremely likely." },
+  { time: 38.6, speaker: 'anna', text: "Nine.", capture: { type: 'green', label: 'NPS Score', value: '9 / 10', note: 'Promoter zone' } },
+  { time: 47.3, speaker: 'ada', text: "How would you rate your dining experience at The Jade Room, from zero to ten?" },
+  { time: 54.8, speaker: 'anna', text: "Ten.", capture: { type: 'green', label: 'Jade Room Dining', value: '10 / 10', note: 'Perfect score' } },
+  { time: 66.2, speaker: 'ada', text: "Thank you. Is there anything specific about The Jade Room you would like to highlight — what you loved, or anything we could improve?" },
+  { time: 75.6, speaker: 'anna', text: "I thought it's great. The atmosphere was very nice. The music was maybe a bit too loud — it was quite hard to chat to my colleagues.", capture: { type: 'gold', label: 'Dining insight', value: 'Music level flagged', note: '"Hard to chat to colleagues"' } },
+  { time: 93.4, speaker: 'ada', text: "Thank you for sharing that. How straightforward was it to book your table and arrange your stay? Rate it zero to ten." },
+  { time: 105.8, speaker: 'anna', text: "Yeah. I used the AI chatbot and found it really easy." },
+  { time: 114.9, speaker: 'anna', text: "So a ten.", capture: { type: 'green', label: 'Booking Experience', value: '10 / 10', note: '"Really easy via chatbot"' } },
+  { time: 137.8, speaker: 'ada', text: "Thank you. We also appreciate you raising the noise disruption during your previous stay. I'm pleased our team worked to resolve it, and we're grateful you brought it to our attention." },
+  { time: 146.9, speaker: 'ada', text: "How would you rate how well we handled the noise issue — from zero to ten?" },
+  { time: 158.1, speaker: 'anna', text: "Um, ten.", capture: { type: 'green', label: 'Noise Resolution', value: '10 / 10', note: 'Complaint closed positively' } },
+  { time: 169.8, speaker: 'ada', text: "Before we finish, is there anything else you particularly enjoyed about your stay, or anything we could do differently next time?" },
+  { time: 178.6, speaker: 'anna', text: "No. It's a fabulous hotel, it's a great location. I think I just need more people on reception — it took a bit long to check in when I arrived.", capture: { type: 'gold', label: 'Ops insight', value: 'Check-in queue', note: '"Took a bit long to check in"' } },
+  { time: 196.2, speaker: 'ada', text: "Thank you very much for your time and thoughtful feedback. Our team will review your comments, and we would be delighted to welcome you back to Ada Hotel Mayfair soon." },
+];
 
-function rateStar(n) {
-  currentRating = n;
-  document.querySelectorAll('.star-btn').forEach(function(s, i) {
-    s.classList.toggle('lit', i < n);
-  });
-  document.getElementById('starSubmitted').style.display = 'block';
+const TOTAL_DURATION = 204;
+
+/* ──────────────────────────────────────────────────────────
+   BUILD TRANSCRIPT DOM
+─────────────────────────────────────────────────────────── */
+function fmtTime(s) {
+  const m = Math.floor(s / 60), sec = Math.floor(s % 60);
+  return m + ':' + String(sec).padStart(2,'0');
 }
 
-function sendPrompt(text) {
-  if (window.adaEmbed && adaEmbed.toggle) {
-    adaEmbed.toggle();
+const scrollEl = document.getElementById('transcriptScroll');
+const capturesEl = document.getElementById('capturesPanel');
+const msgEls = [], captureEls = [];
+
+TRANSCRIPT.forEach((item, i) => {
+  const div = document.createElement('div');
+  div.className = 't-msg ' + (item.speaker === 'ada' ? 't-ada' : 't-anna');
+  div.innerHTML = `
+    <div class="t-avatar">${item.speaker === 'ada' ? 'AI' : 'AC'}</div>
+    <div class="t-content">
+      <div class="t-meta">${item.speaker === 'ada' ? 'Connie · Ada Hotels' : 'Anna Chambers'} &nbsp;·&nbsp; ${fmtTime(item.time)}</div>
+      <div class="t-bubble">${item.text}</div>
+    </div>`;
+  scrollEl.appendChild(div);
+  msgEls.push(div);
+
+  if (item.capture) {
+    const c = item.capture;
+    const cd = document.createElement('div');
+    cd.className = 'capture-card c-' + c.type;
+    cd.innerHTML = `
+      <div class="capture-label">${c.label}</div>
+      <div class="capture-value">${c.value}</div>
+      <div class="capture-quote">${c.note}</div>`;
+    capturesEl.appendChild(cd);
+    captureEls.push({ el: cd, time: item.time });
+  } else {
+    captureEls.push(null);
+  }
+});
+
+/* ──────────────────────────────────────────────────────────
+   AUDIO + PROGRESS
+─────────────────────────────────────────────────────────── */
+const audio = document.getElementById('callAudio');
+const progressFill = document.getElementById('progressFill');
+const timeEl = document.getElementById('audioTime');
+const playBtn = document.getElementById('playBtn');
+const playIcon = document.getElementById('playIcon');
+
+const PLAY_SVG = '<path d="M3 2l12 6-12 6z"/>';
+const PAUSE_SVG = '<rect x="3" y="2" width="4" height="12"/><rect x="9" y="2" width="4" height="12"/>';
+
+let isPlaying = false;
+let currentTime = 0;
+let simulationTimer = null;
+let audioAvailable = false;
+
+audio.addEventListener('canplay', () => { audioAvailable = true; });
+audio.addEventListener('error', () => { audioAvailable = false; });
+
+function togglePlay() {
+  if (isPlaying) {
+    pauseAll();
+  } else {
+    startAll();
   }
 }
 
+function startAll() {
+  isPlaying = true;
+  playIcon.innerHTML = PAUSE_SVG;
+  if (audioAvailable) {
+    audio.play().catch(() => { audioAvailable = false; startSimulation(); });
+  } else {
+    startSimulation();
+  }
+}
+
+function pauseAll() {
+  isPlaying = false;
+  playIcon.innerHTML = PLAY_SVG;
+  audio.pause();
+  if (simulationTimer) { clearInterval(simulationTimer); simulationTimer = null; }
+}
+
+/* Simulation mode — drives the transcript without audio */
+function startSimulation() {
+  if (simulationTimer) clearInterval(simulationTimer);
+  simulationTimer = setInterval(() => {
+    if (!isPlaying) return;
+    currentTime = Math.min(currentTime + 0.25, TOTAL_DURATION);
+    updateUI(currentTime);
+    if (currentTime >= TOTAL_DURATION) { pauseAll(); currentTime = 0; }
+  }, 250);
+}
+
+audio.addEventListener('timeupdate', () => {
+  if (!audioAvailable) return;
+  currentTime = audio.currentTime;
+  updateUI(currentTime);
+});
+audio.addEventListener('ended', () => pauseAll());
+
+function updateUI(t) {
+  const pct = Math.min(100, (t / TOTAL_DURATION) * 100);
+  progressFill.style.width = pct + '%';
+  timeEl.textContent = fmtTime(t) + ' / ' + fmtTime(TOTAL_DURATION);
+
+  TRANSCRIPT.forEach((item, i) => {
+    if (t >= item.time && !msgEls[i].classList.contains('visible')) {
+      msgEls[i].classList.add('visible');
+      scrollEl.scrollTop = msgEls[i].offsetTop - 100;
+    }
+    if (t < item.time && msgEls[i].classList.contains('visible')) {
+      msgEls[i].classList.remove('visible');
+    }
+  });
+
+  captureEls.forEach(ce => {
+    if (!ce) return;
+    if (t >= ce.time && !ce.el.classList.contains('visible')) ce.el.classList.add('visible');
+    if (t < ce.time && ce.el.classList.contains('visible')) ce.el.classList.remove('visible');
+  });
+
+  drawWaveform(t);
+  updateHeroTimer(t);
+}
+
+function seekAudio(e) {
+  const rect = document.getElementById('progressTrack').getBoundingClientRect();
+  const pct = (e.clientX - rect.left) / rect.width;
+  currentTime = pct * TOTAL_DURATION;
+  if (audioAvailable) audio.currentTime = currentTime;
+  updateUI(currentTime);
+}
+
+function seekFromWaveform(e) {
+  const rect = document.getElementById('waveformCanvas').getBoundingClientRect();
+  const pct = (e.clientX - rect.left) / rect.width;
+  currentTime = pct * TOTAL_DURATION;
+  if (audioAvailable) audio.currentTime = currentTime;
+  updateUI(currentTime);
+}
+
+/* ──────────────────────────────────────────────────────────
+   WAVEFORM CANVAS
+─────────────────────────────────────────────────────────── */
+const wfCanvas = document.getElementById('waveformCanvas');
+const wfCtx = wfCanvas.getContext('2d');
+
+/* Pseudo-random but deterministic waveform */
+function seededRand(i) {
+  const x = Math.sin(i * 127.1 + 311.7) * 43758.5453;
+  return x - Math.floor(x);
+}
+
+function drawWaveform(playheadTime) {
+  const dpr = window.devicePixelRatio || 1;
+  const W = wfCanvas.offsetWidth, H = wfCanvas.offsetHeight;
+  if (wfCanvas.width !== W * dpr || wfCanvas.height !== H * dpr) {
+    wfCanvas.width = W * dpr; wfCanvas.height = H * dpr;
+    wfCtx.scale(dpr, dpr);
+  }
+
+  wfCtx.clearRect(0, 0, W, H);
+
+  const barCount = Math.floor(W / 4);
+  const barW = 2, gap = 2;
+
+  for (let i = 0; i < barCount; i++) {
+    const progress = i / barCount;
+    const t = progress * TOTAL_DURATION;
+    const h = (0.3 + seededRand(i) * 0.7) * (H * 0.85);
+    const x = i * (barW + gap);
+    const y = (H - h) / 2;
+
+    const played = t <= playheadTime;
+    if (played) {
+      wfCtx.fillStyle = '#C9A84C';
+    } else {
+      wfCtx.fillStyle = 'rgba(255,255,255,0.15)';
+    }
+    wfCtx.beginPath();
+    wfCtx.roundRect(x, y, barW, h, 1);
+    wfCtx.fill();
+  }
+
+  /* Playhead line */
+  const px = (playheadTime / TOTAL_DURATION) * W;
+  wfCtx.fillStyle = '#fff';
+  wfCtx.fillRect(px - 1, 0, 2, H);
+}
+
+/* Initial draw */
+drawWaveform(0);
+window.addEventListener('resize', () => drawWaveform(currentTime));
+
+/* ──────────────────────────────────────────────────────────
+   HERO PHONE TIMER
+─────────────────────────────────────────────────────────── */
+const heroTimerEl = document.getElementById('heroTimer');
+function updateHeroTimer(t) {
+  heroTimerEl.textContent = fmtTime(t);
+}
+
+/* Hero waveform (small, idle animation) */
+(function() {
+  const c = document.getElementById('heroWave');
+  if (!c) return;
+  const ctx = c.getContext('2d');
+  let frame = 0;
+  function drawHero() {
+    c.width = c.offsetWidth * (window.devicePixelRatio || 1);
+    c.height = c.offsetHeight * (window.devicePixelRatio || 1);
+    ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+    const W = c.offsetWidth, H = c.offsetHeight;
+    ctx.clearRect(0, 0, W, H);
+    const bars = Math.floor(W / 5);
+    for (let i = 0; i < bars; i++) {
+      const h = (0.2 + Math.abs(Math.sin(i * 0.4 + frame * 0.04)) * 0.8) * H * 0.85;
+      ctx.fillStyle = 'rgba(201,168,76,0.6)';
+      ctx.beginPath();
+      ctx.roundRect(i * 5 + 1, (H - h) / 2, 3, h, 1);
+      ctx.fill();
+    }
+    frame++;
+    requestAnimationFrame(drawHero);
+  }
+  drawHero();
+})();
+
+/* ──────────────────────────────────────────────────────────
+   NPS ARC DIAL
+─────────────────────────────────────────────────────────── */
+function drawNPSArc(value) {
+  const canvas = document.getElementById('npsCanvas');
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = 280 * dpr; canvas.height = 156 * dpr;
+  ctx.scale(dpr, dpr);
+
+  const cx = 140, cy = 140, r = 110, strokeW = 12;
+  const startAngle = Math.PI, endAngle = 2 * Math.PI;
+
+  /* Background track */
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, startAngle, endAngle);
+  ctx.strokeStyle = '#E2DDD4';
+  ctx.lineWidth = strokeW;
+  ctx.lineCap = 'round';
+  ctx.stroke();
+
+  /* Coloured zones: detractor 0-6, passive 7-8, promoter 9-10 */
+  const zones = [
+    { from: 0, to: 0.6, color: '#FCA5A5' },
+    { from: 0.6, to: 0.8, color: '#FDE68A' },
+    { from: 0.8, to: 1.0, color: '#6EE7B7' },
+  ];
+  zones.forEach(z => {
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, Math.PI + z.from * Math.PI, Math.PI + z.to * Math.PI);
+    ctx.strokeStyle = z.color;
+    ctx.lineWidth = strokeW;
+    ctx.lineCap = 'butt';
+    ctx.stroke();
+  });
+
+  /* Value fill */
+  const fillPct = value / 10;
+  const fillEnd = Math.PI + fillPct * Math.PI;
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, Math.PI, fillEnd);
+  ctx.strokeStyle = value >= 9 ? '#22C55E' : value >= 7 ? '#F59E0B' : '#EF4444';
+  ctx.lineWidth = strokeW + 2;
+  ctx.lineCap = 'round';
+  ctx.stroke();
+
+  /* Needle */
+  const needleAngle = Math.PI + fillPct * Math.PI;
+  const nx = cx + (r) * Math.cos(needleAngle);
+  const ny = cy + (r) * Math.sin(needleAngle);
+  ctx.beginPath();
+  ctx.arc(nx, ny, 7, 0, Math.PI * 2);
+  ctx.fillStyle = '#fff';
+  ctx.fill();
+  ctx.strokeStyle = '#22C55E';
+  ctx.lineWidth = 3;
+  ctx.stroke();
+
+  /* Zone labels */
+  ctx.font = '11px Inter, system-ui, sans-serif';
+  ctx.fillStyle = '#8A96A8';
+  ctx.textAlign = 'center';
+  ctx.fillText('0', cx - r - 8, cy + 4);
+  ctx.fillText('10', cx + r + 12, cy + 4);
+}
+
+/* Animate NPS counter */
+function animateNPS() {
+  const el = document.getElementById('npsNumber');
+  let v = 0;
+  const target = 9;
+  const step = () => {
+    v = Math.min(v + 0.15, target);
+    el.textContent = v.toFixed(1).replace('.0','');
+    drawNPSArc(v);
+    if (v < target) requestAnimationFrame(step);
+    else { el.textContent = target; drawNPSArc(target); }
+  };
+  step();
+}
+
+/* Score bar animations */
+function animateScoreBars() {
+  document.querySelectorAll('.score-bar-fill').forEach(el => {
+    const w = el.getAttribute('data-width');
+    el.style.width = w + '%';
+  });
+}
+
+/* Intersection observer to trigger animations */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      if (e.target.id === 'npsCanvas') animateNPS();
+      if (e.target.classList.contains('score-tiles')) animateScoreBars();
+    }
+  });
+}, { threshold: 0.3 });
+
+observer.observe(document.getElementById('npsCanvas'));
+observer.observe(document.querySelector('.score-tiles'));
+
+/* Draw initial state */
+drawNPSArc(0);
+
+/* ──────────────────────────────────────────────────────────
+   ADA CHAT WIDGET
+─────────────────────────────────────────────────────────── */
 window.adaSettings = {
   handle: HOTEL_CONFIG.botHandle,
   metaFields: {
