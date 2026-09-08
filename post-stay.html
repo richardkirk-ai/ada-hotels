@@ -682,7 +682,7 @@ const HOTEL_CONFIG = {
       </div>
     </div>
 
-    <audio id="callAudio" src="../Ada Hotels Feedback Survey Call Transcript.wav" preload="metadata"></audio>
+    <audio id="callAudio" src="survey-call.wav" preload="metadata"></audio>
   </div>
 </section>
 
@@ -1114,7 +1114,9 @@ function updateUI(t) {
   TRANSCRIPT.forEach((item, i) => {
     if (t >= item.time && !msgEls[i].classList.contains('visible')) {
       msgEls[i].classList.add('visible');
-      scrollEl.scrollTop = msgEls[i].offsetTop - 100;
+      const msgRect = msgEls[i].getBoundingClientRect();
+      const containerRect = scrollEl.getBoundingClientRect();
+      scrollEl.scrollTop += msgRect.top - containerRect.top - 60;
     }
     if (t < item.time && msgEls[i].classList.contains('visible')) {
       msgEls[i].classList.remove('visible');
