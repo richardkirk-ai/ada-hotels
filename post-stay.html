@@ -601,7 +601,7 @@ const HOTEL_CONFIG = {
       <p>Within 24 hours of checkout, Ada places a personalised outbound call to Anna — shaped by everything that happened during her stay. The answers don't disappear into a spreadsheet. They travel forward into her next visit.</p>
       <div class="ps-hero-stats">
         <div class="ps-hero-stat">
-          <div class="ps-hero-stat-val">3<span>min</span></div>
+          <div class="ps-hero-stat-val">2<span>min</span></div>
           <div class="ps-hero-stat-lbl">Call duration</div>
         </div>
         <div class="ps-hero-stat">
@@ -982,27 +982,27 @@ const HOTEL_CONFIG = {
    Times in seconds, taken from conversation segment data
 ─────────────────────────────────────────────────────────── */
 const TRANSCRIPT = [
-  { time: 1.7, speaker: 'ada', text: "Hi Anna, this is Connie from Ada Hotels. Thank you for your recent stay at Ada Hotel Mayfair. As a valued guest, your feedback is very important to us. Do you have two minutes to answer a few questions about your stay?" },
-  { time: 17.6, speaker: 'anna', text: "Uh, yeah. Sure." },
-  { time: 22.4, speaker: 'ada', text: "Great, thank you. Let's begin the survey." },
-  { time: 25.4, speaker: 'ada', text: "On a scale from zero to ten, how likely are you to recommend Ada Hotel Mayfair to a friend or colleague? Zero means not at all likely, ten means extremely likely." },
-  { time: 38.6, speaker: 'anna', text: "Nine.", capture: { type: 'green', label: 'NPS Score', value: '9 / 10', note: 'Promoter zone' } },
-  { time: 47.3, speaker: 'ada', text: "How would you rate your dining experience at The Jade Room, from zero to ten?" },
-  { time: 54.8, speaker: 'anna', text: "Ten.", capture: { type: 'green', label: 'Jade Room Dining', value: '10 / 10', note: 'Perfect score' } },
-  { time: 66.2, speaker: 'ada', text: "Thank you. Is there anything specific about The Jade Room you would like to highlight — what you loved, or anything we could improve?" },
-  { time: 75.6, speaker: 'anna', text: "I thought it's great. The atmosphere was very nice. The music was maybe a bit too loud — it was quite hard to chat to my colleagues.", capture: { type: 'gold', label: 'Dining insight', value: 'Music level flagged', note: '"Hard to chat to colleagues"' } },
-  { time: 93.4, speaker: 'ada', text: "Thank you for sharing that. How straightforward was it to book your table and arrange your stay? Rate it zero to ten." },
-  { time: 105.8, speaker: 'anna', text: "Yeah. I used the AI chatbot and found it really easy." },
-  { time: 114.9, speaker: 'anna', text: "So a ten.", capture: { type: 'green', label: 'Booking Experience', value: '10 / 10', note: '"Really easy via chatbot"' } },
-  { time: 137.8, speaker: 'ada', text: "Thank you. We also appreciate you raising the noise disruption during your previous stay. I'm pleased our team worked to resolve it, and we're grateful you brought it to our attention." },
-  { time: 146.9, speaker: 'ada', text: "How would you rate how well we handled the noise issue — from zero to ten?" },
-  { time: 158.1, speaker: 'anna', text: "Um, ten.", capture: { type: 'green', label: 'Noise Resolution', value: '10 / 10', note: 'Complaint closed positively' } },
-  { time: 169.8, speaker: 'ada', text: "Before we finish, is there anything else you particularly enjoyed about your stay, or anything we could do differently next time?" },
-  { time: 178.6, speaker: 'anna', text: "No. It's a fabulous hotel, it's a great location. I think I just need more people on reception — it took a bit long to check in when I arrived.", capture: { type: 'gold', label: 'Ops insight', value: 'Check-in queue', note: '"Took a bit long to check in"' } },
-  { time: 196.2, speaker: 'ada', text: "Thank you very much for your time and thoughtful feedback. Our team will review your comments, and we would be delighted to welcome you back to Ada Hotel Mayfair soon." },
+  { time: 0.5,  speaker: 'ada',  text: "Hi Anna, this is Connie from Ada Hotels. Thank you for your recent stay at Ada Hotel Mayfair. As a valued guest, your feedback is very important to us. Do you have two minutes to answer a few questions about your stay?" },
+  { time: 15.3, speaker: 'anna', text: "Uh, yeah. Sure." },
+  { time: 17.0, speaker: 'ada',  text: "Great, thank you. Let's begin the survey." },
+  { time: 19.4, speaker: 'ada',  text: "On a scale from zero to ten, how likely are you to recommend Ada Hotel Mayfair to a friend or colleague? Zero means not at all likely, ten means extremely likely." },
+  { time: 31.2, speaker: 'anna', text: "Nine.", capture: { type: 'green', label: 'NPS Score', value: '9 / 10', note: 'Promoter zone' } },
+  { time: 32.4, speaker: 'ada',  text: "How would you rate your dining experience at The Jade Room, from zero to ten?" },
+  { time: 37.4, speaker: 'anna', text: "Ten.", capture: { type: 'green', label: 'Jade Room Dining', value: '10 / 10', note: 'Perfect score' } },
+  { time: 38.6, speaker: 'ada',  text: "Thank you. Is there anything specific about The Jade Room you would like to highlight — what you loved, or anything we could improve?" },
+  { time: 46.0, speaker: 'anna', text: "I thought it's great. The atmosphere was very nice. The music was maybe a bit too loud — it was quite hard to chat to my colleagues.", capture: { type: 'gold', label: 'Dining insight', value: 'Music level flagged', note: '"Hard to chat to colleagues"' } },
+  { time: 56.3, speaker: 'ada',  text: "Thank you for sharing that. How straightforward was it to book your table and arrange your stay? Rate it zero to ten." },
+  { time: 67.4, speaker: 'anna', text: "Yeah. I used the AI chatbot and found it really easy." },
+  { time: 74.0, speaker: 'anna', text: "So a ten.", capture: { type: 'green', label: 'Booking Experience', value: '10 / 10', note: '"Really easy via chatbot"' } },
+  { time: 82.2, speaker: 'ada',  text: "Thank you. We also appreciate you raising the noise disruption during your previous stay. I'm pleased our team worked to resolve it, and we're grateful you brought it to our attention." },
+  { time: 91.1, speaker: 'ada',  text: "How would you rate how well we handled the noise issue — from zero to ten?" },
+  { time: 101.3, speaker: 'anna', text: "Um, ten.", capture: { type: 'green', label: 'Noise Resolution', value: '10 / 10', note: 'Complaint closed positively' } },
+  { time: 102.9, speaker: 'ada',  text: "Before we finish, is there anything else you particularly enjoyed about your stay, or anything we could do differently next time?" },
+  { time: 110.2, speaker: 'anna', text: "No. It's a fabulous hotel, it's a great location. I think I just need more people on reception — it took a bit long to check in when I arrived.", capture: { type: 'gold', label: 'Ops insight', value: 'Check-in queue', note: '"Took a bit long to check in"' } },
+  { time: 122.6, speaker: 'ada',  text: "Thank you very much for your time and thoughtful feedback. Our team will review your comments, and we would be delighted to welcome you back to Ada Hotel Mayfair soon." },
 ];
 
-const TOTAL_DURATION = 204;
+const TOTAL_DURATION = 131;
 
 /* ──────────────────────────────────────────────────────────
    BUILD TRANSCRIPT DOM
