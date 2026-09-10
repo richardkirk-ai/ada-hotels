@@ -1,0 +1,884 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jade Room Booking Call</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap">
+<style>
+/* ── Tokens ── */
+:root {
+  --bg:        #F4F6F4;
+  --surface:   #FFFFFF;
+  --card:      #EEF2EE;
+  --border:    #D5DDD6;
+  --ink:       #1A2A1C;
+  --muted:     #5A7060;
+  --accent:    #2D6E3A;
+  --accent-lt: #EAF3EB;
+  --gold:      #8A5E10;
+  --gold-lt:   #FDF4E3;
+  --ada:       #1A2A1C;
+  --ada-lt:    #EEF2EE;
+  --guest:     #2D5A3A;
+  --guest-lt:  #E8F4EC;
+  --waveform:  #C4D5C6;
+  --progress:  #2D6E3A;
+  --shadow:    0 2px 12px rgba(0,0,0,.07);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,.10);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:        #0B1510;
+    --surface:   #121E15;
+    --card:      #182418;
+    --border:    #253525;
+    --ink:       #DDE8DF;
+    --muted:     #7A9E80;
+    --accent:    #6DBF75;
+    --accent-lt: #162219;
+    --gold:      #C9A84C;
+    --gold-lt:   #1C1A0E;
+    --ada:       #DDE8DF;
+    --ada-lt:    #162219;
+    --guest:     #A8D4AF;
+    --guest-lt:  #0E1C11;
+    --waveform:  #2A3D2C;
+    --progress:  #6DBF75;
+    --shadow:    0 2px 12px rgba(0,0,0,.4);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,.5);
+  }
+}
+:root[data-theme="dark"] {
+  --bg:        #0B1510;
+  --surface:   #121E15;
+  --card:      #182418;
+  --border:    #253525;
+  --ink:       #DDE8DF;
+  --muted:     #7A9E80;
+  --accent:    #6DBF75;
+  --accent-lt: #162219;
+  --gold:      #C9A84C;
+  --gold-lt:   #1C1A0E;
+  --ada:       #DDE8DF;
+  --ada-lt:    #162219;
+  --guest:     #A8D4AF;
+  --guest-lt:  #0E1C11;
+  --waveform:  #2A3D2C;
+  --progress:  #6DBF75;
+  --shadow:    0 2px 12px rgba(0,0,0,.4);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,.5);
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── Layout ── */
+.page { max-width: 1100px; margin: 0 auto; padding: 32px 24px 64px; }
+
+/* ── Header ── */
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.header-left { display: flex; flex-direction: column; gap: 4px; }
+.eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.page-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 700;
+  color: var(--ink);
+  text-wrap: balance;
+  line-height: 1.2;
+}
+.page-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent-lt);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.badge::before {
+  content: '';
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: .5; transform: scale(.85); }
+}
+
+/* ── Player card ── */
+.player-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px 32px;
+  margin-bottom: 28px;
+  box-shadow: var(--shadow);
+}
+.player-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.player-meta-left { display: flex; flex-direction: column; gap: 2px; }
+.call-label {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--ink);
+}
+.call-detail { font-size: 12px; color: var(--muted); }
+.score-badge {
+  background: var(--gold-lt);
+  color: var(--gold);
+  border: 1px solid currentColor;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Waveform + scrub */
+.waveform-wrap {
+  position: relative;
+  height: 54px;
+  cursor: pointer;
+  margin-bottom: 14px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.waveform-bars {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 100%;
+  padding: 0 2px;
+}
+.bar {
+  flex: 1;
+  border-radius: 2px;
+  background: var(--waveform);
+  transition: background .15s;
+  min-width: 2px;
+}
+.bar.played { background: var(--progress); }
+.scrub-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.play-btn {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform .15s, opacity .15s;
+}
+.play-btn:hover { transform: scale(1.07); opacity: .9; }
+.play-btn svg { fill: white; width: 18px; height: 18px; }
+.play-btn .pause-icon { display: none; }
+.play-btn.playing .play-icon  { display: none; }
+.play-btn.playing .pause-icon { display: block; }
+
+.time-display {
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  white-space: nowrap;
+  min-width: 88px;
+}
+
+.progress-bar-wrap {
+  flex: 1;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--progress);
+  border-radius: 2px;
+  width: 0%;
+  transition: width .3s linear;
+  pointer-events: none;
+}
+.progress-bar-wrap:hover .progress-fill { opacity: .85; }
+
+/* ── Main two-column ── */
+.main-cols {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 24px;
+  align-items: start;
+}
+@media (max-width: 760px) {
+  .main-cols { grid-template-columns: 1fr; }
+}
+
+/* ── Transcript ── */
+.transcript-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.transcript-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.transcript-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-weight: 600;
+}
+.transcript-scroll {
+  height: 520px;
+  overflow-y: auto;
+  padding: 20px;
+  scroll-behavior: smooth;
+}
+.transcript-scroll::-webkit-scrollbar { width: 4px; }
+.transcript-scroll::-webkit-scrollbar-track { background: transparent; }
+.transcript-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.msg {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 18px;
+  opacity: .35;
+  transition: opacity .4s;
+}
+.msg.active, .msg.past { opacity: 1; }
+.msg.active .bubble { box-shadow: 0 0 0 2px var(--accent); }
+
+.msg.ada { flex-direction: row; }
+.msg.guest { flex-direction: row-reverse; }
+
+.avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .03em;
+  margin-top: 2px;
+}
+.ada .avatar { background: var(--ada-lt); color: var(--ada); }
+.guest .avatar { background: var(--guest-lt); color: var(--guest); }
+
+.bubble {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+.ada .bubble {
+  background: var(--ada-lt);
+  color: var(--ink);
+  border-top-left-radius: 3px;
+}
+.guest .bubble {
+  background: var(--guest-lt);
+  color: var(--ink);
+  border-top-right-radius: 3px;
+}
+.speaker-name {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.msg.ada  .speaker-name { text-align: left; }
+.msg.guest .speaker-name { text-align: right; }
+
+/* ── Capture column ── */
+.capture-col { display: flex; flex-direction: column; gap: 16px; }
+
+.capture-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+.capture-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  color: var(--ink);
+}
+
+.tile {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  margin-bottom: 8px;
+  opacity: .3;
+  transition: opacity .5s, border-color .5s, background .5s;
+}
+.tile:last-child { margin-bottom: 0; }
+.tile.lit { opacity: 1; }
+
+.tile.green       { border-color: var(--accent); background: var(--accent-lt); }
+.tile.gold        { border-color: var(--gold);   background: var(--gold-lt); }
+
+.tile-icon {
+  width: 34px; height: 34px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+.green .tile-icon { background: var(--accent); }
+.gold  .tile-icon { background: var(--gold); }
+
+.tile-body { flex: 1; min-width: 0; }
+.tile-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+.tile-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tile-note {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* ── Booking summary ── */
+.booking-summary {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+  opacity: .3;
+  transition: opacity .5s;
+}
+.booking-summary.lit { opacity: 1; }
+.booking-summary h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.booking-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.booking-item { display: flex; flex-direction: column; gap: 2px; }
+.booking-item .lbl {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.booking-item .val {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* ── Footer note ── */
+.footer-note {
+  margin-top: 28px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+}
+.footer-note a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <span class="eyebrow">Ada Hotels · AI Voice Concierge</span>
+      <h1 class="page-title">Jade Room Booking Call</h1>
+      <p class="page-subtitle">Connie handles a restaurant enquiry and table reservation end-to-end</p>
+    </div>
+    <span class="badge">Call #4 · Best of 20</span>
+  </header>
+
+  <!-- Player -->
+  <div class="player-card">
+    <div class="player-meta">
+      <div class="player-meta-left">
+        <span class="call-label">Restaurant Information &amp; Table Booking</span>
+        <span class="call-detail">Wed 10 Sep 2026 · 2 min 3 sec · Simulated voice call</span>
+      </div>
+      <span class="score-badge">Score 163 / 163 ✓</span>
+    </div>
+
+    <!-- Waveform -->
+    <div class="waveform-wrap" id="waveformWrap">
+      <div class="waveform-bars" id="waveformBars"></div>
+      <div class="scrub-overlay" id="scrubOverlay"></div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <button class="play-btn" id="playBtn" aria-label="Play">
+        <svg class="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="pause-icon" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+      </button>
+      <div class="progress-bar-wrap" id="progressWrap">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <span class="time-display" id="timeDisplay">0:00 / 2:03</span>
+    </div>
+
+    <audio id="callAudio" src="booking-call.wav" preload="metadata"></audio>
+  </div>
+
+  <!-- Two-column -->
+  <div class="main-cols">
+
+    <!-- Transcript -->
+    <div class="transcript-card">
+      <div class="transcript-header">
+        <h2>Live Transcript</h2>
+        <span style="font-size:11px;color:var(--muted)">Scrolls with audio</span>
+      </div>
+      <div class="transcript-scroll" id="transcriptScroll">
+
+        <div class="msg ada" data-time="0.5" id="msg0">
+          <div class="avatar">C</div>
+          <div class="bubble">
+            <div class="speaker-name">Connie · Ada Hotels</div>
+            Good evening, this is Connie from Ada Hotels. Our three restaurants at Ada Hotel Mayfair are The Mayfair Brasserie — modern European cooking all day from seven; Milano — Italian, dinner only, with beautiful handmade pasta and wood-fired dishes; and The Jade Room — Pan-Asian, covering Thai, Japanese and Vietnamese cuisine for dinner, with a dim sum brunch on weekends. Would any of those appeal to you?
+          </div>
+        </div>
+
+        <div class="msg guest" data-time="26.0" id="msg1">
+          <div class="avatar">G</div>
+          <div class="bubble">
+            <div class="speaker-name">Guest</div>
+            Hi, I'd like to find out about your restaurants and maybe make a booking.
+          </div>
+        </div>
+
+        <div class="msg ada" data-time="33.5" id="msg2">
+          <div class="avatar">C</div>
+          <div class="bubble">
+            <div class="speaker-name">Connie · Ada Hotels</div>
+            Of course. Is there anything specific you'd like to know?
+          </div>
+        </div>
+
+        <div class="msg guest" data-time="38.5" id="msg3">
+          <div class="avatar">G</div>
+          <div class="bubble">
+            <div class="speaker-name">Guest</div>
+            Actually, before I decide — does The Jade Room do Vietnamese pho? It's my absolute favourite dish.
+          </div>
+        </div>
+
+        <div class="msg ada" data-time="46.0" id="msg4">
+          <div class="avatar">C</div>
+          <div class="bubble">
+            <div class="speaker-name">Connie · Ada Hotels</div>
+            Yes — and it's one of the specialties of the house. The pho at The Jade Room is a slow-cooked aromatic broth, served with rice noodles, fresh herbs, and your choice of beef, chicken, or tofu. Guests adore it — it's among the most requested dishes on the menu.
+          </div>
+        </div>
+
+        <div class="msg guest" data-time="62.0" id="msg5">
+          <div class="avatar">G</div>
+          <div class="bubble">
+            <div class="speaker-name">Guest</div>
+            Oh wonderful, that sounds amazing. Yes, I'd like to book The Jade Room please.
+          </div>
+        </div>
+
+        <div class="msg ada" data-time="69.5" id="msg6">
+          <div class="avatar">C</div>
+          <div class="bubble">
+            <div class="speaker-name">Connie · Ada Hotels</div>
+            Perfect choice. How many will be dining?
+          </div>
+        </div>
+
+        <div class="msg guest" data-time="73.5" id="msg7">
+          <div class="avatar">G</div>
+          <div class="bubble">
+            <div class="speaker-name">Guest</div>
+            Three people.
+          </div>
+        </div>
+
+        <div class="msg ada" data-time="75.5" id="msg8">
+          <div class="avatar">C</div>
+          <div class="bubble">
+            <div class="speaker-name">Connie · Ada Hotels</div>
+            Three guests. And what date did you have in mind?
+          </div>
+        </div>
+
+        <div class="msg guest" data-time="79.5" id="msg9">
+          <div class="avatar">G</div>
+          <div class="bubble">
+            <div class="speaker-name">Guest</div>
+            This Friday.
+          </div>
+        </div>
+
+        <div class="msg ada" data-time="81.5" id="msg10">
+          <div class="avatar">C</div>
+          <div class="bubble">
+            <div class="speaker-name">Connie · Ada Hotels</div>
+            Friday the twelfth of September. What time would you prefer?
+          </div>
+        </div>
+
+        <div class="msg guest" data-time="86.0" id="msg11">
+          <div class="avatar">G</div>
+          <div class="bubble">
+            <div class="speaker-name">Guest</div>
+            Eight o'clock in the evening.
+          </div>
+        </div>
+
+        <div class="msg ada" data-time="89.0" id="msg12">
+          <div class="avatar">C</div>
+          <div class="bubble">
+            <div class="speaker-name">Connie · Ada Hotels</div>
+            Just to confirm — a table for three at The Jade Room on Friday the twelfth of September at eight o'clock. Does that sound right?
+          </div>
+        </div>
+
+        <div class="msg guest" data-time="98.5" id="msg13">
+          <div class="avatar">G</div>
+          <div class="bubble">
+            <div class="speaker-name">Guest</div>
+            Yes, that's all correct.
+          </div>
+        </div>
+
+        <div class="msg ada" data-time="101.5" id="msg14">
+          <div class="avatar">C</div>
+          <div class="bubble">
+            <div class="speaker-name">Connie · Ada Hotels</div>
+            Lovely. Any dietary requirements for the reservation?
+          </div>
+        </div>
+
+        <div class="msg guest" data-time="105.5" id="msg15">
+          <div class="avatar">G</div>
+          <div class="bubble">
+            <div class="speaker-name">Guest</div>
+            No dietary requirements, thank you.
+          </div>
+        </div>
+
+        <div class="msg ada" data-time="109.0" id="msg16">
+          <div class="avatar">C</div>
+          <div class="bubble">
+            <div class="speaker-name">Connie · Ada Hotels</div>
+            All confirmed. The Jade Room is on the ground floor, to the right of the main lobby. We look forward to welcoming you this Friday — the pho is sure to be a highlight!
+          </div>
+        </div>
+
+      </div><!-- /transcript-scroll -->
+    </div><!-- /transcript-card -->
+
+    <!-- Capture column -->
+    <div class="capture-col">
+
+      <div class="capture-card">
+        <h3>Captured Details</h3>
+
+        <div class="tile gold" id="tile-pho" data-time="46.0">
+          <div class="tile-icon">🍜</div>
+          <div class="tile-body">
+            <div class="tile-label">Menu Enquiry</div>
+            <div class="tile-value">Vietnamese Pho</div>
+            <div class="tile-note">"My absolute favourite dish"</div>
+          </div>
+        </div>
+
+        <div class="tile green" id="tile-restaurant" data-time="62.0">
+          <div class="tile-icon">🏮</div>
+          <div class="tile-body">
+            <div class="tile-label">Restaurant Selected</div>
+            <div class="tile-value">The Jade Room</div>
+            <div class="tile-note">Pan-Asian · dinner only</div>
+          </div>
+        </div>
+
+        <div class="tile green" id="tile-party" data-time="73.5">
+          <div class="tile-icon">👥</div>
+          <div class="tile-body">
+            <div class="tile-label">Party Size</div>
+            <div class="tile-value">3 Guests</div>
+            <div class="tile-note">Captured as number ✓</div>
+          </div>
+        </div>
+
+        <div class="tile green" id="tile-date" data-time="81.5">
+          <div class="tile-icon">📅</div>
+          <div class="tile-body">
+            <div class="tile-label">Date</div>
+            <div class="tile-value">Fri 12 Sep 2026</div>
+            <div class="tile-note">"This Friday" → resolved ✓</div>
+          </div>
+        </div>
+
+        <div class="tile green" id="tile-time" data-time="86.0">
+          <div class="tile-icon">🕗</div>
+          <div class="tile-body">
+            <div class="tile-label">Time</div>
+            <div class="tile-value">8:00 PM</div>
+            <div class="tile-note">Within opening hours ✓</div>
+          </div>
+        </div>
+
+        <div class="tile green" id="tile-dietary" data-time="105.5">
+          <div class="tile-icon">✓</div>
+          <div class="tile-body">
+            <div class="tile-label">Dietary Requirements</div>
+            <div class="tile-value">None</div>
+            <div class="tile-note">Noted for kitchen</div>
+          </div>
+        </div>
+
+      </div><!-- /capture-card -->
+
+      <!-- Booking summary -->
+      <div class="booking-summary" id="bookingSummary" data-time="109.0">
+        <h3>
+          <span style="color:var(--accent)">✓</span>
+          Booking Confirmed
+        </h3>
+        <div class="booking-grid">
+          <div class="booking-item">
+            <span class="lbl">Restaurant</span>
+            <span class="val">The Jade Room</span>
+          </div>
+          <div class="booking-item">
+            <span class="lbl">Date</span>
+            <span class="val">Fri 12 Sep</span>
+          </div>
+          <div class="booking-item">
+            <span class="lbl">Time</span>
+            <span class="val">8:00 PM</span>
+          </div>
+          <div class="booking-item">
+            <span class="lbl">Party</span>
+            <span class="val">3 guests</span>
+          </div>
+          <div class="booking-item" style="grid-column:1/-1">
+            <span class="lbl">Location</span>
+            <span class="val" style="font-size:13px;font-weight:400">Ground floor · right of main lobby</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /capture-col -->
+  </div><!-- /main-cols -->
+
+  <p class="footer-note">
+    Powered by <strong>Ada Hotels AI</strong> · Voice concierge Connie ·
+    Simulated call — best of 20 runs ·
+    <a href="post-stay.html">View post-stay survey call →</a>
+  </p>
+
+</div><!-- /page -->
+
+<script>
+const audio    = document.getElementById('callAudio');
+const playBtn  = document.getElementById('playBtn');
+const progFill = document.getElementById('progressFill');
+const progWrap = document.getElementById('progressWrap');
+const timeDisp = document.getElementById('timeDisplay');
+const txScroll = document.getElementById('transcriptScroll');
+const DURATION = 123.1;
+
+// ── Waveform ──────────────────────────────────────────
+const BAR_COUNT = 90;
+const bars = document.getElementById('waveformBars');
+const barEls = [];
+// Pseudo-random heights based on a speech-like envelope
+const heights = Array.from({length: BAR_COUNT}, (_, i) => {
+  const x = i / BAR_COUNT;
+  const envelope = Math.sin(x * Math.PI) * 0.7 + 0.2;
+  return (Math.abs(Math.sin(i * 1.7 + 0.3)) * 0.6 + 0.35) * envelope;
+});
+heights.forEach((h, i) => {
+  const el = document.createElement('div');
+  el.className = 'bar';
+  el.style.height = Math.max(6, Math.round(h * 48)) + 'px';
+  bars.appendChild(el);
+  barEls.push(el);
+});
+
+function updateWaveform(frac) {
+  const played = Math.floor(frac * BAR_COUNT);
+  barEls.forEach((b, i) => b.classList.toggle('played', i < played));
+}
+
+// ── Scrub ──────────────────────────────────────────
+function seekTo(e) {
+  const rect = progWrap.getBoundingClientRect();
+  const frac = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+  audio.currentTime = frac * DURATION;
+}
+progWrap.addEventListener('click', seekTo);
+document.getElementById('scrubOverlay').addEventListener('click', e => {
+  const rect = document.getElementById('waveformBars').getBoundingClientRect();
+  const frac = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+  audio.currentTime = frac * DURATION;
+});
+
+// ── Play / Pause ──────────────────────────────────
+playBtn.addEventListener('click', () => {
+  if (audio.paused) { audio.play(); playBtn.classList.add('playing'); }
+  else              { audio.pause(); playBtn.classList.remove('playing'); }
+});
+audio.addEventListener('ended', () => playBtn.classList.remove('playing'));
+
+function fmt(s) {
+  const m = Math.floor(s / 60), ss = Math.floor(s % 60);
+  return `${m}:${String(ss).padStart(2,'0')}`;
+}
+
+// ── Transcript & tiles ────────────────────────────
+const msgEls    = Array.from(document.querySelectorAll('.msg'));
+const tileTimes = Array.from(document.querySelectorAll('[data-time]'))
+                       .filter(el => el.id !== '' && !el.classList.contains('msg'));
+const summaryEl = document.getElementById('bookingSummary');
+
+let lastMsgIdx = -1;
+
+audio.addEventListener('timeupdate', () => {
+  const t    = audio.currentTime;
+  const frac = t / DURATION;
+
+  progFill.style.width = (frac * 100) + '%';
+  updateWaveform(frac);
+  timeDisp.textContent = fmt(t) + ' / ' + fmt(DURATION);
+
+  // Activate transcript messages
+  let activeIdx = -1;
+  msgEls.forEach((el, i) => {
+    const mt = parseFloat(el.dataset.time);
+    if (t >= mt) { el.classList.add('past'); activeIdx = i; }
+    else           el.classList.remove('past');
+    el.classList.remove('active');
+  });
+  if (activeIdx >= 0) {
+    msgEls[activeIdx].classList.add('active');
+    if (activeIdx !== lastMsgIdx) {
+      lastMsgIdx = activeIdx;
+      // Scroll transcript
+      const el   = msgEls[activeIdx];
+      const elR  = el.getBoundingClientRect();
+      const conR = txScroll.getBoundingClientRect();
+      txScroll.scrollTop += elR.top - conR.top - 80;
+    }
+  }
+
+  // Light up tiles
+  tileTimes.forEach(el => {
+    const tt = parseFloat(el.dataset.time);
+    el.classList.toggle('lit', t >= tt);
+  });
+
+  // Booking summary
+  summaryEl.classList.toggle('lit', t >= 109.0);
+});
+
+// Preload waveform state on seek
+audio.addEventListener('seeked', () => {
+  updateWaveform(audio.currentTime / DURATION);
+});
+</script>
+</body>
+</html>
