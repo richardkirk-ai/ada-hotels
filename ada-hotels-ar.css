@@ -1,0 +1,77 @@
+/* ═══════════════════════════════════════════════════════════
+   Ada Hotels — Arabic / RTL overrides
+   Applied on top of ada-hotels.css for [dir="rtl"] pages.
+   Cairo is loaded by each Arabic page.
+   ═══════════════════════════════════════════════════════════ */
+
+[dir="rtl"] body {
+  font-family: 'Cairo', 'Inter', sans-serif;
+}
+
+/* ── Nav ──────────────────────────────────────────────────── */
+[dir="rtl"] .demo-nav-row {
+  flex-direction: row-reverse;
+}
+
+/* ── Hero stat accent bar: right side in RTL ─────────────── */
+[dir="rtl"] .hero-stat-row::before {
+  left: auto;
+  right: 0;
+}
+
+/* ── Journey connector gradient: mirror direction ─────────── */
+[dir="rtl"] .journey-track::before {
+  background: linear-gradient(270deg, #C9A84C, rgba(201,168,76,0.3));
+}
+
+/* ── Cap cell hover underline: mirror gradient ───────────── */
+[dir="rtl"] .cap-cell::after {
+  background: linear-gradient(270deg, #C9A84C, transparent);
+}
+
+/* ── Diff table: flip border sides ───────────────────────── */
+[dir="rtl"] .diff-row-num {
+  border-right: none;
+  border-left: 1px solid rgba(255,255,255,0.07);
+}
+[dir="rtl"] .diff-row-q {
+  border-right: none;
+  border-left: 1px solid rgba(255,255,255,0.07);
+}
+@media (max-width: 900px) {
+  [dir="rtl"] .diff-row-q {
+    border-left: none;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+}
+
+/* ── Loop diagram: arrows flip ───────────────────────────── */
+[dir="rtl"] .loop-arrow {
+  transform: scaleX(-1);
+}
+
+/* ── Language toggle button ──────────────────────────────── */
+.lang-toggle {
+  margin-left: auto;
+  display: flex; align-items: center;
+  padding: 0 4px;
+}
+[dir="rtl"] .lang-toggle {
+  margin-left: 0;
+  margin-right: auto;
+}
+.lang-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 14px;
+  background: rgba(201,168,76,0.12);
+  border: 1px solid rgba(201,168,76,0.35);
+  border-radius: 999px;
+  font-size: 12px; font-weight: 600; color: #C9A84C;
+  text-decoration: none; white-space: nowrap;
+  transition: background 150ms, border-color 150ms;
+  font-family: 'Cairo', 'Inter', sans-serif;
+}
+.lang-btn:hover {
+  background: rgba(201,168,76,0.2);
+  border-color: rgba(201,168,76,0.6);
+}

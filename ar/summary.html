@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>فنادق أدا — لماذا أدا</title>
+<link rel="stylesheet" href="../ada-hotels.css">
+<link rel="stylesheet" href="../ada-hotels-ar.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+<style>
+/* ── Demo nav ─────────────────────────────────────────────── */
+.demo-nav-bar {
+  background: #0D1F3C; border-bottom: 1px solid rgba(201,168,76,0.25);
+  position: sticky; top: 0; z-index: 200;
+}
+.demo-nav-row {
+  display: flex; align-items: center; flex-direction: row-reverse;
+  max-width: 1240px; margin: 0 auto; padding: 0 32px;
+  overflow-x: auto; scrollbar-width: none;
+}
+.demo-nav-row::-webkit-scrollbar { display: none; }
+.demo-nav-tab {
+  display: flex; align-items: center; gap: 6px; padding: 0 16px;
+  font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.55);
+  font-family: 'Cairo', sans-serif;
+  text-decoration: none; white-space: nowrap; line-height: 42px;
+  border-bottom: 2px solid transparent; transition: color 150ms, border-color 150ms;
+}
+.demo-nav-tab:hover { color: rgba(255,255,255,0.85); }
+.demo-nav-tab.active { color: #C9A84C; border-bottom-color: #C9A84C; font-weight: 700; }
+
+/* ── Shared ───────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Cairo', sans-serif; background: #0A0F1C; color: #fff; }
+.inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+.eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(201,168,76,0.8);
+}
+
+/* ══════════════════════════════════════════════════════════
+   HERO
+══════════════════════════════════════════════════════════ */
+.hero {
+  background: #070D1A;
+  padding: 96px 0 80px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 1100px 600px at 60% 50%, rgba(201,168,76,0.07) 0%, transparent 65%),
+    radial-gradient(ellipse 600px 400px at 10% 80%, rgba(147,197,253,0.04) 0%, transparent 55%),
+    repeating-linear-gradient(135deg, rgba(201,168,76,0.012) 0, rgba(201,168,76,0.012) 1px, transparent 1px, transparent 72px);
+}
+.hero-inner {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 420px 1fr; gap: 80px; align-items: center;
+}
+.hero-eyebrow { margin-bottom: 20px; }
+.hero h1 {
+  font-family: 'Cairo', sans-serif;
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin-bottom: 24px;
+}
+.hero h1 em { font-style: normal; color: #C9A84C; }
+.hero-sub {
+  font-size: 16px; color: rgba(255,255,255,0.6); max-width: 46ch; line-height: 1.9;
+  margin-bottom: 40px;
+}
+.hero-tags {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 7px 14px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 999px;
+  font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.7);
+}
+.hero-tag-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: #C9A84C; flex-shrink: 0;
+}
+
+.hero-stats {
+  display: flex; flex-direction: column; gap: 16px;
+}
+.hero-stat-row {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 12px;
+  padding: 22px 28px 22px 24px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-stat-row::before {
+  content: '';
+  position: absolute; right: 0; top: 0; bottom: 0; width: 3px;
+  background: #C9A84C;
+}
+.hero-stat-val {
+  font-family: 'Cairo', sans-serif;
+  font-size: 40px; font-weight: 800; color: #fff;
+  line-height: 1; margin-bottom: 4px;
+  font-variant-numeric: tabular-nums;
+  direction: ltr; text-align: right;
+}
+.hero-stat-val sup { font-size: 20px; color: #C9A84C; vertical-align: super; }
+.hero-stat-lbl { font-size: 13px; color: rgba(255,255,255,0.45); font-weight: 600; }
+
+/* ══════════════════════════════════════════════════════════
+   JOURNEY STRIP
+══════════════════════════════════════════════════════════ */
+.journey {
+  background: #fff;
+  padding: 72px 0;
+  border-bottom: 1px solid #E5E7EB;
+}
+.journey-head { text-align: center; margin-bottom: 56px; }
+.journey-head .eyebrow { color: #C9A84C; margin-bottom: 12px; }
+.journey-head h2 {
+  font-family: 'Cairo', sans-serif;
+  font-size: clamp(24px, 3.5vw, 40px);
+  font-weight: 800; color: #0D1F3C; line-height: 1.2;
+}
+.journey-head p { font-size: 15px; color: #6B7280; margin-top: 12px; max-width: 52ch; margin-inline: auto; }
+
+.journey-track {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+}
+.journey-track::before {
+  content: '';
+  position: absolute; top: 52px; left: 12.5%; right: 12.5%; height: 2px;
+  background: linear-gradient(270deg, #C9A84C, rgba(201,168,76,0.3));
+  z-index: 0;
+}
+.journey-stop {
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; padding: 0 16px; position: relative; z-index: 1;
+}
+.journey-icon {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: #0D1F3C;
+  border: 3px solid #C9A84C;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; margin-bottom: 20px;
+  box-shadow: 0 4px 20px rgba(13,31,60,0.2);
+  flex-shrink: 0;
+}
+.journey-channel {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: #C9A84C; margin-bottom: 6px;
+}
+.journey-title {
+  font-size: 15px; font-weight: 700; color: #0D1F3C; margin-bottom: 8px; line-height: 1.4;
+}
+.journey-detail {
+  font-size: 13px; color: #6B7280; line-height: 1.65; max-width: 22ch;
+}
+.journey-outcome {
+  display: inline-block; margin-top: 10px;
+  padding: 4px 10px; border-radius: 999px;
+  background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3);
+  font-size: 11px; font-weight: 700; color: #92700A;
+}
+
+/* ══════════════════════════════════════════════════════════
+   CAPABILITIES
+══════════════════════════════════════════════════════════ */
+.capabilities {
+  background: #070D1A;
+  padding: 88px 0;
+  position: relative;
+  overflow: hidden;
+}
+.capabilities::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(201,168,76,0.012) 0, rgba(201,168,76,0.012) 1px,
+    transparent 1px, transparent 72px
+  );
+}
+.cap-head { text-align: center; margin-bottom: 64px; position: relative; z-index: 1; }
+.cap-head .eyebrow { margin-bottom: 14px; }
+.cap-head h2 {
+  font-family: 'Cairo', sans-serif;
+  font-size: clamp(26px, 3.5vw, 44px);
+  font-weight: 800; color: #fff; line-height: 1.2;
+}
+.cap-head p { font-size: 15px; color: rgba(255,255,255,0.5); margin-top: 12px; max-width: 50ch; margin-inline: auto; }
+
+.cap-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative; z-index: 1;
+}
+.cap-cell {
+  background: #0A0F1C;
+  padding: 36px 32px;
+  display: flex; flex-direction: column; gap: 14px;
+  transition: background 200ms;
+  position: relative;
+  overflow: hidden;
+}
+.cap-cell:hover { background: #0F1829; }
+.cap-cell::after {
+  content: '';
+  position: absolute; bottom: 0; left: 32px; right: 32px; height: 2px;
+  background: linear-gradient(270deg, #C9A84C, transparent);
+  opacity: 0;
+  transition: opacity 250ms;
+}
+.cap-cell:hover::after { opacity: 1; }
+.cap-num {
+  font-family: 'Cairo', sans-serif;
+  font-size: 13px; font-weight: 700; color: rgba(201,168,76,0.4);
+  direction: ltr; text-align: right;
+}
+.cap-icon { font-size: 28px; line-height: 1; }
+.cap-title {
+  font-size: 17px; font-weight: 700; color: #fff; line-height: 1.3;
+}
+.cap-desc { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.8; }
+.cap-proof {
+  margin-top: auto; padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  font-size: 12px; color: rgba(201,168,76,0.75); font-weight: 600;
+}
+
+/* ══════════════════════════════════════════════════════════
+   THE LOOP
+══════════════════════════════════════════════════════════ */
+.loop-section {
+  background: #FAF7F2;
+  padding: 88px 0;
+  border-top: 1px solid #E5E7EB;
+  border-bottom: 1px solid #E5E7EB;
+}
+.loop-head { text-align: center; margin-bottom: 64px; }
+.loop-head .eyebrow { color: #C9A84C; margin-bottom: 12px; }
+.loop-head h2 {
+  font-family: 'Cairo', sans-serif;
+  font-size: clamp(24px, 3.5vw, 42px);
+  font-weight: 800; color: #0D1F3C; line-height: 1.2;
+}
+.loop-head p { font-size: 15px; color: #6B7280; margin-top: 12px; max-width: 52ch; margin-inline: auto; }
+
+.loop-diagram {
+  display: flex; align-items: stretch; gap: 0;
+  position: relative; max-width: 960px; margin: 0 auto;
+  flex-direction: row-reverse;
+}
+.loop-node {
+  flex: 1;
+  background: #fff;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 32px 28px;
+  display: flex; flex-direction: column; gap: 12px;
+  position: relative;
+  box-shadow: 0 4px 16px rgba(13,31,60,0.06);
+}
+.loop-node.escalate {
+  border-color: rgba(201,168,76,0.4);
+  background: linear-gradient(135deg, #fff 70%, rgba(201,168,76,0.04));
+}
+.loop-arrow {
+  display: flex; align-items: center; padding: 0 12px; flex-shrink: 0;
+  color: rgba(13,31,60,0.25); font-size: 22px;
+  transform: scaleX(-1);
+}
+.loop-node-icon { font-size: 28px; }
+.loop-node-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: #C9A84C;
+}
+.loop-node-title { font-size: 16px; font-weight: 700; color: #0D1F3C; line-height: 1.3; }
+.loop-node-desc { font-size: 13px; color: #6B7280; line-height: 1.75; }
+.loop-node-channels {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px;
+}
+.loop-chip {
+  padding: 3px 9px; border-radius: 999px;
+  font-size: 11px; font-weight: 700;
+  background: rgba(13,31,60,0.07); color: #0D1F3C;
+}
+.loop-chip.gold { background: rgba(201,168,76,0.15); color: #7A5C10; }
+
+/* ══════════════════════════════════════════════════════════
+   DIFFERENTIATORS
+══════════════════════════════════════════════════════════ */
+.diff-section {
+  background: #0D1F3C;
+  padding: 88px 0;
+}
+.diff-head { text-align: center; margin-bottom: 64px; }
+.diff-head .eyebrow { margin-bottom: 14px; }
+.diff-head h2 {
+  font-family: 'Cairo', sans-serif;
+  font-size: clamp(24px, 3.5vw, 42px);
+  font-weight: 800; color: #fff; line-height: 1.2;
+}
+.diff-list {
+  display: flex; flex-direction: column; gap: 1px;
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; overflow: hidden;
+  max-width: 860px; margin: 0 auto;
+}
+.diff-row {
+  display: grid; grid-template-columns: 1fr 1fr 48px;
+  background: rgba(255,255,255,0.03);
+  transition: background 200ms;
+}
+.diff-row:hover { background: rgba(255,255,255,0.06); }
+.diff-row-num {
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(201,168,76,0.08); border-left: 1px solid rgba(255,255,255,0.07);
+  font-family: 'Cairo', sans-serif;
+  font-size: 15px; color: rgba(201,168,76,0.6); font-weight: 700;
+  direction: ltr;
+}
+.diff-row-q {
+  padding: 20px 24px;
+  font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.55);
+  border-left: 1px solid rgba(255,255,255,0.07);
+  display: flex; align-items: center;
+  line-height: 1.55;
+}
+.diff-row-a {
+  padding: 20px 24px;
+  font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.88);
+  display: flex; align-items: center;
+  line-height: 1.55;
+  gap: 10px;
+}
+.diff-check { color: #4ADE80; font-size: 16px; flex-shrink: 0; }
+
+/* ══════════════════════════════════════════════════════════
+   CLOSING CTA
+══════════════════════════════════════════════════════════ */
+.closer {
+  background: #070D1A;
+  padding: 104px 0 96px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.closer::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 900px 500px at 50% 50%, rgba(201,168,76,0.09) 0%, transparent 65%);
+}
+.closer-inner { position: relative; z-index: 1; }
+.closer .eyebrow { margin-bottom: 24px; }
+.closer-headline {
+  font-family: 'Cairo', sans-serif;
+  font-size: clamp(30px, 5vw, 64px);
+  font-weight: 800; color: #fff; line-height: 1.15;
+  letter-spacing: -0.01em; margin-bottom: 24px;
+}
+.closer-headline em { font-style: normal; color: #C9A84C; }
+.closer-sub {
+  font-size: 17px; color: rgba(255,255,255,0.55); max-width: 50ch;
+  margin: 0 auto 48px; line-height: 1.85;
+}
+.closer-rule {
+  width: 60px; height: 2px; background: #C9A84C; margin: 0 auto 48px;
+}
+.closer-logos {
+  display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap;
+}
+.closer-badge {
+  padding: 10px 20px;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 999px;
+  font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.6);
+  display: flex; align-items: center; gap: 8px;
+}
+.closer-badge-dot { width: 7px; height: 7px; border-radius: 50%; background: #4ADE80; }
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .journey-track { grid-template-columns: 1fr 1fr; }
+  .journey-track::before { display: none; }
+  .cap-grid { grid-template-columns: 1fr 1fr; }
+  .loop-diagram { flex-direction: column; gap: 8px; }
+  .loop-arrow { display: none; }
+  .diff-row { grid-template-columns: 1fr; }
+  .diff-row-num { display: none; }
+  .diff-row-q { border-left: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
+}
+@media (max-width: 600px) {
+  .cap-grid { grid-template-columns: 1fr; }
+  .journey-track { grid-template-columns: 1fr; }
+  .hero-stats { grid-template-columns: 1fr; }
+  .inner { padding: 0 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Nav ────────────────────────────────────────────────── -->
+<nav class="demo-nav-bar">
+  <div class="demo-nav-row">
+    <div class="lang-toggle">
+      <a class="lang-btn" href="../summary.html">EN</a>
+    </div>
+    <a class="demo-nav-tab active" href="summary.html">◈ الملخص</a>
+    <a class="demo-nav-tab" href="../post-stay.html">⭐ ما بعد الإقامة</a>
+    <a class="demo-nav-tab" href="../in-stay.html">🛎 أثناء الإقامة</a>
+    <a class="demo-nav-tab" href="../pre-stay.html">✦ ما قبل الإقامة</a>
+    <a class="demo-nav-tab" href="../index.html">🏨 تسجيل الوصول</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="inner">
+    <div class="hero-inner">
+      <div class="hero-stats">
+        <div class="hero-stat-row">
+          <div class="hero-stat-val">87<sup>%</sup></div>
+          <div class="hero-stat-lbl">محادثات تم حلها دون تدخل بشري</div>
+        </div>
+        <div class="hero-stat-row">
+          <div class="hero-stat-val">&lt;3<sup>ث</sup></div>
+          <div class="hero-stat-lbl">متوسط وقت الاستجابة على أي قناة</div>
+        </div>
+        <div class="hero-stat-row">
+          <div class="hero-stat-val">24<sup>/7</sup></div>
+          <div class="hero-stat-lbl">متاح دائماً — لا فجوات في الخدمة، لا قيود على المناطق الزمنية</div>
+        </div>
+      </div>
+      <div class="hero-text">
+        <p class="eyebrow hero-eyebrow">أدا للضيافة — ملخص العرض التجريبي</p>
+        <h1>كل لحظة مع النزيل،<br><em>بكل احترافية.</em></h1>
+        <p class="hero-sub">عبر كل قناة، وفي كل مرحلة من مراحل الإقامة — يحل وكيل أدا الذكي المشكلات، ويصعّدها عند الحاجة، ويتعلم باستمرار. دون تحويل. دون موسيقى الانتظار. دون فجوات بين الأنظمة.</p>
+        <div class="hero-tags">
+          <span class="hero-tag"><span class="hero-tag-dot"></span>صوتي</span>
+          <span class="hero-tag"><span class="hero-tag-dot"></span>محادثة</span>
+          <span class="hero-tag"><span class="hero-tag-dot"></span>بريد إلكتروني</span>
+          <span class="hero-tag"><span class="hero-tag-dot"></span>إشعارات استباقية</span>
+          <span class="hero-tag"><span class="hero-tag-dot"></span>QR / داخل الغرفة</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     JOURNEY STRIP
+══════════════════════════════════════════════════════════ -->
+<section class="journey">
+  <div class="inner">
+    <div class="journey-head">
+      <p class="eyebrow">ما شهدتموه اليوم</p>
+      <h2>إقامة آنا — مُدارة من البداية إلى النهاية</h2>
+      <p>كل نقطة تواصل في هذا العرض كانت وكيل أدا الحقيقي. إليكم ما حدث.</p>
+    </div>
+    <div class="journey-track">
+      <div class="journey-stop">
+        <div class="journey-icon">⭐</div>
+        <div class="journey-channel">بريد إلكتروني + استباقي · ما بعد الإقامة</div>
+        <div class="journey-title">التغذية الراجعة والولاء</div>
+        <div class="journey-detail">أرسل أدا متابعة شخصية، وسجّل تقييم آنا، وقدّم حافزاً للولاء.</div>
+        <div class="journey-outcome">تم تسجيل تقييم ٥ نجوم</div>
+      </div>
+      <div class="journey-stop">
+        <div class="journey-icon">🛎</div>
+        <div class="journey-channel">QR + محادثة · أثناء الإقامة</div>
+        <div class="journey-title">تم حل مشكلة الغرفة</div>
+        <div class="journey-detail">مسحت آنا رمز QR داخل الغرفة. تعامل أدا مع طلبها دون أي تحويل.</div>
+        <div class="journey-outcome">تم إرسال الصيانة فوراً</div>
+      </div>
+      <div class="journey-stop">
+        <div class="journey-icon">📞</div>
+        <div class="journey-channel">صوتي · ما قبل الإقامة</div>
+        <div class="journey-title">حجز المطعم</div>
+        <div class="journey-detail">اتصلت آنا بخط المطاعم. حجز أدا غرفة جيد — بما في ذلك تأكيد توفر طبق الفو.</div>
+        <div class="journey-outcome">تم الحجز في دقيقتين و٢٩ ثانية</div>
+      </div>
+      <div class="journey-stop">
+        <div class="journey-icon">🏨</div>
+        <div class="journey-channel">محادثة · تسجيل الوصول</div>
+        <div class="journey-title">ترحيب ما قبل الوصول</div>
+        <div class="journey-detail">تعرّف أدا على حجز آنا وأجاب على أسئلتها قبل وصولها.</div>
+        <div class="journey-outcome">لا حاجة للاتصال بالاستقبال</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     CAPABILITIES
+══════════════════════════════════════════════════════════ -->
+<section class="capabilities">
+  <div class="inner">
+    <div class="cap-head">
+      <p class="eyebrow">ما الذي يميز أدا</p>
+      <h2>تسع قدرات. منصة واحدة.</h2>
+      <p>لا حلول منفردة. لا روبوتات مرقّعة. أدا مبني للدورة الكاملة للحل.</p>
+    </div>
+    <div class="cap-grid">
+
+      <div class="cap-cell">
+        <div class="cap-num">٠١</div>
+        <div class="cap-icon">🌐</div>
+        <div class="cap-title">متعدد القنوات بطبيعته</div>
+        <div class="cap-desc">وكيل واحد عبر الصوت والمحادثة والبريد الإلكتروني ورمز QR والرسائل الاستباقية. لا يبدأ نزيلك من الصفر أبداً — أدا يعرف الصورة الكاملة بغض النظر عن قناة التواصل.</div>
+        <div class="cap-proof">«حجزت آنا عبر الهاتف، واستفسرت عبر المحادثة، وتلقّت متابعة بالبريد الإلكتروني — بنفس السياق في كل مرة.»</div>
+      </div>
+
+      <div class="cap-cell">
+        <div class="cap-num">٠٢</div>
+        <div class="cap-icon">🧠</div>
+        <div class="cap-title">سياق يدوم</div>
+        <div class="cap-desc">أدا يتذكر. الملف الشخصي للنزيل، تاريخ الحجوزات، التفاعلات السابقة، التفضيلات المذكورة في أي قناة — كلها متاحة فور بدء المحادثة التالية. لا شرح متكرر، أبداً.</div>
+        <div class="cap-proof">«تعرّف كوني على حجز آنا فور اتصالها — دون رقم حساب، دون رمز PIN.»</div>
+      </div>
+
+      <div class="cap-cell">
+        <div class="cap-num">٠٣</div>
+        <div class="cap-icon">✉️</div>
+        <div class="cap-title">استباقي لا تفاعلي</div>
+        <div class="cap-desc">أدا لا ينتظر المشكلات. يرصد الأحداث — التأخيرات، الأحوال الجوية، الإقامات القادمة — ويتواصل مع النزيل أولاً. حوّل معالجة المشكلات إلى استباق لها.</div>
+        <div class="cap-proof">«تأخّر قطار آنا. عرف أدا ذلك قبل أن تتصل وأرسل عرض إعادة الجدولة استباقياً.»</div>
+      </div>
+
+      <div class="cap-cell">
+        <div class="cap-num">٠٤</div>
+        <div class="cap-icon">⚡</div>
+        <div class="cap-title">تكاملات النظام الخلفي</div>
+        <div class="cap-desc">يتصل أدا بنظام إدارة الممتلكات ومحرك الحجز ونظام CRM وتذاكر الخدمة في الوقت الفعلي — يبحث عن الحجوزات، يتحقق من التوفر، يرسل الطلبات، ويحدّث السجلات مباشرةً أثناء المحادثة.</div>
+        <div class="cap-proof">«تم تأكيد حجز غرفة جيد وتسجيله في نظام إدارة الممتلكات أثناء المكالمة.»</div>
+      </div>
+
+      <div class="cap-cell">
+        <div class="cap-num">٠٥</div>
+        <div class="cap-icon">🔧</div>
+        <div class="cap-title">مبني ومضبوط عبر MCP</div>
+        <div class="cap-desc">يُؤلَّف وكيل أدا ويُحسَّن عبر بروتوكول سياق النموذج — أي تعليمات بلغة طبيعية، تُختبر فوراً، دون الحاجة إلى مهندس لنشر أي تغيير. فريقك يمتلك خارطة الطريق.</div>
+        <div class="cap-proof">«تم تأليف تحديث قائمة الفو وتدفق تأكيد الحجز عبر MCP — حي في دقائق.»</div>
+      </div>
+
+      <div class="cap-cell">
+        <div class="cap-num">٠٦</div>
+        <div class="cap-icon">🔄</div>
+        <div class="cap-title">حلقة الخدمة الذاتية المستمرة</div>
+        <div class="cap-desc">يتعامل أدا مع الدورة الكاملة — الاستقبال، الحل، المتابعة، والتغذية الراجعة — دون تسليم إلى نظام منفصل في كل مرحلة. حلقة واحدة، وكيل واحد، قابل للقياس في كل خطوة.</div>
+        <div class="cap-proof">«من حجز المطعم إلى استبيان ما بعد الإقامة، أغلق أدا الحلقة على كل نقطة تواصل.»</div>
+      </div>
+
+      <div class="cap-cell">
+        <div class="cap-num">٠٧</div>
+        <div class="cap-icon">🛎</div>
+        <div class="cap-title">كونسيرج الخط الأول</div>
+        <div class="cap-desc">كل استفسار وارد — سواء كان شكوى ضجيج أو حجز عشاء أو سؤال عن نقاط الولاء — يُجاب عليه فوراً، دون توجيه أو انتظار حتى يصبح إنسان متاحاً.</div>
+        <div class="cap-proof">«لا موسيقى انتظار في جميع السيناريوهات الأربعة. وصل كل نزيل إلى أدا في أقل من ثلاث ثوانٍ.»</div>
+      </div>
+
+      <div class="cap-cell">
+        <div class="cap-num">٠٨</div>
+        <div class="cap-icon">🤝</div>
+        <div class="cap-title">تصعيد سلس إلى الإنسان</div>
+        <div class="cap-desc">حين تتطلب المحادثة تدخلاً بشرياً — شكوى معقدة، موقف حساس، نزيل مميز — يُسلّم أدا مع السياق الكامل أمام الوكيل البشري. لا تكرار. لا خيوط مفقودة.</div>
+        <div class="cap-proof">«التصعيد تحويل دافئ مع السياق الكامل، لا تسليم بارد إلى الرقم الرئيسي.»</div>
+      </div>
+
+      <div class="cap-cell">
+        <div class="cap-num">٠٩</div>
+        <div class="cap-icon">📊</div>
+        <div class="cap-title">نتائج قابلة للقياس</div>
+        <div class="cap-desc">كل محادثة تولّد بيانات. يتتبع أدا معدل الحل والاحتواء ورضا العملاء وأسباب التصعيد والإيرادات المؤثّرة — كلها مباشرة في لوحة بيانات يمكن لفريقك التصرف بناءً عليها.</div>
+        <div class="cap-proof">«المقاييس المهمة — التحويل، الرضا، السرعة — مرئية من اليوم الأول.»</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     HOW THE LOOP WORKS
+══════════════════════════════════════════════════════════ -->
+<section class="loop-section">
+  <div class="inner">
+    <div class="loop-head">
+      <p class="eyebrow">نموذج الحل</p>
+      <h2>احلل. صعّد. تعلّم. كرّر.</h2>
+      <p>أدا ليس طبقة توجيه — إنه محرك حل كامل يزداد ذكاءً مع كل محادثة.</p>
+    </div>
+    <div class="loop-diagram">
+      <div class="loop-node">
+        <div class="loop-node-icon">📈</div>
+        <div class="loop-node-label">دائماً</div>
+        <div class="loop-node-title">أدا يتعلم</div>
+        <div class="loop-node-desc">كل محادثة تم حلها تحسّن المعالجة المستقبلية. التدريب والتشغيل التجريبي وتحسينات MCP تسدّ الفجوة باستمرار.</div>
+        <div class="loop-node-channels">
+          <span class="loop-chip gold">يتحسن كل يوم</span>
+        </div>
+      </div>
+      <div class="loop-arrow">→</div>
+      <div class="loop-node escalate">
+        <div class="loop-node-icon">🤝</div>
+        <div class="loop-node-label">عند الحاجة</div>
+        <div class="loop-node-title">يتولى الإنسان</div>
+        <div class="loop-node-desc">تسليم دافئ مع السياق الكامل. يرى الوكيل البشري كل شيء — لا أسئلة متكررة، لا خيوط مفقودة.</div>
+        <div class="loop-node-channels">
+          <span class="loop-chip">نقل السياق الكامل</span>
+        </div>
+      </div>
+      <div class="loop-arrow">→</div>
+      <div class="loop-node">
+        <div class="loop-node-icon">⚙️</div>
+        <div class="loop-node-label">الخطوة الثانية</div>
+        <div class="loop-node-title">أدا يحل</div>
+        <div class="loop-node-desc">يسحب البيانات الحية، يشغّل المسارات، يتخذ الإجراءات في الأنظمة المتصلة — ويغلق المشكلة دون تدخل بشري في معظم الحالات.</div>
+        <div class="loop-node-channels">
+          <span class="loop-chip gold">٨٧٪ خدمة ذاتية</span>
+        </div>
+      </div>
+      <div class="loop-arrow">→</div>
+      <div class="loop-node">
+        <div class="loop-node-icon">📥</div>
+        <div class="loop-node-label">الخطوة الأولى</div>
+        <div class="loop-node-title">النزيل يتواصل</div>
+        <div class="loop-node-desc">أي قناة، في أي وقت. يرد أدا فوراً — دون قائمة IVR، دون انتظار.</div>
+        <div class="loop-node-channels">
+          <span class="loop-chip">صوتي</span>
+          <span class="loop-chip">محادثة</span>
+          <span class="loop-chip">بريد</span>
+          <span class="loop-chip">QR</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     DIFFERENTIATOR TABLE
+══════════════════════════════════════════════════════════ -->
+<section class="diff-section">
+  <div class="inner">
+    <div class="diff-head">
+      <p class="eyebrow">لماذا أدا على البدائل</p>
+      <h2>الأسئلة التي سيطرحها فريقك</h2>
+    </div>
+    <div class="diff-list">
+      <div class="diff-row">
+        <div class="diff-row-a"><span class="diff-check">✓</span>معظم روبوتات المحادثة تجيب على الأسئلة. أدا يحلها — متخذاً إجراءات في أنظمتك، عبر كل قناة، من البداية إلى النهاية.</div>
+        <div class="diff-row-q">«لدينا روبوت محادثة بالفعل — لماذا نحتاج هذا؟»</div>
+        <div class="diff-row-num">١</div>
+      </div>
+      <div class="diff-row">
+        <div class="diff-row-a"><span class="diff-check">✓</span>يتم تأليف المسارات عبر MCP بلغة طبيعية. يمكن أن يكون الوكيل العامل حياً في أيام، لا أشهر — ويمكن لفريقك تحديثه دون دعم هندسي.</div>
+        <div class="diff-row-q">«كم يستغرق البناء والإطلاق؟»</div>
+        <div class="diff-row-num">٢</div>
+      </div>
+      <div class="diff-row">
+        <div class="diff-row-a"><span class="diff-check">✓</span>يسلّم أدا بأناقة مع السياق الكامل — لذا لا يحتاج الإنسان الذي يتولى الأمر إلى البدء من الصفر. وكل إخفاق هو حالة اختبار تحسّن التشغيل التالي.</div>
+        <div class="diff-row-q">«ماذا يحدث عندما يخطئ أدا؟»</div>
+        <div class="diff-row-num">٣</div>
+      </div>
+      <div class="diff-row">
+        <div class="diff-row-a"><span class="diff-check">✓</span>يتكامل أدا مع أي نظام عبر REST API. نظام إدارة الممتلكات، CRM، محرك الحجز — إذا كان لديه API، يمكن لأدا القراءة منه والكتابة إليه في الوقت الفعلي.</div>
+        <div class="diff-row-q">«هل يمكنه الاتصال بأنظمتنا الحالية؟»</div>
+        <div class="diff-row-num">٤</div>
+      </div>
+      <div class="diff-row">
+        <div class="diff-row-a"><span class="diff-check">✓</span>يشغّل أدا المكالمات الصوتية والمحادثة على الويب والبريد الإلكتروني ورمز QR والإشعارات الاستباقية — كل ذلك من وكيل واحد، منصة واحدة، مجموعة مسارات واحدة.</div>
+        <div class="diff-row-q">«هل هذا للمحادثة النصية فقط، أم يعمل بالصوت أيضاً؟»</div>
+        <div class="diff-row-num">٥</div>
+      </div>
+      <div class="diff-row">
+        <div class="diff-row-a"><span class="diff-check">✓</span>يتتبع أدا معدل الحل والاحتواء ورضا العملاء وأسباب التصعيد والنتائج على مستوى المحادثة — كلها متاحة في لوحة البيانات، في الوقت الفعلي.</div>
+        <div class="diff-row-q">«كيف نقيس النجاح؟»</div>
+        <div class="diff-row-num">٦</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     CLOSER
+══════════════════════════════════════════════════════════ -->
+<section class="closer">
+  <div class="inner">
+    <div class="closer-inner">
+      <p class="eyebrow">الخلاصة</p>
+      <h2 class="closer-headline">منصة واحدة.<br><em>كل نقطة تواصل.</em><br>صفر تحويلات.</h2>
+      <div class="closer-rule"></div>
+      <p class="closer-sub">أدا يتعامل مع اللحظات المهمة — حتى يتمكن فريقك من التركيز على اللحظات التي لا يستطيع إلا الإنسان التعامل معها.</p>
+      <div class="closer-logos">
+        <span class="closer-badge"><span class="closer-badge-dot"></span>صوتي · محادثة · بريد إلكتروني · QR</span>
+        <span class="closer-badge"><span class="closer-badge-dot"></span>نظام إدارة الممتلكات · CRM · محرك الحجز</span>
+        <span class="closer-badge"><span class="closer-badge-dot"></span>حي في أيام، لا أشهر</span>
+        <span class="closer-badge"><span class="closer-badge-dot"></span>معدل الخدمة الذاتية ٨٧٪</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

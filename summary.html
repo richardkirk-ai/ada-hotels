@@ -392,6 +392,19 @@ body { font-family: 'Inter', sans-serif; background: #0A0F1C; color: #fff; }
 }
 .closer-badge-dot { width: 7px; height: 7px; border-radius: 50%; background: #4ADE80; }
 
+/* ── Language toggle ─────────────────────────────────── */
+.lang-toggle { margin-left: auto; display: flex; align-items: center; padding: 0 4px; }
+.lang-btn {
+  display: inline-flex; align-items: center;
+  padding: 5px 14px;
+  background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.35);
+  border-radius: 999px;
+  font-size: 13px; font-weight: 700; color: #C9A84C;
+  text-decoration: none; white-space: nowrap;
+  transition: background 150ms;
+}
+.lang-btn:hover { background: rgba(201,168,76,0.22); }
+
 /* ── Responsive ───────────────────────────────────────── */
 @media (max-width: 900px) {
   .hero-inner { grid-template-columns: 1fr; }
@@ -423,6 +436,9 @@ body { font-family: 'Inter', sans-serif; background: #0A0F1C; color: #fff; }
     <a class="demo-nav-tab" href="in-stay.html">🛎 In-Stay</a>
     <a class="demo-nav-tab" href="post-stay.html">⭐ Post-Stay</a>
     <a class="demo-nav-tab active" href="summary.html">◈ Summary</a>
+    <div class="lang-toggle">
+      <a class="lang-btn" href="ar/summary.html">عر</a>
+    </div>
   </div>
 </nav>
 
