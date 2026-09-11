@@ -665,77 +665,77 @@ const HOTEL_CONFIG = {
           <div class="vc-bubble anna">The Jade Room sounds interesting. Uh, I love Vietnamese. Do you know if they serve the famous Vietnamese dish pho?</div>
         </div>
 
-        <div class="vc-turn" data-t="67.080">
+        <div class="vc-turn" data-t="68.680">
           <span class="vc-speaker ada">Connie · Ada AI</span>
           <div class="vc-bubble ada">Yes, pho is a house specialty at The Jade Room. How many guests will be dining?</div>
         </div>
 
-        <div class="vc-turn" data-t="72.680">
+        <div class="vc-turn" data-t="74.280">
           <span class="vc-speaker anna">Anna Chambers</span>
           <div class="vc-bubble anna">Great. Um, yes. Three of us then, please.</div>
         </div>
 
-        <div class="vc-turn" data-t="76.200">
+        <div class="vc-turn" data-t="79.400">
           <span class="vc-speaker ada">Connie · Ada AI</span>
           <div class="vc-bubble ada">What date would you like to dine at The Jade Room?</div>
         </div>
 
-        <div class="vc-turn" data-t="80.280">
+        <div class="vc-turn" data-t="83.480">
           <span class="vc-speaker anna">Anna Chambers</span>
           <div class="vc-bubble anna">This Friday.</div>
         </div>
 
-        <div class="vc-turn" data-t="81.320">
+        <div class="vc-turn" data-t="86.120">
           <span class="vc-speaker ada">Connie · Ada AI</span>
           <div class="vc-bubble ada">Perfect. What time would you like the table?</div>
         </div>
 
-        <div class="vc-turn" data-t="85.000">
+        <div class="vc-turn" data-t="89.800">
           <span class="vc-speaker anna">Anna Chambers</span>
           <div class="vc-bubble anna">Eight PM, please.</div>
         </div>
 
-        <div class="vc-turn" data-t="86.600">
+        <div class="vc-turn" data-t="93.000">
           <span class="vc-speaker ada">Connie · Ada AI</span>
           <div class="vc-bubble ada">Just to confirm, a table for three at The Jade Room on Friday, September twelfth, twenty twenty-six at eight PM. Is that right?</div>
         </div>
 
-        <div class="vc-turn" data-t="95.160">
+        <div class="vc-turn" data-t="101.560">
           <span class="vc-speaker anna">Anna Chambers</span>
           <div class="vc-bubble anna">Yep. That's correct. Thank you.</div>
         </div>
 
-        <div class="vc-turn" data-t="97.240">
+        <div class="vc-turn" data-t="105.240">
           <span class="vc-speaker ada">Connie · Ada AI</span>
           <div class="vc-bubble ada">Wonderful, your booking details are confirmed. Do you have any dietary requirements I should note for the reservation?</div>
         </div>
 
-        <div class="vc-turn" data-t="104.760">
+        <div class="vc-turn" data-t="112.760">
           <span class="vc-speaker anna">Anna Chambers</span>
           <div class="vc-bubble anna">No.</div>
         </div>
 
-        <div class="vc-turn" data-t="105.560">
+        <div class="vc-turn" data-t="115.160">
           <span class="vc-speaker ada">Connie · Ada AI</span>
           <div class="vc-bubble ada">Your table is booked at The Jade Room for Friday, September twelfth, twenty twenty-six at eight PM. It is on the ground floor to the right of the main lobby. We look forward to welcoming you and your colleagues.</div>
         </div>
 
-        <div class="vc-turn" data-t="118.745">
+        <div class="vc-turn" data-t="128.345">
           <span class="vc-speaker anna">Anna Chambers</span>
           <div class="vc-bubble anna">Great. Thank you very much.</div>
         </div>
 
-        <div class="vc-turn" data-t="120.505">
+        <div class="vc-turn" data-t="131.705">
           <span class="vc-speaker ada">Connie · Ada AI</span>
           <div class="vc-bubble ada">Would you like me to send you a quick survey by text message to rate your experience today?</div>
         </div>
 
-        <div class="vc-turn" data-t="125.680">
+        <div class="vc-turn" data-t="136.880">
           <span class="vc-speaker anna">Anna Chambers</span>
           <div class="vc-bubble anna">Yes, please.</div>
         </div>
 
-        <div class="vc-turn" data-t="127.280">
+        <div class="vc-turn" data-t="140.080">
           <span class="vc-speaker ada">Connie · Ada AI</span>
           <div class="vc-bubble ada">Thanks for confirming. The survey has been sent by text. We hope you and your colleagues enjoy your evening at The Jade Room.</div>
         </div>
@@ -1027,7 +1027,7 @@ window.adaSettings = {
   /* Audio events */
   audio.addEventListener('timeupdate', () => {
     const t = audio.currentTime;
-    const d = audio.duration || 136.4;
+    const d = audio.duration || 149.2;
     scrubber.value = t;
     timeCur.textContent = fmt(t);
     const prog = d > 0 ? t / d : 0;
@@ -1059,7 +1059,7 @@ window.adaSettings = {
   wrap.addEventListener('click', (e) => {
     const rect  = wrap.getBoundingClientRect();
     const ratio = (e.clientX - rect.left) / rect.width;
-    const d     = audio.duration || 136.4;
+    const d     = audio.duration || 149.2;
     audio.currentTime = ratio * d;
   });
 
