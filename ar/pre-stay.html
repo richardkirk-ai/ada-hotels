@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en-GB">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ada Hotels — Pre-Stay</title>
-<link rel="stylesheet" href="ada-hotels.css">
-<link rel="stylesheet" href="ada-hotels-ar.css">
+<title>فنادق أدا — ما قبل الإقامة</title>
+<link rel="stylesheet" href="../ada-hotels.css">
+<link rel="stylesheet" href="../ada-hotels-ar.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ── Demo nav ─────────────────────────────────────────────── */
 .demo-nav-bar {
@@ -18,11 +18,13 @@
 .demo-nav-row {
   display: flex; align-items: center; gap: 0; max-width: 1240px;
   margin: 0 auto; padding: 0 32px; overflow-x: auto; scrollbar-width: none;
+  flex-direction: row-reverse;
 }
 .demo-nav-row::-webkit-scrollbar { display: none; }
 .demo-nav-tab {
   display: flex; align-items: center; gap: 6px; padding: 0 20px;
   font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.55);
+  font-family: 'Cairo', sans-serif;
   text-decoration: none; white-space: nowrap; line-height: 46px;
   border-bottom: 2px solid transparent; transition: color 150ms, border-color 150ms;
 }
@@ -40,17 +42,17 @@
   content: '';
   position: absolute; inset: 0;
   background:
-    radial-gradient(ellipse at 80% 50%, rgba(201,168,76,0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.1) 0%, transparent 50%),
     repeating-linear-gradient(45deg, rgba(201,168,76,0.015) 0px, rgba(201,168,76,0.015) 1px, transparent 1px, transparent 52px);
 }
 .page-hero-inner { position: relative; z-index: 1; }
 .page-hero .eyebrow { color: rgba(201,168,76,0.85); margin-bottom: 10px; }
 .page-hero h1 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Cairo', sans-serif;
   font-size: clamp(28px,4vw,48px);
-  font-weight: 700;
+  font-weight: 800;
   color: #fff;
-  line-height: 1.1;
+  line-height: 1.2;
   margin-bottom: 12px;
 }
 .page-hero p { font-size: 16px; color: rgba(255,255,255,0.65); max-width: 54ch; }
@@ -63,16 +65,17 @@
   display: inline-flex; align-items: center; gap: 8px;
   font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
   color: #C9A84C; margin-bottom: 8px;
+  font-family: 'Cairo', sans-serif;
 }
 .scenario-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Cairo', sans-serif;
   font-size: clamp(22px,3vw,34px);
-  font-weight: 700;
+  font-weight: 800;
   color: #0D1F3C;
   margin-bottom: 8px;
-  line-height: 1.15;
+  line-height: 1.25;
 }
-.scenario-desc { font-size: 15px; color: #6B7280; margin-bottom: 36px; max-width: 60ch; line-height: 1.6; }
+.scenario-desc { font-size: 15px; color: #6B7280; margin-bottom: 36px; max-width: 60ch; line-height: 1.8; }
 
 /* ── Voice call UI ──────────────────────────────────────── */
 .voice-panel {
@@ -89,9 +92,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-direction: row-reverse;
 }
-.vc-carrier { font-size: 12px; color: rgba(255,255,255,0.4); font-weight: 500; }
-.vc-time { font-size: 12px; color: rgba(255,255,255,0.4); }
+.vc-carrier { font-size: 12px; color: rgba(255,255,255,0.4); font-weight: 500; font-family: 'Cairo', sans-serif; }
+.vc-time { font-size: 12px; color: rgba(255,255,255,0.4); font-family: 'Cairo', sans-serif; }
 .vc-call-info {
   padding: 32px 32px 24px;
   text-align: center;
@@ -100,11 +104,12 @@
 .vc-label {
   font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
   color: rgba(255,255,255,0.4); margin-bottom: 8px;
+  font-family: 'Cairo', sans-serif;
 }
 .vc-name {
-  font-family: 'Playfair Display', serif;
-  font-size: 26px;
-  font-weight: 700;
+  font-family: 'Cairo', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
   color: #fff;
   margin-bottom: 6px;
 }
@@ -150,6 +155,7 @@
 .vc-speaker {
   font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
   padding: 0 4px;
+  font-family: 'Cairo', sans-serif;
 }
 .vc-speaker.ada  { color: #C9A84C; }
 .vc-speaker.anna { color: rgba(255,255,255,0.4); }
@@ -159,19 +165,20 @@
   font-size: 14px;
   line-height: 1.55;
   max-width: 90%;
+  font-family: 'Inter', sans-serif;
 }
 .vc-bubble.ada  {
   background: rgba(201,168,76,0.1);
   border: 1px solid rgba(201,168,76,0.2);
   color: rgba(255,255,255,0.88);
-  align-self: flex-start;
+  align-self: flex-end;
   border-radius: 4px 10px 10px 10px;
 }
 .vc-bubble.anna {
   background: rgba(255,255,255,0.07);
   border: 1px solid rgba(255,255,255,0.1);
   color: rgba(255,255,255,0.75);
-  align-self: flex-end;
+  align-self: flex-start;
   border-radius: 10px 4px 10px 10px;
 }
 .vc-controls {
@@ -256,6 +263,7 @@
   display: flex;
   align-items: center;
   border-bottom: 2px solid transparent;
+  font-family: 'Cairo', sans-serif;
 }
 .ep-tab.active {
   color: #0D1F3C;
@@ -268,7 +276,7 @@
   font-weight: 700;
   border-radius: 999px;
   padding: 1px 6px;
-  margin-left: 6px;
+  margin-right: 6px;
 }
 
 .ep-subject-bar {
@@ -281,8 +289,9 @@
   justify-content: space-between;
   gap: 16px;
   margin-bottom: 6px;
+  flex-direction: row-reverse;
 }
-.ep-subject { font-size: 17px; font-weight: 700; color: #0D1F3C; line-height: 1.3; }
+.ep-subject { font-size: 17px; font-weight: 700; color: #0D1F3C; line-height: 1.3; font-family: 'Cairo', sans-serif; }
 .ep-meta-row {
   display: flex;
   align-items: center;
@@ -317,6 +326,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-direction: row-reverse;
 }
 .ep-avatar {
   width: 38px; height: 38px;
@@ -328,7 +338,7 @@
 }
 .ep-avatar-guest { background: #E8F0FE; color: #1A56DB; }
 .ep-avatar-ada   { background: linear-gradient(135deg, #0D1F3C, #1E3662); color: #C9A84C; font-family: 'Playfair Display', serif; font-size: 12px; }
-.ep-sender-wrap { flex: 1; display: flex; flex-direction: column; gap: 1px; }
+.ep-sender-wrap { flex: 1; display: flex; flex-direction: column; gap: 1px; text-align: right; }
 .ep-sender { font-size: 13px; font-weight: 700; color: #111827; }
 .ep-sender-email { font-size: 11px; color: #6B7280; }
 .ep-ada-label {
@@ -354,7 +364,7 @@
 }
 
 .ep-body {
-  margin-left: 48px;
+  margin-right: 48px;
   font-size: 14px;
   line-height: 1.7;
   color: #374151;
@@ -371,7 +381,7 @@
 }
 
 .ep-tags {
-  margin-left: 48px;
+  margin-right: 48px;
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
@@ -383,6 +393,7 @@
   border-radius: 999px;
   font-size: 10.5px;
   font-weight: 600;
+  font-family: 'Cairo', sans-serif;
 }
 .ep-tag-intent  { background: #EEF2FF; color: #4338CA; border: 1px solid #C7D2FE; }
 .ep-tag-kb      { background: #F0FDF4; color: #166534; border: 1px solid #BBF7D0; }
@@ -396,16 +407,17 @@
   align-items: center;
   gap: 10px;
   border-top: 1px solid #E5E7EB;
+  flex-direction: row-reverse;
 }
 .ep-compose-avatar { width: 30px; height: 30px; border-radius: 50%; background: #E8F0FE; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #1A56DB; flex-shrink: 0; }
-.ep-compose-input { flex: 1; font-size: 13px; color: #9CA3AF; background: #fff; border: 1px solid #E5E7EB; border-radius: 999px; padding: 7px 14px; cursor: pointer; }
-.ep-compose-btn { font-size: 12px; font-weight: 600; color: #0D1F3C; background: #E5E7EB; border: none; border-radius: 999px; padding: 7px 14px; cursor: pointer; }
+.ep-compose-input { flex: 1; font-size: 13px; color: #9CA3AF; background: #fff; border: 1px solid #E5E7EB; border-radius: 999px; padding: 7px 14px; cursor: pointer; text-align: right; font-family: 'Cairo', sans-serif; }
+.ep-compose-btn { font-size: 12px; font-weight: 600; color: #0D1F3C; background: #E5E7EB; border: none; border-radius: 999px; padding: 7px 14px; cursor: pointer; font-family: 'Cairo', sans-serif; }
 
 @media (max-width: 700px) {
   .vc-transcript { padding: 16px; }
   .vc-call-info  { padding: 24px 16px 16px; }
-  .ep-body  { margin-left: 0; }
-  .ep-tags  { margin-left: 0; }
+  .ep-body  { margin-right: 0; }
+  .ep-tags  { margin-right: 0; }
 }
 
 /* ── Waveform player ──────────────────────────────────────── */
@@ -433,6 +445,7 @@
 .vc-tlabel {
   font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums;
   color: rgba(255,255,255,0.4); white-space: nowrap; min-width: 28px;
+  font-family: 'Inter', sans-serif;
 }
 #vcScrubber {
   flex: 1; -webkit-appearance: none; appearance: none;
@@ -446,6 +459,7 @@
 }
 .vc-ctrl-bar {
   display: flex; align-items: center; gap: 16px; margin-top: 14px;
+  flex-direction: row-reverse;
 }
 .vc-play-btn {
   width: 44px; height: 44px; border-radius: 50%; border: none;
@@ -454,12 +468,13 @@
   flex-shrink: 0; transition: transform 120ms, background 120ms;
 }
 .vc-play-btn:hover { transform: scale(1.08); background: #D4B55D; }
-.vc-speed-group { display: flex; gap: 4px; }
+.vc-speed-group { display: flex; gap: 4px; direction: ltr; }
 .vc-spd {
   padding: 4px 9px; border-radius: 999px;
   border: 1px solid rgba(255,255,255,0.15); background: transparent;
   color: rgba(255,255,255,0.45); font-size: 11px; font-weight: 600;
   cursor: pointer; transition: all 120ms;
+  font-family: 'Inter', sans-serif;
 }
 .vc-spd.active { background: rgba(201,168,76,0.15); border-color: rgba(201,168,76,0.45); color: #C9A84C; }
 .vc-spd:hover  { border-color: rgba(201,168,76,0.3); color: rgba(201,168,76,0.8); }
@@ -492,19 +507,20 @@
   will-change: opacity, transform;
 }
 .ecard-anna {
-  align-self: flex-start;
+  align-self: flex-end;
   background: #fff;
   border: 1px solid #E5E7EB;
-  border-left: 3px solid #1A56DB;
+  border-right: 3px solid #1A56DB;
 }
 .ecard-ada {
-  align-self: flex-end;
+  align-self: flex-start;
   background: #FAFBFF;
   border: 1px solid #E5E7EB;
-  border-right: 3px solid #C9A84C;
+  border-left: 3px solid #C9A84C;
 }
 .ecard-header {
   display: flex; align-items: flex-start; gap: 10px; margin-bottom: 14px;
+  flex-direction: row-reverse;
 }
 .ecard-avatar {
   width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
@@ -513,9 +529,9 @@
 }
 .ecard-av-guest { background: #EEF2FF; color: #1A56DB; }
 .ecard-av-ada   { background: linear-gradient(135deg, #0D1F3C, #1E3662); color: #C9A84C; font-family: 'Playfair Display', serif; font-size: 12px; }
-.ecard-meta { flex: 1; display: flex; flex-direction: column; gap: 2px; }
-.ecard-from { font-size: 13px; font-weight: 700; color: #111827; display: flex; align-items: center; gap: 6px; }
-.ecard-addr { font-size: 11px; color: #6B7280; }
+.ecard-meta { flex: 1; display: flex; flex-direction: column; gap: 2px; text-align: right; }
+.ecard-from { font-size: 13px; font-weight: 700; color: #111827; display: flex; align-items: center; gap: 6px; justify-content: flex-end; }
+.ecard-addr { font-size: 11px; color: #6B7280; direction: ltr; text-align: right; }
 .ecard-ai-badge {
   font-size: 9px; font-weight: 700; letter-spacing: 0.1em;
   color: #C9A84C; background: rgba(13,31,60,0.05);
@@ -524,10 +540,12 @@
 .ecard-time {
   font-size: 11px; color: #9CA3AF; white-space: nowrap;
   display: flex; align-items: center; gap: 5px;
+  font-family: 'Inter', sans-serif;
 }
 .ecard-instant {
   background: #EFF6FF; color: #1D4ED8; font-size: 10px;
   font-weight: 700; padding: 2px 6px; border-radius: 999px; border: 1px solid #BFDBFE;
+  font-family: 'Inter', sans-serif;
 }
 .ecard-body p { margin: 0 0 10px; }
 .ecard-body p:last-child { margin-bottom: 0; }
@@ -545,11 +563,6 @@
 @media (max-width: 600px) {
   .ecard { max-width: 95%; }
 }
-
-/* ── Language toggle ──────────────────────────────────────── */
-.lang-toggle { margin-left: auto; display: flex; align-items: center; padding: 0 4px; }
-.lang-btn { display: inline-flex; align-items: center; padding: 5px 14px; background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.35); border-radius: 999px; font-size: 13px; font-weight: 700; color: #C9A84C; text-decoration: none; transition: background 150ms; }
-.lang-btn:hover { background: rgba(201,168,76,0.22); }
 </style>
 </head>
 <body>
@@ -573,32 +586,34 @@ const HOTEL_CONFIG = {
 <!-- Demo nav -->
 <nav class="demo-nav-bar">
   <div class="demo-nav-row">
-    <a class="demo-nav-tab" href="index.html">🏨 Book In</a>
-    <a class="demo-nav-tab active" href="pre-stay.html">✦ Pre-Stay</a>
-    <a class="demo-nav-tab" href="in-stay.html">🛎 In-Stay</a>
-    <a class="demo-nav-tab" href="post-stay.html">⭐ Post-Stay</a>
-    <a class="demo-nav-tab" href="summary.html">◈ Summary</a>
-    <div class="lang-toggle"><a class="lang-btn" href="ar/pre-stay.html">عر</a></div>
+    <div class="lang-toggle">
+      <a class="lang-btn" href="../pre-stay.html">EN</a>
+    </div>
+    <a class="demo-nav-tab active" href="pre-stay.html">✦ ما قبل الإقامة</a>
+    <a class="demo-nav-tab" href="../post-stay.html">⭐ ما بعد الإقامة</a>
+    <a class="demo-nav-tab" href="../in-stay.html">🛎 أثناء الإقامة</a>
+    <a class="demo-nav-tab" href="summary.html">◈ الملخص</a>
+    <a class="demo-nav-tab" href="../index.html">🏨 تسجيل الوصول</a>
   </div>
 </nav>
 
 <!-- Header -->
 <header class="site-header solid">
-  <a class="brand" href="index.html">
+  <a class="brand" href="../index.html">
     <div class="brand-mark">
       <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
         <text x="14" y="21" font-family="Playfair Display, serif" font-size="20" font-weight="700" fill="#0D1F3C" text-anchor="middle">AH</text>
       </svg>
     </div>
     <div class="brand-name-wrap">
-      <span class="brand-title">Ada Hotels</span>
-      <span class="brand-tag">Exceptional stays worldwide</span>
+      <span class="brand-title">فنادق أدا</span>
+      <span class="brand-tag">إقامات استثنائية حول العالم</span>
     </div>
   </a>
   <nav class="site-nav">
-    <a href="index.html">Hotels</a>
-    <a href="index.html">Dining</a>
-    <a href="index.html">Offers</a>
+    <a href="../index.html">الفنادق</a>
+    <a href="../index.html">المطاعم</a>
+    <a href="../index.html">العروض</a>
   </nav>
   <div class="header-actions">
     <div class="user-pill">
@@ -608,7 +623,7 @@ const HOTEL_CONFIG = {
           <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#0D1F3C" stroke-width="2" stroke-linecap="round"/>
         </svg>
       </span>
-      <span class="user-name">Anna C.</span>
+      <span class="user-name">آنا ت.</span>
     </div>
   </div>
 </header>
@@ -616,135 +631,135 @@ const HOTEL_CONFIG = {
 <!-- Page hero -->
 <div class="page-hero">
   <div class="wrap page-hero-inner">
-    <p class="eyebrow">Pre-Stay · Two channels, one agent</p>
-    <h1>Before Anna even arrives</h1>
-    <p>Ada orchestrates every pre-stay touchpoint — from a restaurant reservation by phone, to a last-minute email request — all without human intervention.</p>
+    <p class="eyebrow">ما قبل الإقامة · قناتان، وكيل واحد</p>
+    <h1>قبل وصول آنا حتى</h1>
+    <p>تنسّق أدا كل نقطة تواصل ما قبل الإقامة — من حجز مطعم عبر الهاتف، إلى طلب بريد إلكتروني في اللحظات الأخيرة — كل ذلك دون تدخل بشري.</p>
   </div>
 </div>
 
 <!-- ── SCENARIO 1: VOICE CALL ─────────────────────────────── -->
 <section class="scenario-section">
   <div class="wrap">
-    <div class="scenario-label">📞 Scenario 01 · Voice</div>
-    <div class="scenario-title">Anna calls to book a restaurant</div>
-    <div class="scenario-desc">Three days before check-in, Anna calls the Ada Hotels dining line to reserve a table for her arrival dinner. The Ada voice agent handles the full booking — no hold music, no transfer.</div>
+    <div class="scenario-label">📞 السيناريو ٠١ · صوتي</div>
+    <div class="scenario-title">آنا تتصل لحجز مطعم</div>
+    <div class="scenario-desc">قبل ثلاثة أيام من تسجيل الوصول، تتصل آنا بخط مطاعم فنادق أدا لحجز طاولة لعشاء وصولها. يتولى وكيل أدا الصوتي الحجز بالكامل — بلا موسيقى انتظار، بلا تحويل.</div>
 
     <div class="voice-panel">
       <div class="vc-status-bar">
-        <span class="vc-carrier">Ada Hotels · Dining Line</span>
-        <span class="vc-time">3 days before check-in</span>
+        <span class="vc-carrier">فنادق أدا · خط المطاعم</span>
+        <span class="vc-time">٣ أيام قبل تسجيل الوصول</span>
       </div>
 
       <div class="vc-call-info">
-        <div class="vc-label">Incoming call to</div>
-        <div class="vc-name">Ada Hotels · Restaurant Reservations</div>
+        <div class="vc-label">مكالمة واردة إلى</div>
+        <div class="vc-name">فنادق أدا · حجوزات المطاعم</div>
       </div>
 
-      <!-- Real transcript from conversation 6aa2f9790607fdec8f9ae52a -->
+      <!-- Real transcript from conversation 6aa2f9790607fdec8f9ae52a — bubbles kept in English as audio is English -->
       <div class="vc-transcript" id="vcTranscript">
 
         <div class="vc-turn" data-t="1.460">
-          <span class="vc-speaker ada">Connie · Ada AI</span>
+          <span class="vc-speaker ada">كوني · أدا للذكاء الاصطناعي</span>
           <div class="vc-bubble ada">Hi Anna! I'm Connie, Ada Hotel's AI concierge. I can help you with dining reservations, room requests, and anything you need during your stay. I can see you have an upcoming booking with us. How can I help you today?</div>
         </div>
 
         <div class="vc-turn" data-t="15.245">
-          <span class="vc-speaker anna">Anna Chambers</span>
+          <span class="vc-speaker anna">آنا تشامبرز</span>
           <div class="vc-bubble anna">Yeah. I'd like to book a table for my colleagues, please.</div>
         </div>
 
         <div class="vc-turn" data-t="21.805">
-          <span class="vc-speaker ada">Connie · Ada AI</span>
+          <span class="vc-speaker ada">كوني · أدا للذكاء الاصطناعي</span>
           <div class="vc-bubble ada">Absolutely, I'll look into dining options for your colleagues.</div>
         </div>
 
         <div class="vc-turn" data-t="25.005">
-          <span class="vc-speaker ada">Connie · Ada AI</span>
+          <span class="vc-speaker ada">كوني · أدا للذكاء الاصطناعي</span>
           <div class="vc-bubble ada">We have three dining options at Ada Hotel Mayfair. The Mayfair Brasserie offers modern European cuisine throughout the day, from seven in the morning. Milano serves Italian dishes, including handmade pasta and wood-fired specialties, for dinner from six in the evening, Monday through Saturday. The Jade Room offers Pan-Asian cuisine, including Thai, Japanese, and Vietnamese dishes, for dinner from six in the evening, Monday through Saturday.</div>
         </div>
 
         <div class="vc-turn" data-t="51.715">
-          <span class="vc-speaker ada">Connie · Ada AI</span>
+          <span class="vc-speaker ada">كوني · أدا للذكاء الاصطناعي</span>
           <div class="vc-bubble ada">Which restaurant would you like to book: The Mayfair Brasserie, Milano, or The Jade Room?</div>
         </div>
 
         <div class="vc-turn" data-t="57.960">
-          <span class="vc-speaker anna">Anna Chambers</span>
+          <span class="vc-speaker anna">آنا تشامبرز</span>
           <div class="vc-bubble anna">The Jade Room sounds interesting. Uh, I love Vietnamese. Do you know if they serve the famous Vietnamese dish pho?</div>
         </div>
 
         <div class="vc-turn" data-t="68.680">
-          <span class="vc-speaker ada">Connie · Ada AI</span>
+          <span class="vc-speaker ada">كوني · أدا للذكاء الاصطناعي</span>
           <div class="vc-bubble ada">Yes, pho is a house specialty at The Jade Room. How many guests will be dining?</div>
         </div>
 
         <div class="vc-turn" data-t="74.280">
-          <span class="vc-speaker anna">Anna Chambers</span>
+          <span class="vc-speaker anna">آنا تشامبرز</span>
           <div class="vc-bubble anna">Great. Um, yes. Three of us then, please.</div>
         </div>
 
         <div class="vc-turn" data-t="79.400">
-          <span class="vc-speaker ada">Connie · Ada AI</span>
+          <span class="vc-speaker ada">كوني · أدا للذكاء الاصطناعي</span>
           <div class="vc-bubble ada">What date would you like to dine at The Jade Room?</div>
         </div>
 
         <div class="vc-turn" data-t="83.480">
-          <span class="vc-speaker anna">Anna Chambers</span>
+          <span class="vc-speaker anna">آنا تشامبرز</span>
           <div class="vc-bubble anna">This Friday.</div>
         </div>
 
         <div class="vc-turn" data-t="86.120">
-          <span class="vc-speaker ada">Connie · Ada AI</span>
+          <span class="vc-speaker ada">كوني · أدا للذكاء الاصطناعي</span>
           <div class="vc-bubble ada">Perfect. What time would you like the table?</div>
         </div>
 
         <div class="vc-turn" data-t="89.800">
-          <span class="vc-speaker anna">Anna Chambers</span>
+          <span class="vc-speaker anna">آنا تشامبرز</span>
           <div class="vc-bubble anna">Eight PM, please.</div>
         </div>
 
         <div class="vc-turn" data-t="93.000">
-          <span class="vc-speaker ada">Connie · Ada AI</span>
+          <span class="vc-speaker ada">كوني · أدا للذكاء الاصطناعي</span>
           <div class="vc-bubble ada">Just to confirm, a table for three at The Jade Room on Friday, September twelfth, twenty twenty-six at eight PM. Is that right?</div>
         </div>
 
         <div class="vc-turn" data-t="101.560">
-          <span class="vc-speaker anna">Anna Chambers</span>
+          <span class="vc-speaker anna">آنا تشامبرز</span>
           <div class="vc-bubble anna">Yep. That's correct. Thank you.</div>
         </div>
 
         <div class="vc-turn" data-t="105.240">
-          <span class="vc-speaker ada">Connie · Ada AI</span>
+          <span class="vc-speaker ada">كوني · أدا للذكاء الاصطناعي</span>
           <div class="vc-bubble ada">Wonderful, your booking details are confirmed. Do you have any dietary requirements I should note for the reservation?</div>
         </div>
 
         <div class="vc-turn" data-t="112.760">
-          <span class="vc-speaker anna">Anna Chambers</span>
+          <span class="vc-speaker anna">آنا تشامبرز</span>
           <div class="vc-bubble anna">No.</div>
         </div>
 
         <div class="vc-turn" data-t="115.160">
-          <span class="vc-speaker ada">Connie · Ada AI</span>
+          <span class="vc-speaker ada">كوني · أدا للذكاء الاصطناعي</span>
           <div class="vc-bubble ada">Your table is booked at The Jade Room for Friday, September twelfth, twenty twenty-six at eight PM. It is on the ground floor to the right of the main lobby. We look forward to welcoming you and your colleagues.</div>
         </div>
 
         <div class="vc-turn" data-t="128.345">
-          <span class="vc-speaker anna">Anna Chambers</span>
+          <span class="vc-speaker anna">آنا تشامبرز</span>
           <div class="vc-bubble anna">Great. Thank you very much.</div>
         </div>
 
         <div class="vc-turn" data-t="131.705">
-          <span class="vc-speaker ada">Connie · Ada AI</span>
+          <span class="vc-speaker ada">كوني · أدا للذكاء الاصطناعي</span>
           <div class="vc-bubble ada">Would you like me to send you a quick survey by text message to rate your experience today?</div>
         </div>
 
         <div class="vc-turn" data-t="136.880">
-          <span class="vc-speaker anna">Anna Chambers</span>
+          <span class="vc-speaker anna">آنا تشامبرز</span>
           <div class="vc-bubble anna">Yes, please.</div>
         </div>
 
         <div class="vc-turn" data-t="140.080">
-          <span class="vc-speaker ada">Connie · Ada AI</span>
+          <span class="vc-speaker ada">كوني · أدا للذكاء الاصطناعي</span>
           <div class="vc-bubble ada">Thanks for confirming. The survey has been sent by text. We hope you and your colleagues enjoy your evening at The Jade Room.</div>
         </div>
 
@@ -752,6 +767,7 @@ const HOTEL_CONFIG = {
 
       <!-- Waveform player (below transcript) -->
       <div class="vc-player-area">
+        <p style="font-size:13px;color:rgba(255,255,255,0.45);text-align:center;margin-bottom:12px;">🎙 المكالمة بالإنجليزية — ستتوفر النسخة العربية قريباً</p>
         <div class="waveform-wrap" id="waveformWrap">
           <canvas id="waveformCanvas"></canvas>
         </div>
@@ -761,17 +777,17 @@ const HOTEL_CONFIG = {
           <span class="vc-tlabel" id="timeTotal">2:16</span>
         </div>
         <div class="vc-ctrl-bar">
-          <button class="vc-play-btn" id="playBtn" title="Play">▶</button>
           <div class="vc-speed-group">
             <button class="vc-spd active" data-s="1">1×</button>
             <button class="vc-spd" data-s="1.25">1.25×</button>
             <button class="vc-spd" data-s="1.5">1.5×</button>
             <button class="vc-spd" data-s="2">2×</button>
           </div>
+          <button class="vc-play-btn" id="playBtn" title="تشغيل">▶</button>
         </div>
       </div>
 
-      <audio id="callAudio" src="restaurant-booking-call.wav" preload="auto"></audio>
+      <audio id="callAudio" src="../restaurant-booking-call.wav" preload="auto"></audio>
     </div>
   </div>
 </section>
@@ -779,13 +795,13 @@ const HOTEL_CONFIG = {
 <!-- ── SCENARIO 2: EMAIL ──────────────────────────────────── -->
 <section class="scenario-section">
   <div class="wrap">
-    <div class="scenario-label">✉️ Scenario 02 · Email</div>
-    <div class="scenario-title">Anna emails — she's running late</div>
-    <div class="scenario-desc">On the day of her dinner reservation, Anna's train is delayed. She fires off a quick email to change her 8 PM booking to 9 PM. Ada handles the amendment instantly, with no waiting.</div>
+    <div class="scenario-label">✉️ السيناريو ٠٢ · بريد إلكتروني</div>
+    <div class="scenario-title">آنا ترسل بريداً إلكترونياً — قطارها متأخر</div>
+    <div class="scenario-desc">في يوم حجز عشائها، يتأخر قطار آنا. ترسل بريداً إلكترونياً سريعاً لتغيير حجزها من الساعة 8 مساءً إلى 9 مساءً. تتعامل أدا مع التعديل فوراً، دون انتظار.</div>
 
     <div class="email-cards-wrap">
 
-      <!-- Anna's email — left aligned -->
+      <!-- Anna's email — right aligned in RTL -->
       <div class="ecard ecard-anna ep-anim-anna-hide" id="emailAnna">
         <div class="ecard-header">
           <div class="ecard-avatar ecard-av-guest">AC</div>
@@ -793,17 +809,17 @@ const HOTEL_CONFIG = {
             <div class="ecard-from">Anna Chambers</div>
             <div class="ecard-addr">anna.chambers@gmail.com → concierge@ada-hotels.com</div>
           </div>
-          <div class="ecard-time">Fri 12 Sep · 5:43 PM</div>
+          <div class="ecard-time">جمعة 12 سبتمبر · 5:43 م</div>
         </div>
         <div class="ecard-body">
-          <p>Hi,</p>
-          <p>My train has been delayed so I'm running late — I won't make the 8 PM reservation at The Jade Room tonight. Is it possible to push the table back to 9 PM instead? Still three of us.</p>
-          <p>Sorry for the short notice. Booking ref is AH-291847.</p>
-          <div class="ecard-sig">Thanks,<br>Anna</div>
+          <p>مرحباً،</p>
+          <p>تأخّر قطاري لذا سأتأخر في الوصول — لن أتمكن من الحضور لحجز الساعة 8 مساءً في غرفة جيد الليلة. هل يمكن تأخير الطاولة إلى الساعة 9 مساءً بدلاً من ذلك؟ لا يزالون ثلاثة أشخاص.</p>
+          <p>أعتذر عن الإشعار المتأخر. رقم الحجز AH-291847.</p>
+          <div class="ecard-sig">شكراً،<br>آنا</div>
         </div>
       </div>
 
-      <!-- Ada's reply — right aligned -->
+      <!-- Ada's reply — left aligned in RTL -->
       <div class="ecard ecard-ada ep-anim-hide" id="emailAda">
         <div class="ecard-header">
           <div class="ecard-avatar ecard-av-ada">AH</div>
@@ -811,14 +827,14 @@ const HOTEL_CONFIG = {
             <div class="ecard-from">Ada Hotels Concierge <span class="ecard-ai-badge">✦ AI</span></div>
             <div class="ecard-addr">concierge@ada-hotels.com → anna.chambers@gmail.com</div>
           </div>
-          <div class="ecard-time">5:44 PM <span class="ecard-instant">⚡ 47s</span></div>
+          <div class="ecard-time">5:44 م <span class="ecard-instant">⚡ 47 ث</span></div>
         </div>
         <div class="ecard-body">
-          <p>Dear Anna,</p>
-          <p>No trouble at all — I've amended your reservation at The Jade Room from 8:00 PM to <strong>9:00 PM this evening</strong>, Friday 12 September, for three guests. Your table will be held.</p>
-          <p>The team at The Jade Room have been notified and look forward to welcoming you. Please don't rush — we'll have everything ready when you arrive.</p>
-          <p>Is there anything else I can help with before your arrival?</p>
-          <div class="ecard-sig">Warm regards,<br><strong>Ada Concierge</strong><br>Ada Hotel Mayfair · +44 20 7946 0800</div>
+          <p>عزيزتي آنا،</p>
+          <p>لا مشكلة على الإطلاق — لقد عدّلت حجزك في غرفة جيد من 8:00 مساءً إلى <strong>9:00 مساءً هذا المساء</strong>، الجمعة 12 سبتمبر، لثلاثة ضيوف. ستُحفظ طاولتك.</p>
+          <p>تم إبلاغ فريق غرفة جيد وهم يتطلعون إلى الترحيب بك. لا داعي للتسرع — سيكون كل شيء جاهزاً عند وصولك.</p>
+          <p>هل هناك أي شيء آخر يمكنني مساعدتك به قبل وصولك؟</p>
+          <div class="ecard-sig">مع تحيات طيبة،<br><strong>أدا كونسيرج</strong><br>فندق أدا مايفير · +44 20 7946 0800</div>
         </div>
       </div>
 
@@ -832,41 +848,41 @@ const HOTEL_CONFIG = {
   <div class="wrap">
     <div class="footer-inner">
       <div class="footer-brand">
-        <a class="brand" href="index.html" style="align-self:flex-start">
+        <a class="brand" href="../index.html" style="align-self:flex-start">
           <div class="brand-mark">
             <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
               <text x="14" y="21" font-family="Playfair Display, serif" font-size="20" font-weight="700" fill="#0D1F3C" text-anchor="middle">AH</text>
             </svg>
           </div>
           <div class="brand-name-wrap">
-            <span class="brand-title">Ada Hotels</span>
-            <span class="brand-tag">Exceptional stays worldwide</span>
+            <span class="brand-title">فنادق أدا</span>
+            <span class="brand-tag">إقامات استثنائية حول العالم</span>
           </div>
         </a>
-        <p>Exceptional stays crafted for the modern traveller.</p>
+        <p>إقامات استثنائية مصمّمة للمسافر العصري.</p>
       </div>
       <div class="footer-col">
-        <span class="footer-head">Guest Journey</span>
-        <a href="index.html">Book In</a>
-        <a href="pre-stay.html">Pre-Stay</a>
-        <a href="in-stay.html">In-Stay</a>
-        <a href="post-stay.html">Post-Stay</a>
+        <span class="footer-head">رحلة النزيل</span>
+        <a href="../index.html">تسجيل الوصول</a>
+        <a href="pre-stay.html">ما قبل الإقامة</a>
+        <a href="../in-stay.html">أثناء الإقامة</a>
+        <a href="../post-stay.html">ما بعد الإقامة</a>
       </div>
       <div class="footer-col">
-        <span class="footer-head">Experiences</span>
-        <a href="in-stay.html">In-room concierge</a>
-        <a href="index.html">Dining</a>
-        <a href="index.html">Spa &amp; wellness</a>
+        <span class="footer-head">التجارب</span>
+        <a href="../in-stay.html">كونسيرج في الغرفة</a>
+        <a href="../index.html">المطاعم</a>
+        <a href="../index.html">المنتجع الصحي والعافية</a>
       </div>
       <div class="footer-col">
-        <span class="footer-head">Help</span>
-        <a href="index.html">Manage booking</a>
-        <a href="index.html">Contact us</a>
-        <a href="index.html">Cancellation policy</a>
+        <span class="footer-head">المساعدة</span>
+        <a href="../index.html">إدارة الحجز</a>
+        <a href="../index.html">اتصل بنا</a>
+        <a href="../index.html">سياسة الإلغاء</a>
       </div>
     </div>
     <div class="footer-legal">
-      <span>Ada Hotels is a demo experience. Prices and properties are illustrative only.</span>
+      <span>فنادق أدا هي تجربة تجريبية. الأسعار والعقارات توضيحية فقط.</span>
       <span>&copy; 2026 Ada Hotels</span>
     </div>
   </div>
@@ -988,7 +1004,7 @@ window.adaSettings = {
   async function loadWaveform() {
     try {
       const ac  = new (window.AudioContext || window.webkitAudioContext)();
-      const res = await fetch('restaurant-booking-call.wav');
+      const res = await fetch('../restaurant-booking-call.wav');
       const ab  = await res.arrayBuffer();
       decodedBuffer = await ac.decodeAudioData(ab);
       drawWaveform(decodedBuffer, 0);

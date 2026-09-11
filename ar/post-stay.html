@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang="en-GB">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ada Hotels — Post-Stay</title>
-<link rel="stylesheet" href="ada-hotels.css">
-<link rel="stylesheet" href="ada-hotels-ar.css">
+<title>فنادق أدا — ما بعد الإقامة</title>
+<link rel="stylesheet" href="../ada-hotels.css">
+<link rel="stylesheet" href="../ada-hotels-ar.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 <style>
 /* ── Demo nav ─────────────────────────────────────────────── */
 .demo-nav-bar {
@@ -19,16 +22,13 @@
 .demo-nav-row::-webkit-scrollbar { display: none; }
 .demo-nav-tab {
   display: flex; align-items: center; gap: 6px; padding: 0 16px;
-  font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.55);
+  font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.55);
+  font-family: 'Cairo', sans-serif;
   text-decoration: none; white-space: nowrap; line-height: 42px;
   border-bottom: 2px solid transparent; transition: color 150ms, border-color 150ms;
 }
 .demo-nav-tab:hover { color: rgba(255,255,255,0.85); }
-.demo-nav-tab.active { color: #C9A84C; border-bottom-color: #C9A84C; font-weight: 600; }
-
-.lang-toggle { margin-left: auto; display: flex; align-items: center; padding: 0 4px; }
-.lang-btn { display: inline-flex; align-items: center; padding: 5px 14px; background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.35); border-radius: 999px; font-size: 13px; font-weight: 700; color: #C9A84C; text-decoration: none; transition: background 150ms; }
-.lang-btn:hover { background: rgba(201,168,76,0.22); }
+.demo-nav-tab.active { color: #C9A84C; border-bottom-color: #C9A84C; font-weight: 700; }
 
 /* ══════════════════════════════════════════════════════════
    HERO
@@ -43,7 +43,7 @@
   content: '';
   position: absolute; inset: 0;
   background:
-    radial-gradient(ellipse 900px 500px at 70% 50%, rgba(201,168,76,0.07) 0%, transparent 65%),
+    radial-gradient(ellipse 900px 500px at 30% 50%, rgba(201,168,76,0.07) 0%, transparent 65%),
     repeating-linear-gradient(135deg, rgba(201,168,76,0.012) 0, rgba(201,168,76,0.012) 1px, transparent 1px, transparent 64px);
 }
 .ps-hero-inner {
@@ -52,12 +52,12 @@
 }
 .ps-hero-text .eyebrow { color: rgba(201,168,76,0.8); margin-bottom: 18px; }
 .ps-hero-text h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(36px,5vw,64px); font-weight: 700; color: #fff;
-  line-height: 1.05; margin-bottom: 20px; letter-spacing: -0.02em;
+  font-family: 'Cairo', sans-serif;
+  font-size: clamp(36px,5vw,64px); font-weight: 800; color: #fff;
+  line-height: 1.15; margin-bottom: 20px;
 }
 .ps-hero-text h1 em { font-style: normal; color: #C9A84C; }
-.ps-hero-text p { font-size: 17px; color: rgba(255,255,255,0.65); max-width: 46ch; line-height: 1.7; }
+.ps-hero-text p { font-size: 17px; color: rgba(255,255,255,0.65); max-width: 46ch; line-height: 1.8; }
 .ps-hero-stats {
   display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 36px;
 }
@@ -66,12 +66,12 @@
   border-radius: 10px; padding: 18px 20px;
 }
 .ps-hero-stat-val {
-  font-family: 'Playfair Display', serif;
-  font-size: 32px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 4px;
-  font-variant-numeric: tabular-nums;
+  font-family: 'Cairo', sans-serif;
+  font-size: 32px; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 4px;
+  font-variant-numeric: tabular-nums; direction: ltr; display: inline-block;
 }
 .ps-hero-stat-val span { font-size: 16px; color: rgba(255,255,255,0.4); }
-.ps-hero-stat-lbl { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(201,168,76,0.75); }
+.ps-hero-stat-lbl { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(201,168,76,0.75); }
 
 /* Phone illustration in hero */
 .ps-hero-phone {
@@ -111,7 +111,7 @@
 .phone-timer {
   text-align: center; font-size: 36px; font-weight: 300; color: #fff;
   font-variant-numeric: tabular-nums; margin: 20px 0;
-  font-family: system-ui, sans-serif; letter-spacing: 0.04em;
+  font-family: system-ui, sans-serif; letter-spacing: 0.04em; direction: ltr;
 }
 .phone-waveform-small {
   height: 40px; overflow: hidden; margin: 0 -4px;
@@ -142,10 +142,10 @@
   margin-bottom: 40px; gap: 24px; flex-wrap: wrap;
 }
 .call-section-head h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(28px,3.5vw,44px); font-weight: 700; color: #fff; line-height: 1.1;
+  font-family: 'Cairo', sans-serif;
+  font-size: clamp(28px,3.5vw,44px); font-weight: 800; color: #fff; line-height: 1.2;
 }
-.call-section-head p { font-size: 14px; color: rgba(255,255,255,0.45); max-width: 36ch; text-align: right; line-height: 1.6; }
+.call-section-head p { font-size: 14px; color: rgba(255,255,255,0.45); max-width: 36ch; text-align: left; line-height: 1.7; }
 
 /* Audio player bar */
 .audio-bar {
@@ -174,7 +174,7 @@
 }
 .audio-time {
   font-size: 11px; color: rgba(255,255,255,0.4); font-variant-numeric: tabular-nums;
-  font-family: system-ui, sans-serif;
+  font-family: system-ui, sans-serif; direction: ltr;
 }
 .audio-live-badge {
   flex-shrink: 0; display: flex; align-items: center; gap: 6px;
@@ -213,8 +213,9 @@
   transition: opacity 400ms ease, transform 400ms ease;
 }
 .t-msg.visible { opacity: 1; transform: none; }
-.t-msg.t-ada { flex-direction: row; }
-.t-msg.t-anna { flex-direction: row-reverse; }
+/* In RTL: Ada (hotel agent) appears on the right, Anna (guest) on the left */
+.t-msg.t-ada { flex-direction: row-reverse; }
+.t-msg.t-anna { flex-direction: row; }
 
 .t-avatar {
   width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
@@ -229,17 +230,18 @@
   font-size: 10px; color: rgba(255,255,255,0.3); margin-bottom: 5px;
   font-variant-numeric: tabular-nums;
 }
-.t-msg.t-anna .t-meta { text-align: right; }
+.t-msg.t-ada .t-meta { text-align: right; }
+.t-msg.t-anna .t-meta { text-align: left; }
 .t-bubble {
-  font-size: 14px; line-height: 1.65; padding: 12px 16px; border-radius: 14px;
+  font-size: 14px; line-height: 1.75; padding: 12px 16px; border-radius: 14px;
 }
 .t-msg.t-ada .t-bubble {
   background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.85);
-  border-top-left-radius: 4px;
+  border-top-right-radius: 4px; text-align: right;
 }
 .t-msg.t-anna .t-bubble {
   background: rgba(201,168,76,0.15); color: rgba(255,255,255,0.9);
-  border-top-right-radius: 4px; text-align: right;
+  border-top-left-radius: 4px; text-align: left;
 }
 
 /* Capture sidebar */
@@ -247,30 +249,32 @@
   display: flex; flex-direction: column; gap: 12px; position: sticky; top: 24px;
 }
 .captures-panel-head {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
   color: rgba(255,255,255,0.3); margin-bottom: 4px;
 }
 .capture-card {
   background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
   border-radius: 10px; padding: 14px 16px;
-  opacity: 0; transform: translateX(12px);
+  opacity: 0; transform: translateX(-12px);
   transition: opacity 400ms ease, transform 400ms ease;
 }
 .capture-card.visible { opacity: 1; transform: none; }
-.capture-card.c-green { border-left: 3px solid #22C55E; }
-.capture-card.c-gold { border-left: 3px solid #C9A84C; }
+/* RTL: flip border accent to right side */
+.capture-card.c-green { border-right: 3px solid #22C55E; }
+.capture-card.c-gold { border-right: 3px solid #C9A84C; }
 .capture-label {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
   color: rgba(255,255,255,0.4); margin-bottom: 6px;
 }
 .capture-value {
-  font-family: 'Playfair Display', serif;
-  font-size: 22px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 4px;
+  font-family: 'Cairo', sans-serif;
+  font-size: 22px; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 4px;
+  direction: ltr; text-align: right;
 }
 .capture-card.c-green .capture-value { color: #4ADE80; }
-.capture-card.c-gold .capture-value { font-size: 14px; color: #F5C842; line-height: 1.4; }
+.capture-card.c-gold .capture-value { font-size: 14px; color: #F5C842; line-height: 1.4; direction: rtl; text-align: right; }
 .capture-quote {
-  font-size: 11px; color: rgba(255,255,255,0.4); font-style: italic; line-height: 1.5;
+  font-size: 11px; color: rgba(255,255,255,0.4); font-style: normal; line-height: 1.6;
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -282,8 +286,8 @@
 .scores-head { margin-bottom: 56px; }
 .scores-head .eyebrow { margin-bottom: 12px; }
 .scores-head h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(28px,3.5vw,44px); font-weight: 700; color: #0D1F3C;
+  font-family: 'Cairo', sans-serif;
+  font-size: clamp(28px,3.5vw,44px); font-weight: 800; color: #0D1F3C;
 }
 .scores-layout {
   display: grid; grid-template-columns: auto 1fr; gap: 64px; align-items: center;
@@ -303,8 +307,8 @@
   text-align: center;
 }
 .nps-number {
-  font-family: 'Playfair Display', serif;
-  font-size: 64px; font-weight: 700; color: #0D1F3C; line-height: 1;
+  font-family: 'Cairo', sans-serif;
+  font-size: 64px; font-weight: 800; color: #0D1F3C; line-height: 1;
   font-variant-numeric: tabular-nums;
 }
 .nps-denom { font-size: 20px; font-weight: 400; color: #8A96A8; }
@@ -312,7 +316,7 @@
   display: inline-flex; align-items: center; gap: 7px; margin-top: 10px;
   background: #D1FAE5; border: 1px solid #6EE7B7; border-radius: 20px;
   padding: 5px 14px; font-size: 12px; font-weight: 700; color: #065F46;
-  letter-spacing: 0.06em; text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 .nps-badge::before { content: ''; display: block; width: 8px; height: 8px; background: #22C55E; border-radius: 50%; }
 .nps-zones {
@@ -330,20 +334,21 @@
 .score-tile-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; }
 .score-tile-icon { font-size: 24px; line-height: 1; }
 .score-tile-tag {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
   background: #D1FAE5; color: #065F46; padding: 4px 10px; border-radius: 12px;
+  direction: ltr;
 }
 .score-tile-lbl {
-  font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
   color: #C9A84C; margin-bottom: 8px;
 }
 .score-tile-val {
-  font-family: 'Playfair Display', serif;
-  font-size: 40px; font-weight: 700; color: #0D1F3C; line-height: 1;
+  font-family: 'Cairo', sans-serif;
+  font-size: 40px; font-weight: 800; color: #0D1F3C; line-height: 1;
   font-variant-numeric: tabular-nums; margin-bottom: 4px;
 }
 .score-tile-val span { font-size: 18px; font-weight: 400; color: #8A96A8; }
-.score-tile-note { font-size: 12px; color: #6B7280; margin-top: 6px; font-style: italic; }
+.score-tile-note { font-size: 12px; color: #6B7280; margin-top: 6px; }
 .score-bar-track {
   height: 4px; background: #F3F4F6; border-radius: 2px; margin-top: 16px; overflow: hidden;
 }
@@ -359,10 +364,10 @@
 .insights-head { margin-bottom: 48px; }
 .insights-head .eyebrow { color: rgba(201,168,76,0.8); margin-bottom: 12px; }
 .insights-head h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(26px,3vw,40px); font-weight: 700; color: #fff;
+  font-family: 'Cairo', sans-serif;
+  font-size: clamp(26px,3vw,40px); font-weight: 800; color: #fff;
 }
-.insights-head p { font-size: 15px; color: rgba(255,255,255,0.5); max-width: 56ch; margin-top: 8px; line-height: 1.7; }
+.insights-head p { font-size: 15px; color: rgba(255,255,255,0.5); max-width: 56ch; margin-top: 8px; line-height: 1.8; }
 
 .insights-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .insight-card {
@@ -377,20 +382,21 @@
 .insight-card.ic-star::before { background: #22C55E; }
 .insight-icon { font-size: 28px; margin-bottom: 16px; }
 .insight-type {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
   color: rgba(255,255,255,0.35); margin-bottom: 10px;
 }
-.insight-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 10px; line-height: 1.35; }
+.insight-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 10px; line-height: 1.45; }
+/* RTL: flip quote border to right side */
 .insight-quote {
-  font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.7; font-style: italic;
-  border-left: 2px solid rgba(201,168,76,0.4); padding-left: 12px; margin-bottom: 16px;
+  font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.8;
+  border-right: 2px solid rgba(201,168,76,0.4); padding-right: 12px; margin-bottom: 16px;
 }
 .insight-action {
   font-size: 11px; font-weight: 600; color: rgba(201,168,76,0.8);
   display: flex; align-items: center; gap: 6px;
 }
 .insight-action::before {
-  content: '→'; font-style: normal;
+  content: '←'; font-style: normal;
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -400,10 +406,10 @@
 .loop-head { margin-bottom: 56px; }
 .loop-head .eyebrow { margin-bottom: 12px; }
 .loop-head h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(26px,3vw,40px); font-weight: 700; color: #0D1F3C; margin-bottom: 10px;
+  font-family: 'Cairo', sans-serif;
+  font-size: clamp(26px,3vw,40px); font-weight: 800; color: #0D1F3C; margin-bottom: 10px;
 }
-.loop-head p { font-size: 15px; color: #4A5568; max-width: 56ch; line-height: 1.7; }
+.loop-head p { font-size: 15px; color: #4A5568; max-width: 56ch; line-height: 1.8; }
 
 .journey-timeline {
   display: grid; grid-template-columns: repeat(5, 1fr); gap: 0;
@@ -412,7 +418,7 @@
 .journey-timeline::before {
   content: '';
   position: absolute; top: 28px; left: calc(10% + 8px); right: calc(10% + 8px); height: 2px;
-  background: repeating-linear-gradient(90deg, #C9A84C 0, #C9A84C 8px, transparent 8px, transparent 16px);
+  background: repeating-linear-gradient(270deg, #C9A84C 0, #C9A84C 8px, transparent 8px, transparent 16px);
   z-index: 0;
 }
 .journey-node { display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; z-index: 1; padding: 0 8px; }
@@ -428,7 +434,7 @@
   box-shadow: 0 0 0 4px rgba(201,168,76,0.15), 0 4px 16px rgba(0,0,0,0.2);
 }
 .journey-step-lbl {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
   color: #C9A84C; margin-bottom: 6px;
 }
 .journey-step-title { font-size: 13px; font-weight: 700; color: #0D1F3C; margin-bottom: 4px; line-height: 1.3; }
@@ -441,8 +447,8 @@
 }
 .cf-icon { font-size: 48px; line-height: 1; }
 .cf-content {}
-.cf-title { font-size: 13px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #C9A84C; margin-bottom: 10px; }
-.cf-lead { font-size: 16px; font-weight: 600; color: #0D1F3C; margin-bottom: 16px; line-height: 1.5; }
+.cf-title { font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #C9A84C; margin-bottom: 10px; }
+.cf-lead { font-size: 16px; font-weight: 600; color: #0D1F3C; margin-bottom: 16px; line-height: 1.6; }
 .cf-tags { display: flex; flex-wrap: wrap; gap: 8px; }
 .cf-tag {
   display: flex; align-items: center; gap: 6px;
@@ -454,13 +460,13 @@
 .cf-tag::before { content: '✓'; font-size: 10px; }
 
 /* ══════════════════════════════════════════════════════════
-   STAY SUMMARY (existing, refined)
+   STAY SUMMARY
 ══════════════════════════════════════════════════════════ */
 .stay-section { background: #0D1F3C; padding: 80px 0; }
 .stay-section .eyebrow { color: rgba(201,168,76,0.8); margin-bottom: 12px; }
 .stay-section h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(24px,3vw,36px); font-weight: 700; color: #fff; margin-bottom: 32px;
+  font-family: 'Cairo', sans-serif;
+  font-size: clamp(24px,3vw,36px); font-weight: 800; color: #fff; margin-bottom: 32px;
 }
 .stay-card {
   background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
@@ -475,7 +481,7 @@
 .stay-card-body { padding: 28px 32px; }
 .stay-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 28px; }
 .stay-item {}
-.stay-lbl { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #C9A84C; margin-bottom: 6px; }
+.stay-lbl { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #C9A84C; margin-bottom: 6px; }
 .stay-val { font-size: 15px; font-weight: 600; color: #fff; }
 .stay-sub { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 2px; }
 .loyalty-row {
@@ -485,10 +491,11 @@
 }
 .loy-item { text-align: center; }
 .loy-number {
-  font-family: 'Playfair Display', serif;
-  font-size: 34px; font-weight: 700; color: #C9A84C; line-height: 1; margin-bottom: 4px;
+  font-family: 'Cairo', sans-serif;
+  font-size: 34px; font-weight: 800; color: #C9A84C; line-height: 1; margin-bottom: 4px;
+  direction: ltr;
 }
-.loy-lbl { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(201,168,76,0.6); }
+.loy-lbl { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(201,168,76,0.6); }
 .loy-sub { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 3px; }
 
 /* ══════════════════════════════════════════════════════════
@@ -506,11 +513,11 @@
 .final-cta-inner { position: relative; z-index: 1; }
 .final-cta .eyebrow { color: rgba(201,168,76,0.8); margin-bottom: 16px; }
 .final-cta h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(32px,4.5vw,56px); font-weight: 700; color: #fff;
-  margin-bottom: 14px; line-height: 1.1;
+  font-family: 'Cairo', sans-serif;
+  font-size: clamp(32px,4.5vw,56px); font-weight: 800; color: #fff;
+  margin-bottom: 14px; line-height: 1.2;
 }
-.final-cta p { font-size: 16px; color: rgba(255,255,255,0.55); max-width: 48ch; margin: 0 auto 32px; line-height: 1.7; }
+.final-cta p { font-size: 16px; color: rgba(255,255,255,0.55); max-width: 48ch; margin: 0 auto 32px; line-height: 1.8; }
 .final-cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
 /* ── Responsive ───────────────────────────────────────────── */
@@ -521,7 +528,7 @@
   .nps-dial-wrap { flex-direction: row; align-items: center; gap: 32px; justify-content: center; }
   .journey-timeline { grid-template-columns: 1fr; gap: 20px; }
   .journey-timeline::before { display: none; }
-  .journey-node { flex-direction: row; text-align: left; gap: 16px; }
+  .journey-node { flex-direction: row; text-align: right; gap: 16px; }
   .journey-icon-wrap { flex-shrink: 0; margin-bottom: 0; }
   .insights-grid { grid-template-columns: 1fr 1fr; }
   .stay-grid { grid-template-columns: 1fr 1fr; }
@@ -532,7 +539,7 @@
   .score-tiles { grid-template-columns: 1fr; }
   .insights-grid { grid-template-columns: 1fr; }
   .context-forward { grid-template-columns: 1fr; }
-  .loyalty-row { grid-template-columns: 1fr; text-align: left; }
+  .loyalty-row { grid-template-columns: 1fr; text-align: right; }
   .ps-hero-stats { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 480px) {
@@ -559,32 +566,34 @@ const HOTEL_CONFIG = {
 <!-- Demo nav -->
 <nav class="demo-nav-bar">
   <div class="demo-nav-row">
-    <a class="demo-nav-tab" href="index.html">🏨 Book In</a>
-    <a class="demo-nav-tab" href="pre-stay.html">✦ Pre-Stay</a>
-    <a class="demo-nav-tab" href="in-stay.html">🛎 In-Stay</a>
-    <a class="demo-nav-tab active" href="post-stay.html">⭐ Post-Stay</a>
-    <a class="demo-nav-tab" href="summary.html">◈ Summary</a>
-    <div class="lang-toggle"><a class="lang-btn" href="ar/post-stay.html">عر</a></div>
+    <div class="lang-toggle">
+      <a class="lang-btn" href="../post-stay.html">EN</a>
+    </div>
+    <a class="demo-nav-tab active" href="post-stay.html">⭐ ما بعد الإقامة</a>
+    <a class="demo-nav-tab" href="summary.html">◈ الملخص</a>
+    <a class="demo-nav-tab" href="../in-stay.html">🛎 أثناء الإقامة</a>
+    <a class="demo-nav-tab" href="../pre-stay.html">✦ ما قبل الإقامة</a>
+    <a class="demo-nav-tab" href="../index.html">🏨 تسجيل الوصول</a>
   </div>
 </nav>
 
 <!-- Header -->
 <header class="site-header solid">
-  <a class="brand" href="index.html">
+  <a class="brand" href="../index.html">
     <div class="brand-mark">
       <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
         <text x="14" y="21" font-family="Playfair Display, serif" font-size="20" font-weight="700" fill="#0D1F3C" text-anchor="middle">AH</text>
       </svg>
     </div>
     <div class="brand-name-wrap">
-      <span class="brand-title">Ada Hotels</span>
-      <span class="brand-tag">Exceptional stays worldwide</span>
+      <span class="brand-title">فنادق أدا</span>
+      <span class="brand-tag">إقامات استثنائية حول العالم</span>
     </div>
   </a>
   <nav class="site-nav">
-    <a href="index.html">Hotels</a>
-    <a href="index.html">Dining</a>
-    <a href="index.html">Offers</a>
+    <a href="../index.html">الفنادق</a>
+    <a href="../index.html">المطاعم</a>
+    <a href="../index.html">العروض</a>
   </nav>
   <div class="header-actions">
     <div class="user-pill">
@@ -594,7 +603,7 @@ const HOTEL_CONFIG = {
           <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#0D1F3C" stroke-width="2" stroke-linecap="round"/>
         </svg>
       </span>
-      <span class="user-name">Anna C.</span>
+      <span class="user-name">آنا ش.</span>
     </div>
   </div>
 </header>
@@ -603,25 +612,25 @@ const HOTEL_CONFIG = {
 <section class="ps-hero">
   <div class="wrap ps-hero-inner">
     <div class="ps-hero-text">
-      <p class="eyebrow">Scenario 05 — Post-Stay</p>
-      <h1>The <em>feedback loop</em> closes.</h1>
-      <p>Within 24 hours of checkout, Ada places a personalised outbound call to Anna — shaped by everything that happened during her stay. The answers don't disappear into a spreadsheet. They travel forward into her next visit.</p>
+      <p class="eyebrow">السيناريو ٠٥ — ما بعد الإقامة</p>
+      <h1>حلقة <em>التغذية الراجعة</em> تكتمل.</h1>
+      <p>في غضون ٢٤ ساعة من المغادرة، يُجري أدا مكالمة صادرة مخصّصة مع آنا — مستنيرة بكل ما جرى خلال إقامتها. الإجابات لا تختفي في جدول بيانات؛ بل تنتقل إلى زيارتها القادمة.</p>
       <div class="ps-hero-stats">
         <div class="ps-hero-stat">
-          <div class="ps-hero-stat-val">2<span>min</span></div>
-          <div class="ps-hero-stat-lbl">Call duration</div>
+          <div class="ps-hero-stat-val">2<span>د</span></div>
+          <div class="ps-hero-stat-lbl">مدة المكالمة</div>
         </div>
         <div class="ps-hero-stat">
           <div class="ps-hero-stat-val">9<span>/10</span></div>
-          <div class="ps-hero-stat-lbl">NPS score</div>
+          <div class="ps-hero-stat-lbl">مؤشر NPS</div>
         </div>
         <div class="ps-hero-stat">
           <div class="ps-hero-stat-val">5</div>
-          <div class="ps-hero-stat-lbl">Data points captured</div>
+          <div class="ps-hero-stat-lbl">نقاط بيانات مسجّلة</div>
         </div>
         <div class="ps-hero-stat">
           <div class="ps-hero-stat-val">3</div>
-          <div class="ps-hero-stat-lbl">Insights extracted</div>
+          <div class="ps-hero-stat-lbl">رؤى مستخلصة</div>
         </div>
       </div>
     </div>
@@ -630,16 +639,16 @@ const HOTEL_CONFIG = {
         <div class="phone-notch"><div class="phone-notch-pill"></div></div>
         <div class="phone-screen">
           <div class="phone-call-header">
-            <div class="phone-caller">INCOMING CALL</div>
-            <div class="phone-caller-name">Ada Hotel Mayfair</div>
-            <div class="phone-call-status"><div class="phone-call-dot"></div>Connected</div>
+            <div class="phone-caller">مكالمة واردة</div>
+            <div class="phone-caller-name">فندق أدا مايفير</div>
+            <div class="phone-call-status"><div class="phone-call-dot"></div>متصل</div>
           </div>
           <div class="phone-timer" id="heroTimer">3:24</div>
           <canvas class="phone-waveform-small" id="heroWave" width="220" height="40"></canvas>
           <div class="phone-btns">
-            <div class="phone-btn"><div class="phone-btn-circle">🔇</div><div class="phone-btn-lbl">Mute</div></div>
-            <div class="phone-btn"><div class="phone-btn-circle red">✕</div><div class="phone-btn-lbl">End</div></div>
-            <div class="phone-btn"><div class="phone-btn-circle">📢</div><div class="phone-btn-lbl">Speaker</div></div>
+            <div class="phone-btn"><div class="phone-btn-circle">🔇</div><div class="phone-btn-lbl">كتم</div></div>
+            <div class="phone-btn"><div class="phone-btn-circle red">✕</div><div class="phone-btn-lbl">إنهاء</div></div>
+            <div class="phone-btn"><div class="phone-btn-circle">📢</div><div class="phone-btn-lbl">مكبر</div></div>
           </div>
         </div>
       </div>
@@ -652,10 +661,10 @@ const HOTEL_CONFIG = {
   <div class="wrap">
     <div class="call-section-head">
       <div>
-        <p class="eyebrow" style="color:rgba(201,168,76,0.7);margin-bottom:10px">The outbound survey call</p>
-        <h2 style="color:#fff">Connie calls Anna.<br>Anna tells us everything.</h2>
+        <p class="eyebrow" style="color:rgba(201,168,76,0.7);margin-bottom:10px">مكالمة الاستطلاع الصادرة</p>
+        <h2 style="color:#fff">كوني تتصل بآنا.<br>آنا تخبرنا بكل شيء.</h2>
       </div>
-      <p>Play the recording and watch Ada extract structured feedback in real time — NPS, ratings, and open-text insights, automatically stored to her guest profile.</p>
+      <p>شغّل التسجيل وشاهد أدا يستخلص التغذية الراجعة المنظّمة في الوقت الفعلي — مؤشر NPS، التقييمات، والرؤى النصية، مخزّنة تلقائياً في ملف النزيلة.</p>
     </div>
 
     <!-- Audio bar -->
@@ -664,8 +673,8 @@ const HOTEL_CONFIG = {
         <svg id="playIcon" viewBox="0 0 16 16"><path d="M3 2l12 6-12 6z"/></svg>
       </button>
       <div class="audio-bar-info">
-        <div class="audio-bar-title">Post-Stay Survey Call — Anna Chambers</div>
-        <div class="audio-bar-sub">Ada Hotel Mayfair · 08 Sep 2026</div>
+        <div class="audio-bar-title">مكالمة استطلاع ما بعد الإقامة — آنا تشامبرز</div>
+        <div class="audio-bar-sub">فندق أدا مايفير · ٠٨ سبتمبر ٢٠٢٦</div>
       </div>
       <div class="audio-progress-wrap">
         <div class="audio-progress-track" id="progressTrack" onclick="seekAudio(event)">
@@ -673,7 +682,7 @@ const HOTEL_CONFIG = {
         </div>
         <div class="audio-time" id="audioTime">0:00 / 3:24</div>
       </div>
-      <div class="audio-live-badge"><div class="audio-live-dot"></div>Ada Voice</div>
+      <div class="audio-live-badge"><div class="audio-live-dot"></div>صوت أدا</div>
     </div>
 
     <!-- Waveform -->
@@ -685,11 +694,11 @@ const HOTEL_CONFIG = {
     <div class="call-body">
       <div class="transcript-scroll" id="transcriptScroll"></div>
       <div class="captures-panel" id="capturesPanel">
-        <div class="captures-panel-head">Captured variables</div>
+        <div class="captures-panel-head">المتغيرات المسجّلة</div>
       </div>
     </div>
 
-    <audio id="callAudio" src="survey-call.wav" preload="metadata"></audio>
+    <audio id="callAudio" src="../survey-call.wav" preload="metadata"></audio>
   </div>
 </section>
 
@@ -697,8 +706,8 @@ const HOTEL_CONFIG = {
 <section class="scores-section">
   <div class="wrap">
     <div class="scores-head">
-      <p class="eyebrow">Feedback results</p>
-      <h2>Anna's scores — September 2026</h2>
+      <p class="eyebrow">نتائج التغذية الراجعة</p>
+      <h2>تقييمات آنا — سبتمبر ٢٠٢٦</h2>
     </div>
     <div class="scores-layout">
       <div class="nps-dial-wrap">
@@ -707,15 +716,15 @@ const HOTEL_CONFIG = {
           <div class="nps-center">
             <div class="nps-number" id="npsNumber">—</div>
             <div style="display:flex;align-items:baseline;gap:4px;justify-content:center">
-              <span style="font-size:14px;color:#8A96A8">out of 10</span>
+              <span style="font-size:14px;color:#8A96A8">من 10</span>
             </div>
           </div>
         </div>
-        <div class="nps-badge">Promoter</div>
+        <div class="nps-badge">مروّج</div>
         <div class="nps-zones" style="margin-top:12px">
-          <div class="nps-zone"><div class="nps-zone-dot" style="background:#EF4444"></div>Detractor</div>
-          <div class="nps-zone"><div class="nps-zone-dot" style="background:#F59E0B"></div>Passive</div>
-          <div class="nps-zone"><div class="nps-zone-dot" style="background:#22C55E"></div>Promoter</div>
+          <div class="nps-zone"><div class="nps-zone-dot" style="background:#EF4444"></div>معارض</div>
+          <div class="nps-zone"><div class="nps-zone-dot" style="background:#F59E0B"></div>محايد</div>
+          <div class="nps-zone"><div class="nps-zone-dot" style="background:#22C55E"></div>مروّج</div>
         </div>
       </div>
 
@@ -725,9 +734,9 @@ const HOTEL_CONFIG = {
             <div class="score-tile-icon">🍜</div>
             <div class="score-tile-tag">10 / 10</div>
           </div>
-          <div class="score-tile-lbl">Jade Room — Dining</div>
-          <div class="score-tile-val" style="font-size:28px;margin-bottom:0">"Atmosphere was very nice"</div>
-          <div class="score-tile-note">Music level flagged for F&B team</div>
+          <div class="score-tile-lbl">المطعم الزمردي — الطعام</div>
+          <div class="score-tile-val" style="font-size:20px;margin-bottom:0">«الأجواء كانت رائعة»</div>
+          <div class="score-tile-note">تم الإبلاغ عن مستوى الصوت لفريق الأغذية والمشروبات</div>
           <div class="score-bar-track"><div class="score-bar-fill" data-width="100"></div></div>
         </div>
         <div class="score-tile">
@@ -735,9 +744,9 @@ const HOTEL_CONFIG = {
             <div class="score-tile-icon">💬</div>
             <div class="score-tile-tag">10 / 10</div>
           </div>
-          <div class="score-tile-lbl">AI Booking Experience</div>
-          <div class="score-tile-val" style="font-size:28px;margin-bottom:0">"Really easy via the chatbot"</div>
-          <div class="score-tile-note">Confirmed digital-first preference</div>
+          <div class="score-tile-lbl">تجربة الحجز بالذكاء الاصطناعي</div>
+          <div class="score-tile-val" style="font-size:20px;margin-bottom:0">«سهل جداً عبر الروبوت»</div>
+          <div class="score-tile-note">تأكيد تفضيل القنوات الرقمية</div>
           <div class="score-bar-track"><div class="score-bar-fill" data-width="100"></div></div>
         </div>
         <div class="score-tile">
@@ -745,19 +754,19 @@ const HOTEL_CONFIG = {
             <div class="score-tile-icon">🔇</div>
             <div class="score-tile-tag">10 / 10</div>
           </div>
-          <div class="score-tile-lbl">Noise Issue Handling</div>
-          <div class="score-tile-val" style="font-size:28px;margin-bottom:0">"Fully satisfied with resolution"</div>
-          <div class="score-tile-note">Previous complaint closed positively</div>
+          <div class="score-tile-lbl">معالجة مشكلة الضجيج</div>
+          <div class="score-tile-val" style="font-size:20px;margin-bottom:0">«راضية تماماً عن الحل»</div>
+          <div class="score-tile-note">تم إغلاق الشكوى السابقة بشكل إيجابي</div>
           <div class="score-bar-track"><div class="score-bar-fill" data-width="100"></div></div>
         </div>
         <div class="score-tile">
           <div class="score-tile-header">
             <div class="score-tile-icon">🏨</div>
-            <div class="score-tile-tag">Mixed</div>
+            <div class="score-tile-tag">متوسط</div>
           </div>
-          <div class="score-tile-lbl">Check-in Experience</div>
-          <div class="score-tile-val" style="font-size:28px;margin-bottom:0">"Took a bit long to check in"</div>
-          <div class="score-tile-note">Reception staffing flagged for ops</div>
+          <div class="score-tile-lbl">تجربة تسجيل الوصول</div>
+          <div class="score-tile-val" style="font-size:20px;margin-bottom:0">«استغرق وقتاً أطول من المعتاد»</div>
+          <div class="score-tile-note">تم الإبلاغ عن توظيف الاستقبال لفريق العمليات</div>
           <div class="score-bar-track"><div class="score-bar-fill" data-width="65" style="background:linear-gradient(90deg,#B45309,#F59E0B)"></div></div>
         </div>
       </div>
@@ -769,31 +778,31 @@ const HOTEL_CONFIG = {
 <section class="insights-section">
   <div class="wrap">
     <div class="insights-head">
-      <p class="eyebrow">What Ada learned</p>
-      <h2>Three insights. Extracted automatically.</h2>
-      <p>Open-text responses aren't just stored — Ada's AI processes them into structured signals that route to the right teams and attach to the guest record.</p>
+      <p class="eyebrow">ما تعلّمه أدا</p>
+      <h2>ثلاث رؤى. مستخلصة تلقائياً.</h2>
+      <p>الردود النصية لا تُخزَّن فحسب — بل يعالجها الذكاء الاصطناعي في أدا لاستخلاص إشارات منظّمة تُوجَّه إلى الفرق المعنية وتُضاف إلى سجل النزيلة.</p>
     </div>
     <div class="insights-grid">
       <div class="insight-card ic-note">
         <div class="insight-icon">🎵</div>
-        <div class="insight-type">Dining Insight</div>
-        <div class="insight-title">Jade Room music level affects guest conversation</div>
-        <div class="insight-quote">"The music was maybe a bit too loud. It was quite hard to chat to my colleagues."</div>
-        <div class="insight-action">Routed to F&B Manager — The Jade Room</div>
+        <div class="insight-type">رؤية طعام</div>
+        <div class="insight-title">مستوى الموسيقى في المطعم الزمردي يؤثر على محادثات النزلاء</div>
+        <div class="insight-quote">«الموسيقى ربما كانت مرتفعة بعض الشيء. كان من الصعب التحدث مع زملائي.»</div>
+        <div class="insight-action">أُرسل إلى مدير الأغذية والمشروبات — المطعم الزمردي</div>
       </div>
       <div class="insight-card ic-flag">
         <div class="insight-icon">⏱</div>
-        <div class="insight-type">Operations Insight</div>
-        <div class="insight-title">Check-in queue time exceeds guest expectation</div>
-        <div class="insight-quote">"I think I just need more people on reception — it took a bit long to check in."</div>
-        <div class="insight-action">Flagged to Front Office for peak staffing review</div>
+        <div class="insight-type">رؤية تشغيلية</div>
+        <div class="insight-title">وقت الانتظار في تسجيل الوصول يتجاوز توقعات النزيلة</div>
+        <div class="insight-quote">«أعتقد أنني أحتاج مزيداً من موظفي الاستقبال — استغرق تسجيل الوصول وقتاً طويلاً بعض الشيء.»</div>
+        <div class="insight-action">أُبلِغ الاستقبال لمراجعة التوظيف في أوقات الذروة</div>
       </div>
       <div class="insight-card ic-star">
         <div class="insight-icon">✨</div>
-        <div class="insight-type">Loyalty Signal</div>
-        <div class="insight-title">High-intent promoter — strong return likelihood</div>
-        <div class="insight-quote">"It's a fabulous hotel. It's a great location." — NPS 9, four categories rated 10.</div>
-        <div class="insight-action">Tagged as priority returning guest for next booking</div>
+        <div class="insight-type">إشارة ولاء</div>
+        <div class="insight-title">مروّجة بنية عالية — احتمالية عودة قوية</div>
+        <div class="insight-quote">«إنه فندق رائع وموقعه ممتاز.» — مؤشر NPS 9، أربع فئات بتقييم 10.</div>
+        <div class="insight-action">صُنِّفت كنزيلة عائدة ذات أولوية للحجز القادم</div>
       </div>
     </div>
   </div>
@@ -803,50 +812,50 @@ const HOTEL_CONFIG = {
 <section class="loop-section">
   <div class="wrap">
     <div class="loop-head">
-      <p class="eyebrow">Closing the loop</p>
-      <h2>Feedback doesn't end the journey — it starts the next one.</h2>
-      <p>Everything Anna shared is stored to her guest profile. The moment she books her next stay, Ada already knows her preferences, her complaint history, and what delighted her. The welcome is personal before she even arrives.</p>
+      <p class="eyebrow">إغلاق الحلقة</p>
+      <h2>التغذية الراجعة لا تنهي الرحلة — بل تبدأ الرحلة التالية.</h2>
+      <p>كل ما شاركته آنا مخزَّن في ملفها الشخصي. لحظة حجزها إقامتها القادمة، سيعرف أدا بالفعل تفضيلاتها وتاريخ شكاواها وما أسعدها. الترحيب شخصي قبل أن تصل.</p>
     </div>
 
     <div class="journey-timeline">
       <div class="journey-node">
         <div class="journey-icon-wrap">📞</div>
         <div>
-          <div class="journey-step-lbl">Step 01</div>
-          <div class="journey-step-title">Outbound survey call</div>
-          <div class="journey-step-sub">24 hrs post-checkout</div>
+          <div class="journey-step-lbl">الخطوة ٠١</div>
+          <div class="journey-step-title">مكالمة الاستطلاع الصادرة</div>
+          <div class="journey-step-sub">٢٤ ساعة بعد المغادرة</div>
         </div>
       </div>
       <div class="journey-node">
         <div class="journey-icon-wrap">🧠</div>
         <div>
-          <div class="journey-step-lbl">Step 02</div>
-          <div class="journey-step-title">AI extracts insights</div>
-          <div class="journey-step-sub">Scores, sentiment, signals</div>
+          <div class="journey-step-lbl">الخطوة ٠٢</div>
+          <div class="journey-step-title">الذكاء الاصطناعي يستخلص الرؤى</div>
+          <div class="journey-step-sub">تقييمات، مشاعر، إشارات</div>
         </div>
       </div>
       <div class="journey-node">
         <div class="journey-icon-wrap active">👤</div>
         <div>
-          <div class="journey-step-lbl">Step 03 — Now</div>
-          <div class="journey-step-title">Guest profile updated</div>
-          <div class="journey-step-sub">5 new data points stored</div>
+          <div class="journey-step-lbl">الخطوة ٠٣ — الآن</div>
+          <div class="journey-step-title">تم تحديث ملف النزيلة</div>
+          <div class="journey-step-sub">٥ نقاط بيانات جديدة مخزّنة</div>
         </div>
       </div>
       <div class="journey-node">
         <div class="journey-icon-wrap">🗓</div>
         <div>
-          <div class="journey-step-lbl">Step 04</div>
-          <div class="journey-step-title">Anna books her next stay</div>
-          <div class="journey-step-sub">Ada recognises her immediately</div>
+          <div class="journey-step-lbl">الخطوة ٠٤</div>
+          <div class="journey-step-title">آنا تحجز إقامتها القادمة</div>
+          <div class="journey-step-sub">أدا يتعرف عليها فوراً</div>
         </div>
       </div>
       <div class="journey-node">
         <div class="journey-icon-wrap">✦</div>
         <div>
-          <div class="journey-step-lbl">Step 05</div>
-          <div class="journey-step-title">Personalised welcome</div>
-          <div class="journey-step-sub">Informed by this survey</div>
+          <div class="journey-step-lbl">الخطوة ٠٥</div>
+          <div class="journey-step-title">استقبال شخصي</div>
+          <div class="journey-step-sub">مستنير بهذا الاستطلاع</div>
         </div>
       </div>
     </div>
@@ -854,15 +863,15 @@ const HOTEL_CONFIG = {
     <div class="context-forward">
       <div class="cf-icon">🧳</div>
       <div class="cf-content">
-        <div class="cf-title">Context that travels forward to Anna's next stay</div>
-        <div class="cf-lead">When Anna next visits Ada Hotel Mayfair, Connie already knows what matters to her — and the welcome reflects it before she even unpacks.</div>
+        <div class="cf-title">السياق المنقول إلى إقامة آنا القادمة</div>
+        <div class="cf-lead">حين تزور آنا فندق أدا مايفير في المرة القادمة، ستعرف كوني بالفعل ما يهمها — والترحيب يعكس ذلك قبل أن تفرغ حقائبها.</div>
         <div class="cf-tags">
-          <div class="cf-tag green">Quiet upper-floor room preferred</div>
-          <div class="cf-tag green">Jade Room dining — repeat reservation likely</div>
-          <div class="cf-tag green">AI booking — digital-first, no phone needed</div>
-          <div class="cf-tag gold">Check-in: offer fast-track if available</div>
-          <div class="cf-tag gold">Music sensitivity — note for dining team</div>
-          <div class="cf-tag navy">NPS 9 — Promoter — acknowledge loyalty</div>
+          <div class="cf-tag green">تفضيل غرفة هادئة في طابق علوي</div>
+          <div class="cf-tag green">المطعم الزمردي — حجز متكرر مرجح</div>
+          <div class="cf-tag green">الحجز الرقمي — تفضيل رقمي، لا حاجة للهاتف</div>
+          <div class="cf-tag gold">تسجيل الوصول: تقديم المسار السريع إن توفّر</div>
+          <div class="cf-tag gold">حساسية الموسيقى — ملاحظة لفريق المطاعم</div>
+          <div class="cf-tag navy">مؤشر NPS 9 — مروّجة — الاعتراف بالولاء</div>
         </div>
       </div>
     </div>
@@ -872,51 +881,51 @@ const HOTEL_CONFIG = {
 <!-- ══ STAY SUMMARY ═══════════════════════════════════════════ -->
 <section class="stay-section">
   <div class="wrap">
-    <p class="eyebrow">Stay on record</p>
-    <h2>Ada Hotel Mayfair · September 2026</h2>
+    <p class="eyebrow">الإقامة المسجّلة</p>
+    <h2>فندق أدا مايفير · سبتمبر ٢٠٢٦</h2>
     <div class="stay-card">
       <div class="stay-card-head">
-        <h3>Booking AH-291847</h3>
-        <span>Checked out Saturday, 13 September 2026</span>
+        <h3>الحجز AH-291847</h3>
+        <span>المغادرة السبت، ١٣ سبتمبر ٢٠٢٦</span>
       </div>
       <div class="stay-card-body">
         <div class="stay-grid">
           <div class="stay-item">
-            <div class="stay-lbl">Property</div>
-            <div class="stay-val">Ada Hotel Mayfair</div>
-            <div class="stay-sub">London, United Kingdom</div>
+            <div class="stay-lbl">الفندق</div>
+            <div class="stay-val">فندق أدا مايفير</div>
+            <div class="stay-sub">لندن، المملكة المتحدة</div>
           </div>
           <div class="stay-item">
-            <div class="stay-lbl">Room</div>
-            <div class="stay-val">Deluxe King · 412</div>
-            <div class="stay-sub">Quiet corner, upper floor</div>
+            <div class="stay-lbl">الغرفة</div>
+            <div class="stay-val">ديلوكس كينج · 412</div>
+            <div class="stay-sub">زاوية هادئة، طابق علوي</div>
           </div>
           <div class="stay-item">
-            <div class="stay-lbl">Duration</div>
-            <div class="stay-val">4 nights</div>
-            <div class="stay-sub">9 – 13 September</div>
+            <div class="stay-lbl">المدة</div>
+            <div class="stay-val">٤ ليالٍ</div>
+            <div class="stay-sub">٩ – ١٣ سبتمبر</div>
           </div>
           <div class="stay-item">
-            <div class="stay-lbl">Highlights</div>
-            <div class="stay-val">Jade Room dinner</div>
-            <div class="stay-sub">Late checkout · noise resolved</div>
+            <div class="stay-lbl">أبرز اللحظات</div>
+            <div class="stay-val">عشاء المطعم الزمردي</div>
+            <div class="stay-sub">تأخير المغادرة · حل مشكلة الضجيج</div>
           </div>
         </div>
         <div class="loyalty-row">
           <div class="loy-item">
             <div class="loy-number">+480</div>
-            <div class="loy-lbl">Points earned</div>
-            <div class="loy-sub">This stay</div>
+            <div class="loy-lbl">النقاط المكتسبة</div>
+            <div class="loy-sub">هذه الإقامة</div>
           </div>
           <div class="loy-item">
             <div class="loy-number">3,840</div>
-            <div class="loy-lbl">Total balance</div>
-            <div class="loy-sub">Ada Rewards</div>
+            <div class="loy-lbl">الرصيد الإجمالي</div>
+            <div class="loy-sub">مكافآت أدا</div>
           </div>
           <div class="loy-item">
             <div class="loy-number">Gold</div>
-            <div class="loy-lbl">Status</div>
-            <div class="loy-sub">Maintained · 1,160 pts to Platinum</div>
+            <div class="loy-lbl">المستوى</div>
+            <div class="loy-sub">مُحافَظ عليه · ١٬١٦٠ نقطة للبلاتين</div>
           </div>
         </div>
       </div>
@@ -928,12 +937,12 @@ const HOTEL_CONFIG = {
 <section class="final-cta">
   <div class="wrap">
     <div class="final-cta-inner">
-      <p class="eyebrow">Five guest moments. One agent.</p>
-      <h2>The journey begins again.</h2>
-      <p>From the first booking search to the post-stay survey call — Ada travels with your guests through every moment of the experience.</p>
+      <p class="eyebrow">خمس لحظات مع النزيل. وكيل واحد.</p>
+      <h2>الرحلة تبدأ من جديد.</h2>
+      <p>من أول بحث عن حجز إلى مكالمة الاستطلاع بعد الإقامة — أدا يرافق نزلاءك في كل لحظة من تجربتهم.</p>
       <div class="final-cta-btns">
-        <a class="btn-gold" href="index.html">Plan Anna's next stay</a>
-        <a class="btn-outline-white" href="index.html">Restart the demo</a>
+        <a class="btn-gold" href="../index.html">خطّط لإقامة آنا القادمة</a>
+        <a class="btn-outline-white" href="../index.html">إعادة تشغيل العرض</a>
       </div>
     </div>
   </div>
@@ -944,41 +953,41 @@ const HOTEL_CONFIG = {
   <div class="wrap">
     <div class="footer-inner">
       <div class="footer-brand">
-        <a class="brand" href="index.html" style="align-self:flex-start">
+        <a class="brand" href="../index.html" style="align-self:flex-start">
           <div class="brand-mark">
             <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
               <text x="14" y="21" font-family="Playfair Display, serif" font-size="20" font-weight="700" fill="#0D1F3C" text-anchor="middle">AH</text>
             </svg>
           </div>
           <div class="brand-name-wrap">
-            <span class="brand-title">Ada Hotels</span>
-            <span class="brand-tag">Exceptional stays worldwide</span>
+            <span class="brand-title">فنادق أدا</span>
+            <span class="brand-tag">إقامات استثنائية حول العالم</span>
           </div>
         </a>
-        <p>Exceptional stays crafted for the modern traveller.</p>
+        <p>إقامات استثنائية مصمَّمة للمسافر الحديث.</p>
       </div>
       <div class="footer-col">
-        <span class="footer-head">Guest Journey</span>
-        <a href="pre-stay.html">Pre-Stay</a>
-        <a href="in-stay.html">In-Stay</a>
-        <a href="post-stay.html">Post-Stay</a>
+        <span class="footer-head">رحلة النزيل</span>
+        <a href="../pre-stay.html">ما قبل الإقامة</a>
+        <a href="../in-stay.html">أثناء الإقامة</a>
+        <a href="post-stay.html">ما بعد الإقامة</a>
       </div>
       <div class="footer-col">
-        <span class="footer-head">Experiences</span>
-        <a href="in-stay.html">In-room concierge</a>
-        <a href="index.html">Dining</a>
-        <a href="index.html">Spa &amp; wellness</a>
+        <span class="footer-head">التجارب</span>
+        <a href="../in-stay.html">كونسيرج الغرفة</a>
+        <a href="../index.html">المطاعم</a>
+        <a href="../index.html">المنتجع الصحي</a>
       </div>
       <div class="footer-col">
-        <span class="footer-head">Help</span>
-        <a href="index.html">Manage booking</a>
-        <a href="index.html">Contact us</a>
-        <a href="index.html">Cancellation policy</a>
+        <span class="footer-head">المساعدة</span>
+        <a href="../index.html">إدارة الحجز</a>
+        <a href="../index.html">تواصل معنا</a>
+        <a href="../index.html">سياسة الإلغاء</a>
       </div>
     </div>
     <div class="footer-legal">
-      <span>Ada Hotels is a demo experience. Prices and properties are illustrative only.</span>
-      <span>&copy; 2026 Ada Hotels</span>
+      <span>فنادق أدا هي تجربة عرض توضيحي. الأسعار والعقارات توضيحية فقط.</span>
+      <span>&copy; 2026 فنادق أدا</span>
     </div>
   </div>
 </footer>
@@ -986,29 +995,28 @@ const HOTEL_CONFIG = {
 <script>
 /* ──────────────────────────────────────────────────────────
    TRANSCRIPT DATA
-   Times in seconds, taken from conversation segment data
 ─────────────────────────────────────────────────────────── */
 const TRANSCRIPT = [
-  { time: 0.6,   speaker: 'ada',  text: "Hi Anna, this is Connie from Ada Hotels. Thank you for your recent stay at Ada Hotel Mayfair. As a valued guest, your feedback is very important to us. Do you have two minutes to answer a few questions about your stay?" },
-  { time: 15.8,  speaker: 'anna', text: "Uh, yeah. Sure." },
-  { time: 17.6,  speaker: 'ada',  text: "Great, thank you. Let's begin the survey." },
-  { time: 20.0,  speaker: 'ada',  text: "On a scale from zero to ten, how likely are you to recommend Ada Hotel Mayfair to a friend or colleague? Zero means not at all likely, ten means extremely likely." },
-  { time: 32.0,  speaker: 'anna', text: "Nine.", capture: { type: 'green', label: 'NPS Score', value: '9 / 10', note: 'Promoter zone' } },
-  { time: 33.4,  speaker: 'ada',  text: "How would you rate your dining experience at The Jade Room, from zero to ten?" },
-  { time: 38.5,  speaker: 'anna', text: "Ten.", capture: { type: 'green', label: 'Jade Room Dining', value: '10 / 10', note: 'Perfect score' } },
-  { time: 39.8,  speaker: 'ada',  text: "Thank you. Is there anything specific about The Jade Room you would like to highlight — what you loved, or anything we could improve?" },
-  { time: 47.3,  speaker: 'anna', text: "I thought it's great. The atmosphere was very nice. The music was maybe a bit too loud — it was quite hard to chat to my colleagues.", capture: { type: 'gold', label: 'Dining insight', value: 'Music level flagged', note: '"Hard to chat to colleagues"' } },
-  { time: 57.7,  speaker: 'ada',  text: "Thank you for sharing that. How straightforward was it to book your table and arrange your stay? Rate it zero to ten." },
-  { time: 69.0,  speaker: 'anna', text: "Yeah. I used the AI chatbot and found it really easy." },
-  { time: 75.6,  speaker: 'anna', text: "So a ten.", capture: { type: 'green', label: 'Booking Experience', value: '10 / 10', note: '"Really easy via chatbot"' } },
-  { time: 77.3,  speaker: 'ada',  text: "What rating would you give the overall booking and stay arrangements, from zero to ten?" },
-  { time: 83.4,  speaker: 'anna', text: "Ten.", capture: { type: 'green', label: 'Check-in & Arrangements', value: '10 / 10', note: 'Stay arrangements rated' } },
-  { time: 84.4,  speaker: 'ada',  text: "Thank you. We also appreciate you raising the noise disruption during your previous stay. I'm pleased our team worked to resolve it, and we're grateful you brought it to our attention." },
-  { time: 93.2,  speaker: 'ada',  text: "How would you rate how well we handled the noise issue — from zero to ten?" },
-  { time: 103.6, speaker: 'anna', text: "Um, ten.", capture: { type: 'green', label: 'Noise Resolution', value: '10 / 10', note: 'Complaint closed positively' } },
-  { time: 105.4, speaker: 'ada',  text: "Before we finish, is there anything else you particularly enjoyed about your stay, or anything we could do differently next time?" },
-  { time: 112.7, speaker: 'anna', text: "No. It's a fabulous hotel, it's a great location. I think I just need more people on reception — it took a bit long to check in when I arrived.", capture: { type: 'gold', label: 'Ops insight', value: 'Check-in queue', note: '"Took a bit long to check in"' } },
-  { time: 125.2, speaker: 'ada',  text: "Thank you very much for your time and thoughtful feedback. Our team will review your comments, and we would be delighted to welcome you back to Ada Hotel Mayfair soon." },
+  { time: 0.6,   speaker: 'ada',  text: "مرحباً آنا، أنا كوني من فنادق أدا. شكراً لك على إقامتك الأخيرة في فندق أدا مايفير. بوصفك نزيلة مميزة، رأيك مهم جداً لنا. هل لديكِ دقيقتان للإجابة على بعض الأسئلة حول إقامتك؟" },
+  { time: 15.8,  speaker: 'anna', text: "أه، نعم. بكل سرور." },
+  { time: 17.6,  speaker: 'ada',  text: "رائع، شكراً لك. لنبدأ الاستطلاع." },
+  { time: 20.0,  speaker: 'ada',  text: "على مقياس من صفر إلى عشرة، ما مدى احتمالية توصيتك بفندق أدا مايفير لصديق أو زميل؟ الصفر يعني غير محتمل على الإطلاق، والعشرة تعني محتمل جداً." },
+  { time: 32.0,  speaker: 'anna', text: "تسعة.", capture: { type: 'green', label: 'مؤشر NPS', value: '9 / 10', note: 'نطاق المروّج' } },
+  { time: 33.4,  speaker: 'ada',  text: "كيف تقيّمين تجربتك في تناول الطعام بالمطعم الزمردي، من صفر إلى عشرة؟" },
+  { time: 38.5,  speaker: 'anna', text: "عشرة.", capture: { type: 'green', label: 'المطعم الزمردي — الطعام', value: '10 / 10', note: 'تقييم مثالي' } },
+  { time: 39.8,  speaker: 'ada',  text: "شكراً. هل هناك شيء محدد تودّين تسليط الضوء عليه في المطعم الزمردي — ما أعجبكِ، أو ما يمكننا تحسينه؟" },
+  { time: 47.3,  speaker: 'anna', text: "أعتقد أنه رائع. كانت الأجواء جميلة جداً. ربما كانت الموسيقى مرتفعة بعض الشيء — كان من الصعب نوعاً ما التحدث مع زملائي.", capture: { type: 'gold', label: 'رؤية الطعام', value: 'مستوى الصوت مُبلَّغ عنه', note: '«صعوبة التحدث مع الزملاء»' } },
+  { time: 57.7,  speaker: 'ada',  text: "شكراً لمشاركتك ذلك. ما مدى سهولة حجز طاولتك وترتيب إقامتك؟ قيّمي من صفر إلى عشرة." },
+  { time: 69.0,  speaker: 'anna', text: "نعم. استخدمت روبوت المحادثة بالذكاء الاصطناعي ووجدته سهلاً جداً." },
+  { time: 75.6,  speaker: 'anna', text: "إذن عشرة.", capture: { type: 'green', label: 'تجربة الحجز', value: '10 / 10', note: '«سهل جداً عبر الروبوت»' } },
+  { time: 77.3,  speaker: 'ada',  text: "ما التقييم الذي تمنحينه لترتيبات الحجز والإقامة بشكل عام، من صفر إلى عشرة؟" },
+  { time: 83.4,  speaker: 'anna', text: "عشرة.", capture: { type: 'green', label: 'تسجيل الوصول والترتيبات', value: '10 / 10', note: 'تقييم ترتيبات الإقامة' } },
+  { time: 84.4,  speaker: 'ada',  text: "شكراً. نقدّر أيضاً إبلاغكِ عن مشكلة الضجيج خلال إقامتك. يسعدني أن فريقنا عمل على حلها، ونحن ممتنون لتنبيهنا." },
+  { time: 93.2,  speaker: 'ada',  text: "كيف تقيّمين أسلوب تعاملنا مع مشكلة الضجيج — من صفر إلى عشرة؟" },
+  { time: 103.6, speaker: 'anna', text: "أم، عشرة.", capture: { type: 'green', label: 'حل مشكلة الضجيج', value: '10 / 10', note: 'تم إغلاق الشكوى بشكل إيجابي' } },
+  { time: 105.4, speaker: 'ada',  text: "قبل أن ننهي، هل هناك شيء آخر استمتعتِ به في إقامتك بشكل خاص، أو شيء يمكننا تحسينه في المرة القادمة؟" },
+  { time: 112.7, speaker: 'anna', text: "لا. إنه فندق رائع وموقعه ممتاز. أعتقد فقط أنني أحتاج مزيداً من موظفي الاستقبال — استغرق تسجيل الوصول وقتاً طويلاً بعض الشيء عند وصولي.", capture: { type: 'gold', label: 'رؤية تشغيلية', value: 'طابور تسجيل الوصول', note: '«استغرق تسجيل الوصول وقتاً»' } },
+  { time: 125.2, speaker: 'ada',  text: "شكراً جزيلاً على وقتك وملاحظاتك القيّمة. سيراجع فريقنا تعليقاتك، وسيسعدنا الترحيب بك مجدداً في فندق أدا مايفير قريباً." },
 ];
 
 const TOTAL_DURATION = 134;
@@ -1031,7 +1039,7 @@ TRANSCRIPT.forEach((item, i) => {
   div.innerHTML = `
     <div class="t-avatar">${item.speaker === 'ada' ? 'AI' : 'AC'}</div>
     <div class="t-content">
-      <div class="t-meta">${item.speaker === 'ada' ? 'Connie · Ada Hotels' : 'Anna Chambers'} &nbsp;·&nbsp; ${fmtTime(item.time)}</div>
+      <div class="t-meta">${item.speaker === 'ada' ? 'كوني · فنادق أدا' : 'آنا تشامبرز'} &nbsp;·&nbsp; ${fmtTime(item.time)}</div>
       <div class="t-bubble">${item.text}</div>
     </div>`;
   scrollEl.appendChild(div);
@@ -1304,7 +1312,7 @@ function drawNPSArc(value) {
   ctx.stroke();
 
   /* Zone labels */
-  ctx.font = '11px Inter, system-ui, sans-serif';
+  ctx.font = '11px Cairo, system-ui, sans-serif';
   ctx.fillStyle = '#8A96A8';
   ctx.textAlign = 'center';
   ctx.fillText('0', cx - r - 8, cy + 4);

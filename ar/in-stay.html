@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en-GB">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ada Hotels — In-Stay</title>
-<link rel="stylesheet" href="ada-hotels.css">
-<link rel="stylesheet" href="ada-hotels-ar.css">
+<title>فنادق أدا — أثناء الإقامة</title>
+<link rel="stylesheet" href="../ada-hotels.css">
+<link rel="stylesheet" href="../ada-hotels-ar.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ── Demo nav ─────────────────────────────────────────────── */
 .demo-nav-bar {
@@ -16,18 +16,20 @@
   position: sticky; top: 0; z-index: 200;
 }
 .demo-nav-row {
-  display: flex; align-items: center; gap: 0; max-width: 1240px;
-  margin: 0 auto; padding: 0 32px; overflow-x: auto; scrollbar-width: none;
+  display: flex; align-items: center; flex-direction: row-reverse;
+  max-width: 1240px; margin: 0 auto; padding: 0 32px;
+  overflow-x: auto; scrollbar-width: none;
 }
 .demo-nav-row::-webkit-scrollbar { display: none; }
 .demo-nav-tab {
   display: flex; align-items: center; gap: 6px; padding: 0 20px;
-  font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.55);
+  font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.55);
+  font-family: 'Cairo', sans-serif;
   text-decoration: none; white-space: nowrap; line-height: 46px;
   border-bottom: 2px solid transparent; transition: color 150ms, border-color 150ms;
 }
 .demo-nav-tab:hover { color: rgba(255,255,255,0.85); }
-.demo-nav-tab.active { color: #C9A84C; border-bottom-color: #C9A84C; font-weight: 600; }
+.demo-nav-tab.active { color: #C9A84C; border-bottom-color: #C9A84C; font-weight: 700; }
 
 /* ── Page hero ───────────────────────────────────────────── */
 .page-hero {
@@ -40,17 +42,17 @@
   content: '';
   position: absolute; inset: 0;
   background:
-    radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 50%, rgba(201,168,76,0.1) 0%, transparent 50%),
     repeating-linear-gradient(45deg, rgba(201,168,76,0.015) 0px, rgba(201,168,76,0.015) 1px, transparent 1px, transparent 52px);
 }
 .page-hero-inner { position: relative; z-index: 1; }
 .page-hero .eyebrow { color: rgba(201,168,76,0.85); margin-bottom: 10px; }
 .page-hero h1 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Cairo', sans-serif;
   font-size: clamp(28px,4vw,48px);
-  font-weight: 700;
+  font-weight: 800;
   color: #fff;
-  line-height: 1.1;
+  line-height: 1.2;
   margin-bottom: 12px;
 }
 .page-hero p { font-size: 16px; color: rgba(255,255,255,0.65); max-width: 54ch; }
@@ -67,18 +69,19 @@
 /* ── Scenario label / title / desc ───────────────────────── */
 .scenario-label {
   display: inline-flex; align-items: center; gap: 8px;
-  font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
   color: #C9A84C; margin-bottom: 8px;
+  font-family: 'Cairo', sans-serif;
 }
 .scenario-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Cairo', sans-serif;
   font-size: clamp(20px,2.5vw,30px);
-  font-weight: 700;
+  font-weight: 800;
   color: #0D1F3C;
   margin-bottom: 8px;
-  line-height: 1.2;
+  line-height: 1.3;
 }
-.scenario-desc { font-size: 14px; color: #6B7280; margin-bottom: 28px; line-height: 1.6; max-width: 50ch; }
+.scenario-desc { font-size: 14px; color: #6B7280; margin-bottom: 28px; line-height: 1.8; max-width: 50ch; font-family: 'Cairo', sans-serif; }
 
 /* ── Realistic hotel room card ───────────────────────────── */
 .hotel-card-wrap {
@@ -125,7 +128,7 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 80% 50%, rgba(201,168,76,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.18) 0%, transparent 60%),
     repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 22px);
 }
 .hc-brand {
@@ -143,8 +146,8 @@
 }
 .hc-monogram svg { display: block; }
 .hc-name-wrap { display: flex; flex-direction: column; }
-.hc-name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: #fff; line-height: 1.1; }
-.hc-tagline { font-size: 9px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(201,168,76,0.7); }
+.hc-name { font-family: 'Cairo', sans-serif; font-size: 16px; font-weight: 700; color: #fff; line-height: 1.2; }
+.hc-tagline { font-size: 9px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(201,168,76,0.7); font-family: 'Cairo', sans-serif; }
 
 .hc-gold-rule {
   height: 1px;
@@ -161,12 +164,12 @@
 }
 
 .hc-headline {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Cairo', sans-serif;
   font-size: 14px;
   font-weight: 700;
   color: #0D1F3C;
   text-align: center;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   line-height: 1.35;
 }
 
@@ -185,8 +188,9 @@
   font-size: 11px;
   color: #6B7280;
   text-align: center;
-  line-height: 1.55;
+  line-height: 1.65;
   max-width: 28ch;
+  font-family: 'Cairo', sans-serif;
 }
 
 .hc-divider {
@@ -204,10 +208,11 @@
 .hc-divider span {
   font-size: 9px;
   font-weight: 700;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: rgba(13,31,60,0.3);
   white-space: nowrap;
+  font-family: 'Cairo', sans-serif;
 }
 
 .hc-room-info {
@@ -217,9 +222,9 @@
   align-items: center;
 }
 .hc-room-block { display: flex; flex-direction: column; gap: 2px; }
-.hc-room-label { font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #9CA3AF; }
-.hc-room-value { font-size: 15px; font-weight: 700; color: #0D1F3C; font-family: 'Playfair Display', serif; }
-.hc-room-sub { font-size: 11px; color: #6B7280; }
+.hc-room-label { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #9CA3AF; font-family: 'Cairo', sans-serif; }
+.hc-room-value { font-size: 15px; font-weight: 700; color: #0D1F3C; font-family: 'Cairo', sans-serif; }
+.hc-room-sub { font-size: 11px; color: #6B7280; font-family: 'Cairo', sans-serif; }
 
 .hc-concierge-badge {
   display: flex;
@@ -232,6 +237,7 @@
   font-size: 11px;
   font-weight: 600;
   color: #0D1F3C;
+  font-family: 'Cairo', sans-serif;
 }
 .hc-concierge-badge::before {
   content: '';
@@ -250,7 +256,7 @@
   justify-content: center;
   gap: 6px;
 }
-.hc-footer-text { font-size: 10px; color: #9CA3AF; font-weight: 500; }
+.hc-footer-text { font-size: 10px; color: #9CA3AF; font-weight: 500; font-family: 'Cairo', sans-serif; }
 .hc-footer-url { font-size: 10px; color: #C9A84C; font-weight: 600; letter-spacing: 0.03em; }
 
 .card-shadow-note {
@@ -260,6 +266,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
+  font-family: 'Cairo', sans-serif;
 }
 
 /* ── Phone frame + live chat ─────────────────────────────── */
@@ -349,7 +356,7 @@
   color: rgba(255,255,255,0.6);
   font-size: 18px;
   cursor: pointer;
-  padding: 2px 6px 2px 0;
+  padding: 2px 0 2px 6px;
 }
 .ca-avatar {
   width: 38px; height: 38px;
@@ -387,6 +394,7 @@
   border-radius: 999px;
   padding: 3px 12px;
   margin: 4px 0;
+  font-family: 'Cairo', sans-serif;
 }
 
 .ca-msg {
@@ -404,20 +412,21 @@
   font-size: 13px;
   line-height: 1.5;
 }
+/* RTL: bot tail on right, user tail on left */
 .ca-msg.bot .ca-bubble {
   background: #fff;
   color: #111827;
   border: 1px solid #E5E7EB;
-  border-radius: 4px 14px 14px 14px;
+  border-radius: 14px 4px 14px 14px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 }
 .ca-msg.user .ca-bubble {
   background: #0D1F3C;
   color: #fff;
-  border-radius: 14px 4px 14px 14px;
+  border-radius: 4px 14px 14px 14px;
 }
 .ca-msg-time { font-size: 9.5px; color: #9CA3AF; padding: 0 3px; }
-.ca-msg.user .ca-msg-time { text-align: right; }
+.ca-msg.user .ca-msg-time { text-align: left; }
 
 .ca-typing {
   align-self: flex-start;
@@ -427,7 +436,7 @@
   padding: 10px 14px;
   background: #fff;
   border: 1px solid #E5E7EB;
-  border-radius: 4px 14px 14px 14px;
+  border-radius: 14px 4px 14px 14px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.06);
   display: none;
 }
@@ -456,6 +465,7 @@
   padding: 5px 12px;
   text-align: center;
   max-width: 90%;
+  font-family: 'Cairo', sans-serif;
 }
 
 .ca-input-area {
@@ -473,12 +483,14 @@
   border-radius: 24px;
   padding: 9px 14px;
   font-size: 13px;
-  font-family: inherit;
+  font-family: 'Cairo', sans-serif;
   color: #111827;
   background: #F9FAFB;
   outline: none;
   transition: border-color 0.15s;
   resize: none;
+  text-align: right;
+  direction: rtl;
 }
 .ca-input:focus { border-color: #0D1F3C; background: #fff; }
 .ca-input::placeholder { color: #9CA3AF; }
@@ -494,7 +506,7 @@
 }
 .ca-send:hover { background: #B8973B; transform: scale(1.05); }
 .ca-send:disabled { background: #E5E7EB; cursor: not-allowed; transform: none; }
-.ca-send svg { display: block; }
+.ca-send svg { display: block; transform: scaleX(-1); }
 
 /* connecting overlay */
 .ca-connecting {
@@ -518,17 +530,12 @@
   animation: spin 0.8s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
-.ca-connecting-text { font-size: 13px; color: rgba(255,255,255,0.7); font-weight: 500; }
+.ca-connecting-text { font-size: 13px; color: rgba(255,255,255,0.7); font-weight: 500; font-family: 'Cairo', sans-serif; }
 
 @media (max-width: 900px) {
   .instay-grid { grid-template-columns: 1fr; gap: 48px; }
   .phone-frame { width: 100%; max-width: 340px; margin: 0 auto; }
 }
-
-/* ── Language toggle ─────────────────────────────────────── */
-.lang-toggle { margin-left: auto; display: flex; align-items: center; padding: 0 4px; }
-.lang-btn { display: inline-flex; align-items: center; padding: 5px 14px; background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.35); border-radius: 999px; font-size: 13px; font-weight: 700; color: #C9A84C; text-decoration: none; transition: background 150ms; }
-.lang-btn:hover { background: rgba(201,168,76,0.22); }
 </style>
 </head>
 <body>
@@ -552,32 +559,34 @@ const HOTEL_CONFIG = {
 <!-- Demo nav -->
 <nav class="demo-nav-bar">
   <div class="demo-nav-row">
-    <a class="demo-nav-tab" href="index.html">🏨 Book In</a>
-    <a class="demo-nav-tab" href="pre-stay.html">✦ Pre-Stay</a>
-    <a class="demo-nav-tab active" href="in-stay.html">🛎 In-Stay</a>
-    <a class="demo-nav-tab" href="post-stay.html">⭐ Post-Stay</a>
-    <a class="demo-nav-tab" href="summary.html">◈ Summary</a>
-    <div class="lang-toggle"><a class="lang-btn" href="ar/in-stay.html">عر</a></div>
+    <div class="lang-toggle">
+      <a class="lang-btn" href="../in-stay.html">EN</a>
+    </div>
+    <a class="demo-nav-tab active" href="in-stay.html">🛎 أثناء الإقامة</a>
+    <a class="demo-nav-tab" href="../post-stay.html">⭐ ما بعد الإقامة</a>
+    <a class="demo-nav-tab" href="../pre-stay.html">✦ ما قبل الإقامة</a>
+    <a class="demo-nav-tab" href="../index.html">🏨 تسجيل الوصول</a>
+    <a class="demo-nav-tab" href="summary.html">◈ الملخص</a>
   </div>
 </nav>
 
 <!-- Header -->
 <header class="site-header solid">
-  <a class="brand" href="index.html">
+  <a class="brand" href="../index.html">
     <div class="brand-mark">
       <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
         <text x="14" y="21" font-family="Playfair Display, serif" font-size="20" font-weight="700" fill="#0D1F3C" text-anchor="middle">AH</text>
       </svg>
     </div>
     <div class="brand-name-wrap">
-      <span class="brand-title">Ada Hotels</span>
-      <span class="brand-tag">Exceptional stays worldwide</span>
+      <span class="brand-title">فنادق أدا</span>
+      <span class="brand-tag">إقامات استثنائية حول العالم</span>
     </div>
   </a>
   <nav class="site-nav">
-    <a href="index.html">Hotels</a>
-    <a href="index.html">Dining</a>
-    <a href="index.html">Offers</a>
+    <a href="../index.html">فنادق</a>
+    <a href="../index.html">مطاعم</a>
+    <a href="../index.html">عروض</a>
   </nav>
   <div class="header-actions">
     <div class="user-pill">
@@ -587,7 +596,7 @@ const HOTEL_CONFIG = {
           <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#0D1F3C" stroke-width="2" stroke-linecap="round"/>
         </svg>
       </span>
-      <span class="user-name">Anna C.</span>
+      <span class="user-name">آنا ش.</span>
     </div>
   </div>
 </header>
@@ -595,9 +604,9 @@ const HOTEL_CONFIG = {
 <!-- Page hero -->
 <div class="page-hero">
   <div class="wrap page-hero-inner">
-    <p class="eyebrow">In-Stay · QR code + live chat</p>
-    <h1>Your room, your concierge</h1>
-    <p>A card on Anna's bedside table. One scan. A direct line to Ada — no app, no hold music. Every request handled in seconds, 24 hours a day.</p>
+    <p class="eyebrow">أثناء الإقامة · رمز QR + محادثة مباشرة</p>
+    <h1>غرفتك، كونسيرجك الخاص</h1>
+    <p>بطاقة على طاولة سرير آنا. مسح واحد. خط مباشر إلى أدا — دون تطبيق، دون موسيقى الانتظار. كل طلب يُعالَج في ثوانٍ، على مدار الساعة طوال أيام الأسبوع.</p>
   </div>
 </div>
 
@@ -606,11 +615,11 @@ const HOTEL_CONFIG = {
   <div class="wrap">
     <div class="instay-grid">
 
-      <!-- LEFT: Realistic hotel room card -->
+      <!-- RIGHT (visually right in RTL): Realistic hotel room card -->
       <div class="hotel-card-wrap">
-        <div class="scenario-label">📱 Channel · QR Code</div>
-        <div class="scenario-title">Permanently in every room</div>
-        <div class="scenario-desc">One card, always there. When a guest scans it, Ada automatically recognises their booking — no app download, no login, no hold music.</div>
+        <div class="scenario-label">📱 القناة · رمز QR</div>
+        <div class="scenario-title">دائم في كل غرفة</div>
+        <div class="scenario-desc">بطاقة واحدة، دائماً موجودة. حين يمسح النزيل رمزها، يتعرف أدا تلقائياً على حجزه — دون تنزيل تطبيق، دون تسجيل دخول، دون موسيقى الانتظار.</div>
 
         <div class="hotel-card">
           <!-- Top band -->
@@ -622,8 +631,8 @@ const HOTEL_CONFIG = {
                 </svg>
               </div>
               <div class="hc-name-wrap">
-                <span class="hc-name">Ada Hotels</span>
-                <span class="hc-tagline">Exceptional stays worldwide</span>
+                <span class="hc-name">فنادق أدا</span>
+                <span class="hc-tagline">إقامات استثنائية حول العالم</span>
               </div>
             </div>
           </div>
@@ -632,12 +641,12 @@ const HOTEL_CONFIG = {
 
           <!-- Card body -->
           <div class="hc-body">
-            <div class="hc-headline" style="font-size:17px;letter-spacing:-0.01em;">Your Digital Concierge</div>
-            <div style="font-size:12px;color:#6B7280;text-align:center;line-height:1.6;max-width:30ch;">Everything you need during your stay can be found by scanning the code below</div>
+            <div class="hc-headline" style="font-size:17px;letter-spacing:-0.01em;">كونسيرجك الرقمي</div>
+            <div style="font-size:12px;color:#6B7280;text-align:center;line-height:1.7;max-width:30ch;font-family:'Cairo',sans-serif;">كل ما تحتاجه خلال إقامتك يمكن الوصول إليه بمسح الرمز أدناه</div>
 
             <!-- Realistic QR code SVG -->
             <div class="hc-qr-wrap">
-              <svg width="168" height="168" viewBox="0 0 210 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="QR code for Ada Hotels in-room concierge">
+              <svg width="168" height="168" viewBox="0 0 210 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="رمز QR لكونسيرج فنادق أدا داخل الغرفة">
                 <rect width="210" height="210" fill="#fff"/>
                 <!-- Finder pattern TL -->
                 <rect x="7" y="7" width="49" height="49" rx="3" fill="#0D1F3C"/>
@@ -737,57 +746,59 @@ const HOTEL_CONFIG = {
               </svg>
             </div>
 
-            <div class="hc-instructions">Point your phone camera at this code · no app required</div>
+            <div class="hc-instructions">وجّه كاميرا هاتفك نحو هذا الرمز · دون الحاجة لتطبيق</div>
 
-            <div class="hc-divider"><span>Available 24 hours a day</span></div>
+            <div class="hc-divider"><span>متاح على مدار ٢٤ ساعة</span></div>
 
             <div style="width:100%;display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;">
-              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#374151;">
-                <span style="font-size:14px;">🍽</span> In-room dining
+              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#374151;font-family:'Cairo',sans-serif;">
+                <span style="font-size:14px;">🍽</span> طعام في الغرفة
               </div>
-              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#374151;">
-                <span style="font-size:14px;">🍷</span> Restaurants &amp; reservations
+              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#374151;font-family:'Cairo',sans-serif;">
+                <span style="font-size:14px;">🍷</span> المطاعم والحجوزات
               </div>
-              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#374151;">
-                <span style="font-size:14px;">🛏</span> Housekeeping
+              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#374151;font-family:'Cairo',sans-serif;">
+                <span style="font-size:14px;">🛏</span> خدمة تنظيف الغرف
               </div>
-              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#374151;">
-                <span style="font-size:14px;">🔧</span> Maintenance &amp; repairs
+              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#374151;font-family:'Cairo',sans-serif;">
+                <span style="font-size:14px;">🔧</span> الصيانة والإصلاحات
               </div>
-              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#374151;">
-                <span style="font-size:14px;">🧖</span> Spa &amp; wellness
+              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#374151;font-family:'Cairo',sans-serif;">
+                <span style="font-size:14px;">🧖</span> السبا والعافية
               </div>
-              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#374151;">
-                <span style="font-size:14px;">🗺</span> Local city guide
+              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#374151;font-family:'Cairo',sans-serif;">
+                <span style="font-size:14px;">🗺</span> دليل المدينة المحلي
               </div>
-              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#374151;">
-                <span style="font-size:14px;">🚕</span> Transport &amp; transfers
+              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#374151;font-family:'Cairo',sans-serif;">
+                <span style="font-size:14px;">🚕</span> المواصلات والتنقلات
               </div>
-              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#374151;">
-                <span style="font-size:14px;">💼</span> Concierge requests
+              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#374151;font-family:'Cairo',sans-serif;">
+                <span style="font-size:14px;">💼</span> طلبات الكونسيرج
               </div>
             </div>
 
-            <div class="hc-concierge-badge">Always on · instant response</div>
+            <div class="hc-concierge-badge">متاح دائماً · استجابة فورية</div>
           </div>
 
           <div class="hc-footer">
-            <span class="hc-footer-text">Powered by</span>
+            <span class="hc-footer-text">مدعوم بواسطة</span>
             <span class="hc-footer-url">ada.support</span>
           </div>
         </div>
 
         <p class="card-shadow-note">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          Stays in the room permanently — never replaced between guests
+          تبقى في الغرفة بشكل دائم — لا تُستبدل بين النزلاء
         </p>
       </div>
 
-      <!-- RIGHT: Phone frame + working live chat -->
+      <!-- LEFT (visually left in RTL): Phone frame + working live chat -->
       <div class="phone-outer">
-        <div class="scenario-label">💬 Live Chat · Ada Concierge</div>
-        <div class="scenario-title">Try it — type a message</div>
-        <div class="scenario-desc">This is a live connection to the Ada Hotels AI agent. Try: <em>"The air conditioning is making a loud noise"</em> to see a real in-stay response.</div>
+        <div class="scenario-label">💬 محادثة مباشرة · كونسيرج أدا</div>
+        <div class="scenario-title">جرّبه — اكتب رسالة</div>
+        <div class="scenario-desc">هذا اتصال مباشر بوكيل الذكاء الاصطناعي لفنادق أدا. جرّب: <em>"مكيف الهواء يصدر ضوضاء عالية"</em> لترى استجابة حقيقية خلال الإقامة.</div>
+
+        <p style="font-size:13px;color:#6B7280;text-align:center;margin-bottom:12px;font-family:'Cairo',sans-serif;">💬 المساعد الذكي يعمل باللغة الإنجليزية حالياً</p>
 
         <div class="phone-frame">
           <div class="phone-notch">
@@ -799,7 +810,7 @@ const HOTEL_CONFIG = {
             <!-- Connecting overlay -->
             <div class="ca-connecting" id="ca-connecting">
               <div class="ca-spinner"></div>
-              <div class="ca-connecting-text">Connecting to Ada Concierge…</div>
+              <div class="ca-connecting-text">جارٍ الاتصال بكونسيرج أدا...</div>
             </div>
 
             <div class="chat-app">
@@ -814,7 +825,7 @@ const HOTEL_CONFIG = {
 
               <!-- Chat header -->
               <div class="ca-header">
-                <div class="ca-back">‹</div>
+                <div class="ca-back">›</div>
                 <div class="ca-avatar">🏨</div>
                 <div class="ca-info">
                   <div class="ca-name">Ada Concierge</div>
@@ -824,7 +835,7 @@ const HOTEL_CONFIG = {
 
               <!-- Messages area -->
               <div class="ca-messages" id="ca-messages">
-                <div class="ca-date-divider">Tonight · Room 412</div>
+                <div class="ca-date-divider">الليلة · الغرفة ٤١٢</div>
               </div>
 
               <!-- Typing indicator (sits outside scroll, injected dynamically) -->
@@ -836,7 +847,7 @@ const HOTEL_CONFIG = {
 
               <!-- Input -->
               <div class="ca-input-area">
-                <input type="text" class="ca-input" id="ca-input" placeholder="Message Ada Concierge…" disabled autocomplete="off"/>
+                <input type="text" class="ca-input" id="ca-input" placeholder="رسالة إلى كونسيرج أدا..." disabled autocomplete="off"/>
                 <button class="ca-send" id="ca-send" disabled>
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0D1F3C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="22" y1="2" x2="11" y2="13"/>
@@ -859,42 +870,42 @@ const HOTEL_CONFIG = {
   <div class="wrap">
     <div class="footer-inner">
       <div class="footer-brand">
-        <a class="brand" href="index.html" style="align-self:flex-start">
+        <a class="brand" href="../index.html" style="align-self:flex-start">
           <div class="brand-mark">
             <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
               <text x="14" y="21" font-family="Playfair Display, serif" font-size="20" font-weight="700" fill="#0D1F3C" text-anchor="middle">AH</text>
             </svg>
           </div>
           <div class="brand-name-wrap">
-            <span class="brand-title">Ada Hotels</span>
-            <span class="brand-tag">Exceptional stays worldwide</span>
+            <span class="brand-title">فنادق أدا</span>
+            <span class="brand-tag">إقامات استثنائية حول العالم</span>
           </div>
         </a>
-        <p>Exceptional stays crafted for the modern traveller.</p>
+        <p>إقامات استثنائية مصممة للمسافر العصري.</p>
       </div>
       <div class="footer-col">
-        <span class="footer-head">Guest Journey</span>
-        <a href="index.html">Book In</a>
-        <a href="pre-stay.html">Pre-Stay</a>
-        <a href="in-stay.html">In-Stay</a>
-        <a href="post-stay.html">Post-Stay</a>
+        <span class="footer-head">رحلة النزيل</span>
+        <a href="../index.html">تسجيل الوصول</a>
+        <a href="../pre-stay.html">ما قبل الإقامة</a>
+        <a href="in-stay.html">أثناء الإقامة</a>
+        <a href="../post-stay.html">ما بعد الإقامة</a>
       </div>
       <div class="footer-col">
-        <span class="footer-head">Experiences</span>
-        <a href="in-stay.html">In-room concierge</a>
-        <a href="index.html">Dining</a>
-        <a href="index.html">Spa &amp; wellness</a>
+        <span class="footer-head">تجارب</span>
+        <a href="in-stay.html">كونسيرج داخل الغرفة</a>
+        <a href="../index.html">مطاعم</a>
+        <a href="../index.html">السبا والعافية</a>
       </div>
       <div class="footer-col">
-        <span class="footer-head">Help</span>
-        <a href="index.html">Manage booking</a>
-        <a href="index.html">Contact us</a>
-        <a href="index.html">Cancellation policy</a>
+        <span class="footer-head">مساعدة</span>
+        <a href="../index.html">إدارة الحجز</a>
+        <a href="../index.html">اتصل بنا</a>
+        <a href="../index.html">سياسة الإلغاء</a>
       </div>
     </div>
     <div class="footer-legal">
-      <span>Ada Hotels is a demo experience. Prices and properties are illustrative only.</span>
-      <span>&copy; 2026 Ada Hotels</span>
+      <span>فنادق أدا هي تجربة تجريبية. الأسعار والعقارات تجريبية فقط.</span>
+      <span>&copy; 2026 فنادق أدا</span>
     </div>
   </div>
 </footer>

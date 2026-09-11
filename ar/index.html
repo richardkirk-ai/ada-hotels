@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang="en-GB">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ada Hotels — Discover Your Perfect Stay</title>
-<link rel="stylesheet" href="ada-hotels.css">
-<link rel="stylesheet" href="ada-hotels-ar.css">
+<title>فنادق أدا — اكتشف إقامتك المثالية</title>
+<link rel="stylesheet" href="../ada-hotels.css">
+<link rel="stylesheet" href="../ada-hotels-ar.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 <style>
 
 /* ── Demo nav ─────────────────────────────────────────────── */
@@ -16,16 +19,18 @@
 .demo-nav-row {
   display: flex; align-items: center; gap: 0; max-width: 1240px;
   margin: 0 auto; padding: 0 32px; overflow-x: auto; scrollbar-width: none;
+  flex-direction: row-reverse;
 }
 .demo-nav-row::-webkit-scrollbar { display: none; }
 .demo-nav-tab {
   display: flex; align-items: center; gap: 6px; padding: 0 20px;
-  font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.55);
+  font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.55);
+  font-family: 'Cairo', sans-serif;
   text-decoration: none; white-space: nowrap; line-height: 46px;
   border-bottom: 2px solid transparent; transition: color 150ms, border-color 150ms;
 }
 .demo-nav-tab:hover { color: rgba(255,255,255,0.85); }
-.demo-nav-tab.active { color: #C9A84C; border-bottom-color: #C9A84C; font-weight: 600; }
+.demo-nav-tab.active { color: #C9A84C; border-bottom-color: #C9A84C; font-weight: 700; }
 
 /* ── Hero ─────────────────────────────────────────────────── */
 .hero {
@@ -42,17 +47,16 @@
   inset: 0;
   background:
     linear-gradient(to bottom, rgba(13,31,60,0.55) 0%, rgba(13,31,60,0.35) 50%, rgba(13,31,60,0.65) 100%),
-    url('hero-bg.jpg') center/cover no-repeat;
+    url('../hero-bg.jpg') center/cover no-repeat;
   background-color: #1A3A5C;
 }
-/* Decorative layers when no photo */
 .hero-bg::before {
   content: '';
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 30% 60%, rgba(201,168,76,0.12) 0%, transparent 55%),
-    radial-gradient(ellipse at 80% 20%, rgba(30,54,98,0.6) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 60%, rgba(201,168,76,0.12) 0%, transparent 55%),
+    radial-gradient(ellipse at 20% 20%, rgba(30,54,98,0.6) 0%, transparent 50%),
     linear-gradient(160deg, #0D1F3C 0%, #1E3662 40%, #2A4A7A 70%, #1A3050 100%);
 }
 .hero-bg::after {
@@ -76,19 +80,19 @@
 }
 .hero-content .eyebrow { color: var(--ah-gold-light); opacity: 0.9; }
 .hero-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Cairo', 'Playfair Display', serif;
   font-size: clamp(42px, 6vw, 76px);
-  font-weight: 700;
+  font-weight: 800;
   color: var(--ah-white);
-  line-height: 1.05;
-  max-width: 14ch;
+  line-height: 1.15;
+  max-width: 18ch;
   text-shadow: 0 2px 20px rgba(0,0,0,0.3);
 }
 .hero-sub {
   font-size: 17px;
   color: rgba(255,255,255,0.78);
   max-width: 48ch;
-  line-height: 1.6;
+  line-height: 1.7;
   font-weight: 300;
 }
 
@@ -115,16 +119,16 @@
   flex-direction: column;
   gap: 4px;
   padding: 18px 22px;
-  border-right: 1px solid var(--ah-border);
+  border-left: 1px solid var(--ah-border);
   cursor: pointer;
   transition: background 120ms;
 }
 .bb-field:hover { background: var(--ah-cream); }
-.bb-field:last-of-type { border-right: none; }
+.bb-field:last-of-type { border-left: none; }
 .bb-label {
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--ah-gold);
 }
@@ -146,11 +150,10 @@
   background: var(--ah-gold-grad);
   border: none;
   cursor: pointer;
-  font-family: inherit;
+  font-family: 'Cairo', sans-serif;
   font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  letter-spacing: 0.05em;
   color: var(--ah-navy);
   gap: 10px;
   transition: filter 150ms;
@@ -178,7 +181,7 @@
   font-size: 12px;
   font-weight: 500;
   color: rgba(255,255,255,0.7);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
 }
 .trust-item svg { color: var(--ah-gold-light); flex-shrink: 0; }
 
@@ -195,17 +198,16 @@
   margin-bottom: 32px;
 }
 .find-head h2 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Cairo', sans-serif;
   font-size: clamp(28px, 3.5vw, 42px);
-  font-weight: 700;
+  font-weight: 800;
   color: var(--ah-navy);
-  line-height: 1.1;
+  line-height: 1.2;
 }
 .find-head a {
   font-size: 13px;
   font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  letter-spacing: 0.05em;
   color: var(--ah-gold);
   text-decoration: none;
   white-space: nowrap;
@@ -230,6 +232,7 @@
   color: var(--ah-text-2);
   font-size: 13px;
   font-weight: 600;
+  font-family: 'Cairo', sans-serif;
   cursor: pointer;
   transition: all 150ms;
   white-space: nowrap;
@@ -266,8 +269,6 @@
 .hotel-thumb-inner.paris    { background: linear-gradient(160deg, #2E1A20 0%, #5A2A38 50%, #3A1A28 100%); }
 .hotel-thumb-inner.edinburgh{ background: linear-gradient(160deg, #0E2218 0%, #1A4030 50%, #0E2A1E 100%); }
 .hotel-thumb-inner.dubai    { background: linear-gradient(160deg, #2E2010 0%, #5A4020 50%, #3A2810 100%); }
-.hotel-thumb-inner.barcelona{ background: linear-gradient(160deg, #201020 0%, #402040 50%, #281030 100%); }
-.hotel-thumb-inner.amsterdam{ background: linear-gradient(160deg, #102020 0%, #204040 50%, #102828 100%); }
 
 .hotel-thumb::before {
   content: '';
@@ -279,13 +280,13 @@
 .hotel-badge {
   position: absolute;
   top: 14px;
-  left: 14px;
+  right: 14px;
   padding: 4px 11px;
   border-radius: 999px;
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-family: 'Cairo', sans-serif;
 }
 .badge-offers  { background: var(--ah-gold-grad); color: var(--ah-navy); }
 .badge-new     { background: var(--ah-navy); color: var(--ah-white); border: 1px solid rgba(255,255,255,0.2); }
@@ -294,7 +295,7 @@
 .hotel-save {
   position: absolute;
   top: 12px;
-  right: 12px;
+  left: 12px;
   width: 34px; height: 34px;
   border-radius: 50%;
   background: rgba(255,255,255,0.9);
@@ -309,23 +310,22 @@
 .hotel-location {
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  letter-spacing: 0.1em;
   color: var(--ah-gold);
   margin-bottom: 5px;
 }
 .hotel-name {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Cairo', sans-serif;
   font-size: 19px;
   font-weight: 700;
   color: var(--ah-navy);
   margin-bottom: 6px;
-  line-height: 1.2;
+  line-height: 1.3;
 }
 .hotel-desc {
   font-size: 13px;
   color: var(--ah-text-2);
-  line-height: 1.55;
+  line-height: 1.65;
   margin-bottom: 14px;
 }
 .hotel-meta {
@@ -348,15 +348,17 @@
 .hotel-price {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
   gap: 1px;
 }
-.price-from { font-size: 10px; color: var(--ah-text-3); letter-spacing: 0.06em; }
+.price-from { font-size: 10px; color: var(--ah-text-3); letter-spacing: 0.04em; }
 .price-val {
   font-size: 22px;
   font-weight: 700;
   color: var(--ah-navy);
   line-height: 1;
+  direction: ltr;
+  text-align: left;
 }
 .price-val small { font-size: 13px; font-weight: 400; color: var(--ah-text-3); }
 
@@ -396,7 +398,7 @@
   flex-shrink: 0;
 }
 .exp-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Cairo', sans-serif;
   font-size: 18px;
   font-weight: 700;
   color: var(--ah-navy);
@@ -416,8 +418,8 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 10% 50%, rgba(201,168,76,0.12) 0%, transparent 50%),
-    radial-gradient(ellipse at 90% 30%, rgba(201,168,76,0.08) 0%, transparent 40%);
+    radial-gradient(ellipse at 90% 50%, rgba(201,168,76,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 10% 30%, rgba(201,168,76,0.08) 0%, transparent 40%);
   pointer-events: none;
 }
 .promo-inner {
@@ -429,13 +431,13 @@
 }
 .promo-copy { display: flex; flex-direction: column; gap: 16px; max-width: 56ch; }
 .promo-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Cairo', sans-serif;
   font-size: clamp(28px, 3.5vw, 44px);
-  font-weight: 700;
+  font-weight: 800;
   color: var(--ah-white);
-  line-height: 1.1;
+  line-height: 1.2;
 }
-.promo-sub { font-size: 16px; color: rgba(255,255,255,0.7); line-height: 1.6; }
+.promo-sub { font-size: 16px; color: rgba(255,255,255,0.7); line-height: 1.7; }
 .promo-cta { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
 
 /* ── In-room callout ──────────────────────────────────────── */
@@ -464,7 +466,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 40% 40%, rgba(201,168,76,0.15), transparent 60%);
+  background: radial-gradient(circle at 60% 40%, rgba(201,168,76,0.15), transparent 60%);
 }
 .inroom-mockup {
   position: relative;
@@ -489,15 +491,16 @@
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-.im-label { font-size: 11px; font-weight: 700; color: var(--ah-white); letter-spacing: 0.04em; }
-.im-sub { font-size: 9px; color: rgba(255,255,255,0.6); }
+.im-label { font-size: 11px; font-weight: 700; color: var(--ah-white); letter-spacing: 0.04em; font-family: 'Cairo', sans-serif; }
+.im-sub { font-size: 9px; color: rgba(255,255,255,0.6); font-family: 'Cairo', sans-serif; }
 .im-msgs { padding: 14px 12px; display: flex; flex-direction: column; gap: 10px; background: #F8F6F2; }
 .im-bot, .im-user {
   max-width: 85%;
   padding: 9px 12px;
   border-radius: 12px;
-  font-size: 11px;
+  font-size: 10px;
   line-height: 1.5;
+  font-family: 'Cairo', sans-serif;
 }
 .im-bot {
   background: var(--ah-white);
@@ -525,6 +528,7 @@
   flex: 1;
   font-size: 10px;
   color: var(--ah-text-3);
+  font-family: 'Cairo', sans-serif;
 }
 .im-send {
   width: 24px; height: 24px;
@@ -535,13 +539,13 @@
 }
 .inroom-copy { display: flex; flex-direction: column; gap: 22px; }
 .inroom-copy h2 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Cairo', sans-serif;
   font-size: clamp(28px, 3.5vw, 42px);
-  font-weight: 700;
+  font-weight: 800;
   color: var(--ah-navy);
-  line-height: 1.1;
+  line-height: 1.2;
 }
-.inroom-copy p { font-size: 16px; color: var(--ah-text-2); line-height: 1.7; }
+.inroom-copy p { font-size: 16px; color: var(--ah-text-2); line-height: 1.8; }
 .inroom-features { display: flex; flex-direction: column; gap: 14px; margin-top: 4px; }
 .inroom-feature {
   display: flex;
@@ -558,7 +562,14 @@
   font-size: 16px;
   flex-shrink: 0;
 }
-.if-text strong { display: block; color: var(--ah-navy); font-weight: 600; margin-bottom: 2px; }
+.if-text strong { display: block; color: var(--ah-navy); font-weight: 700; margin-bottom: 2px; }
+.widget-note {
+  font-size: 11px;
+  color: var(--ah-text-3);
+  text-align: center;
+  margin-top: 8px;
+  font-style: italic;
+}
 
 @media (max-width: 960px) {
   .booking-bar { grid-template-columns: 1fr 1fr; }
@@ -573,9 +584,6 @@
   .booking-bar { grid-template-columns: 1fr; }
   .footer-inner { grid-template-columns: 1fr 1fr; }
 }
-.lang-toggle { margin-left: auto; display: flex; align-items: center; padding: 0 4px; }
-.lang-btn { display: inline-flex; align-items: center; padding: 5px 14px; background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.35); border-radius: 999px; font-size: 13px; font-weight: 700; color: #C9A84C; text-decoration: none; transition: background 150ms; }
-.lang-btn:hover { background: rgba(201,168,76,0.22); }
 </style>
 </head>
 <body>
@@ -583,12 +591,14 @@
 <!-- Demo nav -->
 <nav class="demo-nav-bar">
   <div class="demo-nav-row">
-    <a class="demo-nav-tab active" href="index.html">🏨 Book In</a>
-    <a class="demo-nav-tab" href="pre-stay.html">✦ Pre-Stay</a>
-    <a class="demo-nav-tab" href="in-stay.html">🛎 In-Stay</a>
-    <a class="demo-nav-tab" href="post-stay.html">⭐ Post-Stay</a>
-    <a class="demo-nav-tab" href="summary.html">◈ Summary</a>
-    <div class="lang-toggle"><a class="lang-btn" href="ar/index.html">عر</a></div>
+    <div class="lang-toggle">
+      <a class="lang-btn" href="../index.html">EN</a>
+    </div>
+    <a class="demo-nav-tab" href="summary.html">◈ الملخص</a>
+    <a class="demo-nav-tab" href="../post-stay.html">⭐ ما بعد الإقامة</a>
+    <a class="demo-nav-tab" href="../in-stay.html">🛎 أثناء الإقامة</a>
+    <a class="demo-nav-tab" href="../pre-stay.html">✦ ما قبل الإقامة</a>
+    <a class="demo-nav-tab active" href="index.html">🏨 تسجيل الوصول</a>
   </div>
 </nav>
 
@@ -604,15 +614,15 @@
         </svg>
       </div>
       <div class="brand-name-wrap">
-        <span class="brand-title">Ada Hotels</span>
-        <span class="brand-tag">Exceptional stays worldwide</span>
+        <span class="brand-title">فنادق أدا</span>
+        <span class="brand-tag">إقامات استثنائية في جميع أنحاء العالم</span>
       </div>
     </a>
     <nav class="site-nav">
-      <a href="index.html" class="active">Hotels</a>
-      <a href="inroom.html">In-Room</a>
-      <a href="index.html">Dining</a>
-      <a href="index.html">Offers</a>
+      <a href="index.html" class="active">الفنادق</a>
+      <a href="../inroom.html">داخل الغرفة</a>
+      <a href="index.html">المطاعم</a>
+      <a href="index.html">العروض</a>
     </nav>
     <div class="header-actions">
       <div class="user-pill">
@@ -628,9 +638,9 @@
   </header>
 
   <div class="hero-content">
-    <p class="eyebrow">Exceptional stays, everywhere</p>
-    <h1 class="hero-title">Where will your story begin?</h1>
-    <p class="hero-sub">From city escapes to coastal retreats — discover hotels that feel like home, wherever you are in the world.</p>
+    <p class="eyebrow">إقامات استثنائية في كل مكان</p>
+    <h1 class="hero-title">من أين ستبدأ قصتك؟</h1>
+    <p class="hero-sub">من هروب المدينة إلى الملاذات الساحلية — اكتشف فنادق تشعر وكأنها بيتك، أينما كنت في العالم.</p>
   </div>
 </section>
 
@@ -639,28 +649,28 @@
   <div class="booking-bar-wrap">
     <div class="booking-bar">
       <div class="bb-field">
-        <span class="bb-label">Where to?</span>
-        <span class="bb-value">Hotels &amp; Destinations</span>
-        <span class="bb-sub">Search by city, hotel or region</span>
+        <span class="bb-label">إلى أين؟</span>
+        <span class="bb-value">الفنادق والوجهات</span>
+        <span class="bb-sub">ابحث بالمدينة أو الفندق أو المنطقة</span>
       </div>
       <div class="bb-field">
-        <span class="bb-label">Check in</span>
-        <span class="bb-value">Wed, 2 Jul</span>
-        <span class="bb-sub">Add check-out date</span>
+        <span class="bb-label">تسجيل الوصول</span>
+        <span class="bb-value">الأربعاء، 2 يوليو</span>
+        <span class="bb-sub">أضف تاريخ المغادرة</span>
       </div>
       <div class="bb-field">
-        <span class="bb-label">Check out</span>
-        <span class="bb-value">Thu, 3 Jul</span>
-        <span class="bb-sub">1 night</span>
+        <span class="bb-label">تسجيل المغادرة</span>
+        <span class="bb-value">الخميس، 3 يوليو</span>
+        <span class="bb-sub">ليلة واحدة</span>
       </div>
       <div class="bb-field">
-        <span class="bb-label">Rooms &amp; Guests</span>
-        <span class="bb-value">1 room, 1 adult</span>
-        <span class="bb-sub">Edit guests</span>
+        <span class="bb-label">الغرف والضيوف</span>
+        <span class="bb-value">غرفة واحدة، شخص بالغ</span>
+        <span class="bb-sub">تعديل الضيوف</span>
       </div>
       <button class="bb-search">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
-        Search
+        بحث
       </button>
     </div>
   </div>
@@ -672,19 +682,19 @@
     <div class="trust-strip-inner">
       <div class="trust-item">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        Best rate guaranteed
+        أفضل سعر مضمون
       </div>
       <div class="trust-item">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        450+ hotels worldwide
+        450+ فندقاً حول العالم
       </div>
       <div class="trust-item">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-        Free cancellation on most stays
+        إلغاء مجاني لمعظم الإقامات
       </div>
       <div class="trust-item">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        Ada Rewards — earn on every stay
+        مكافآت أدا — اربح في كل إقامة
       </div>
     </div>
   </div>
@@ -695,19 +705,19 @@
   <div class="wrap">
     <div class="find-head">
       <div>
-        <p class="eyebrow" style="margin-bottom:8px">Handpicked for you</p>
-        <h2>Find your next stay</h2>
+        <p class="eyebrow" style="margin-bottom:8px">مختارة خصيصاً لك</p>
+        <h2>ابحث عن إقامتك القادمة</h2>
       </div>
-      <a href="index.html">View all hotels &rarr;</a>
+      <a href="index.html">عرض جميع الفنادق &larr;</a>
     </div>
 
     <div class="filter-tabs">
-      <button class="filter-tab active">&#10024; Offers</button>
-      <button class="filter-tab">&#9829; Popular</button>
-      <button class="filter-tab">&#127960; City pulse</button>
-      <button class="filter-tab">&#127774; Wellness</button>
-      <button class="filter-tab">&#128106; Family-friendly</button>
-      <button class="filter-tab">&#10024; New hotels</button>
+      <button class="filter-tab active">&#10024; العروض</button>
+      <button class="filter-tab">&#9829; الأكثر شعبية</button>
+      <button class="filter-tab">&#127960; نبض المدينة</button>
+      <button class="filter-tab">&#127774; الصحة والعافية</button>
+      <button class="filter-tab">&#128106; مناسب للعائلات</button>
+      <button class="filter-tab">&#10024; فنادق جديدة</button>
     </div>
 
     <div class="hotels-grid">
@@ -716,15 +726,15 @@
       <a class="hotel-card" href="index.html">
         <div class="hotel-thumb">
           <div class="hotel-thumb-inner london">&#127963;</div>
-          <span class="hotel-badge badge-offers">Special offer</span>
+          <span class="hotel-badge badge-offers">عرض خاص</span>
           <button class="hotel-save" onclick="event.preventDefault()">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0D1F3C" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
           </button>
         </div>
         <div class="hotel-info">
-          <div class="hotel-location">London, United Kingdom</div>
-          <div class="hotel-name">Ada Hotel Mayfair</div>
-          <div class="hotel-desc">Elegant rooms steps from Hyde Park, with a celebrated afternoon tea and rooftop terrace overlooking the city.</div>
+          <div class="hotel-location">لندن، المملكة المتحدة</div>
+          <div class="hotel-name">فندق أدا مايفير</div>
+          <div class="hotel-desc">غرف أنيقة على بعد خطوات من هايد بارك، مع شاي العصر الشهير وتراس سطح مطل على أفق المدينة.</div>
           <div class="hotel-meta">
             <div class="hotel-rating">
               <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
@@ -732,8 +742,8 @@
               <span style="color:var(--ah-text-3);font-weight:400;font-size:12px">(2,847)</span>
             </div>
             <div class="hotel-price">
-              <span class="price-from">From</span>
-              <span class="price-val">&pound;189<small>/night</small></span>
+              <span class="price-from">من</span>
+              <span class="price-val">&pound;189<small>/ليلة</small></span>
             </div>
           </div>
         </div>
@@ -743,15 +753,15 @@
       <a class="hotel-card" href="index.html">
         <div class="hotel-thumb">
           <div class="hotel-thumb-inner paris">&#9889;</div>
-          <span class="hotel-badge badge-popular">Popular</span>
+          <span class="hotel-badge badge-popular">الأكثر شعبية</span>
           <button class="hotel-save" onclick="event.preventDefault()">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0D1F3C" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
           </button>
         </div>
         <div class="hotel-info">
-          <div class="hotel-location">Paris, France</div>
-          <div class="hotel-name">Ada Hotel Saint-Germain</div>
-          <div class="hotel-desc">A refined Haussmann building transformed into a sanctuary of calm, steps from the Seine and the Louvre.</div>
+          <div class="hotel-location">باريس، فرنسا</div>
+          <div class="hotel-name">فندق أدا سان جيرمان</div>
+          <div class="hotel-desc">مبنى هاوسمان الراقي تحوّل إلى ملاذ من الهدوء، على بعد خطوات من نهر السين والمتحف الكبير.</div>
           <div class="hotel-meta">
             <div class="hotel-rating">
               <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
@@ -759,8 +769,8 @@
               <span style="color:var(--ah-text-3);font-weight:400;font-size:12px">(1,924)</span>
             </div>
             <div class="hotel-price">
-              <span class="price-from">From</span>
-              <span class="price-val">&euro;225<small>/night</small></span>
+              <span class="price-from">من</span>
+              <span class="price-val">&euro;225<small>/ليلة</small></span>
             </div>
           </div>
         </div>
@@ -770,15 +780,15 @@
       <a class="hotel-card" href="index.html">
         <div class="hotel-thumb">
           <div class="hotel-thumb-inner edinburgh">&#127807;</div>
-          <span class="hotel-badge badge-new">New</span>
+          <span class="hotel-badge badge-new">جديد</span>
           <button class="hotel-save" onclick="event.preventDefault()">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0D1F3C" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
           </button>
         </div>
         <div class="hotel-info">
-          <div class="hotel-location">Edinburgh, Scotland</div>
-          <div class="hotel-name">Ada Hotel Royal Mile</div>
-          <div class="hotel-desc">A stone's throw from Edinburgh Castle, blending Scottish heritage with contemporary luxury and a celebrated whisky bar.</div>
+          <div class="hotel-location">إدنبرة، اسكتلندا</div>
+          <div class="hotel-name">فندق أدا رويال مايل</div>
+          <div class="hotel-desc">على بعد رمية حجر من قلعة إدنبرة، يمزج التراث الاسكتلندي بالفخامة المعاصرة وبار الويسكي الشهير.</div>
           <div class="hotel-meta">
             <div class="hotel-rating">
               <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
@@ -786,8 +796,8 @@
               <span style="color:var(--ah-text-3);font-weight:400;font-size:12px">(643)</span>
             </div>
             <div class="hotel-price">
-              <span class="price-from">From</span>
-              <span class="price-val">&pound;159<small>/night</small></span>
+              <span class="price-from">من</span>
+              <span class="price-val">&pound;159<small>/ليلة</small></span>
             </div>
           </div>
         </div>
@@ -801,29 +811,29 @@
 <section class="exp-strip">
   <div class="wrap">
     <div style="text-align:center;margin-bottom:44px">
-      <p class="eyebrow" style="margin-bottom:10px">Everything under one roof</p>
-      <h2 class="display" style="font-size:clamp(28px,3.5vw,40px)">The Ada Hotels experience</h2>
+      <p class="eyebrow" style="margin-bottom:10px">كل شيء تحت سقف واحد</p>
+      <h2 class="display" style="font-size:clamp(28px,3.5vw,40px);font-family:'Cairo',sans-serif;font-weight:800;color:var(--ah-navy)">تجربة فنادق أدا</h2>
     </div>
     <div class="exp-grid">
-      <a class="exp-card" href="inroom.html">
+      <a class="exp-card" href="../inroom.html">
         <div class="exp-icon">&#128241;</div>
-        <div class="exp-title">In-Room Concierge</div>
-        <div class="exp-desc">Your AI-powered room assistant, available 24/7 for everything from room service to local recommendations.</div>
+        <div class="exp-title">كونسيرج الغرفة</div>
+        <div class="exp-desc">مساعدك الذكي في الغرفة، متاح على مدار الساعة لكل شيء من خدمة الغرفة إلى التوصيات المحلية.</div>
       </a>
       <a class="exp-card" href="index.html">
         <div class="exp-icon">&#127869;</div>
-        <div class="exp-title">Signature Dining</div>
-        <div class="exp-desc">Award-winning restaurants and intimate bars, each shaped by local flavour and seasonal menus.</div>
+        <div class="exp-title">تجارب تناول الطعام</div>
+        <div class="exp-desc">مطاعم حائزة على جوائز وبارات حميمة، تُشكّل كل منها بنكهة محلية وقوائم موسمية متجددة.</div>
       </a>
       <a class="exp-card" href="index.html">
         <div class="exp-icon">&#128134;</div>
-        <div class="exp-title">Spa &amp; Wellness</div>
-        <div class="exp-desc">Rejuvenating treatments, pools and fitness facilities designed to restore body and mind.</div>
+        <div class="exp-title">السبا والعافية</div>
+        <div class="exp-desc">علاجات منعشة وحمامات سباحة ومرافق لياقة مصممة لاستعادة حيوية الجسم والروح.</div>
       </a>
       <a class="exp-card" href="index.html">
         <div class="exp-icon">&#127968;</div>
-        <div class="exp-title">Meetings &amp; Events</div>
-        <div class="exp-desc">Versatile event spaces and dedicated planning teams to make every gathering unforgettable.</div>
+        <div class="exp-title">الاجتماعات والفعاليات</div>
+        <div class="exp-desc">مساحات فعاليات متعددة الاستخدامات وفرق تخطيط متخصصة لجعل كل تجمع لا يُنسى.</div>
       </a>
     </div>
   </div>
@@ -833,49 +843,52 @@
 <section class="inroom-callout">
   <div class="wrap">
     <div class="inroom-inner">
-      <div class="inroom-visual">
-        <div class="inroom-mockup">
-          <div class="im-header">
-            <div class="im-avatar">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" fill="#0D1F3C"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#0D1F3C" stroke-width="2" stroke-linecap="round"/></svg>
-            </div>
-            <div>
-              <div class="im-label">Ada Concierge</div>
-              <div class="im-sub">&#9679; Online now</div>
-            </div>
-          </div>
-          <div class="im-msgs">
-            <div class="im-bot">Good evening! How can I make your stay more comfortable tonight?</div>
-            <div class="im-user">Can I order room service?</div>
-            <div class="im-bot">Of course! Our kitchen is open until midnight. Shall I send you the menu?</div>
-          </div>
-          <div class="im-input">
-            <span class="im-input-field">Type a message...</span>
-            <div class="im-send">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#0D1F3C" stroke-width="3" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="inroom-copy">
-        <p class="eyebrow">Smart stays</p>
-        <h2>Your personal concierge, always on</h2>
-        <p>Every Ada Hotels guest has access to an AI-powered in-room concierge — available 24 hours a day, seven days a week, in your language.</p>
+        <p class="eyebrow">إقامات ذكية</p>
+        <h2>كونسيرجك الشخصي، دائماً في خدمتك</h2>
+        <p>يتمتع كل نزيل في فنادق أدا بإمكانية الوصول إلى كونسيرج ذكي مدعوم بالذكاء الاصطناعي — متاح 24 ساعة في اليوم، سبعة أيام في الأسبوع، بلغتك.</p>
         <div class="inroom-features">
           <div class="inroom-feature">
             <div class="if-icon">&#127860;</div>
-            <div class="if-text"><strong>Room service & dining</strong>Order food and drinks directly from your room at any hour.</div>
+            <div class="if-text"><strong>خدمة الغرفة والمطاعم</strong>اطلب الطعام والمشروبات مباشرة من غرفتك في أي وقت.</div>
           </div>
           <div class="inroom-feature">
             <div class="if-icon">&#127968;</div>
-            <div class="if-text"><strong>Housekeeping requests</strong>Extra towels, pillows, late checkout — sorted instantly.</div>
+            <div class="if-text"><strong>طلبات التدبير المنزلي</strong>مناشف إضافية، وسائد، تأخير المغادرة — تُنفَّذ على الفور.</div>
           </div>
           <div class="inroom-feature">
             <div class="if-icon">&#128205;</div>
-            <div class="if-text"><strong>Local recommendations</strong>Restaurants, attractions and transport, tailored to you.</div>
+            <div class="if-text"><strong>توصيات محلية</strong>مطاعم ومعالم سياحية ووسائل مواصلات مصممة خصيصاً لك.</div>
           </div>
         </div>
-        <a class="btn-navy" href="inroom.html" style="align-self:flex-start;margin-top:8px">Explore the experience &rarr;</a>
+        <a class="btn-navy" href="../inroom.html" style="align-self:flex-start;margin-top:8px">استكشف التجربة &larr;</a>
+      </div>
+      <div class="inroom-visual">
+        <div>
+          <div class="inroom-mockup">
+            <div class="im-header">
+              <div class="im-avatar">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" fill="#0D1F3C"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#0D1F3C" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <div>
+                <div class="im-label">كونسيرج أدا</div>
+                <div class="im-sub">&#9679; متصل الآن</div>
+              </div>
+            </div>
+            <div class="im-msgs">
+              <div class="im-bot">مساء الخير! كيف يمكنني جعل إقامتك أكثر راحة الليلة؟</div>
+              <div class="im-user">هل يمكنني طلب خدمة الغرفة؟</div>
+              <div class="im-bot">بالطبع! مطبخنا مفتوح حتى منتصف الليل. هل تريد أن أرسل لك القائمة؟</div>
+            </div>
+            <div class="im-input">
+              <div class="im-send">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#0D1F3C" stroke-width="3" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </div>
+              <span class="im-input-field">اكتب رسالة...</span>
+            </div>
+          </div>
+          <p class="widget-note">(المحادثة باللغة الإنجليزية حالياً)</p>
+        </div>
       </div>
     </div>
   </div>
@@ -886,22 +899,22 @@
   <div class="wrap">
     <div class="promo-inner">
       <div class="promo-copy">
-        <p class="eyebrow">Ada Rewards</p>
-        <h2 class="promo-title">Every stay earns you more</h2>
-        <p class="promo-sub">Join Ada Rewards and unlock member rates, complimentary upgrades and exclusive benefits across all 450+ properties. Your loyalty deserves to be rewarded.</p>
+        <p class="eyebrow">مكافآت أدا</p>
+        <h2 class="promo-title">كل إقامة تكسبك أكثر</h2>
+        <p class="promo-sub">انضم إلى مكافآت أدا واحصل على أسعار الأعضاء والترقيات المجانية والمزايا الحصرية عبر جميع العقارات البالغة 450+. ولاؤك يستحق المكافأة.</p>
         <div class="promo-cta">
-          <a class="btn-gold" href="index.html">Join for free</a>
-          <a class="btn-outline-white" href="index.html">Learn more</a>
+          <a class="btn-gold" href="index.html">انضم مجاناً</a>
+          <a class="btn-outline-white" href="index.html">اعرف المزيد</a>
         </div>
       </div>
       <div style="display:flex;flex-direction:column;gap:16px;flex-shrink:0">
         <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(201,168,76,0.3);border-radius:10px;padding:24px 32px;text-align:center">
-          <div style="font-family:'Playfair Display',serif;font-size:42px;font-weight:700;color:var(--ah-gold-light);line-height:1">450+</div>
-          <div style="font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-top:4px">Hotels worldwide</div>
+          <div style="font-family:'Cairo',sans-serif;font-size:42px;font-weight:800;color:var(--ah-gold-light);line-height:1;direction:ltr">450+</div>
+          <div style="font-size:12px;font-weight:600;letter-spacing:0.06em;color:rgba(255,255,255,0.6);margin-top:4px">فندقاً حول العالم</div>
         </div>
         <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(201,168,76,0.3);border-radius:10px;padding:24px 32px;text-align:center">
-          <div style="font-family:'Playfair Display',serif;font-size:42px;font-weight:700;color:var(--ah-gold-light);line-height:1">2M+</div>
-          <div style="font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-top:4px">Happy guests</div>
+          <div style="font-family:'Cairo',sans-serif;font-size:42px;font-weight:800;color:var(--ah-gold-light);line-height:1;direction:ltr">2M+</div>
+          <div style="font-size:12px;font-weight:600;letter-spacing:0.06em;color:rgba(255,255,255,0.6);margin-top:4px">ضيف سعيد</div>
         </div>
       </div>
     </div>
@@ -920,37 +933,37 @@
             </svg>
           </div>
           <div class="brand-name-wrap">
-            <span class="brand-title">Ada Hotels</span>
-            <span class="brand-tag">Exceptional stays worldwide</span>
+            <span class="brand-title">فنادق أدا</span>
+            <span class="brand-tag">إقامات استثنائية في جميع أنحاء العالم</span>
           </div>
         </a>
-        <p>Exceptional stays crafted for the modern traveller. From city-centre landmarks to hidden coastal retreats.</p>
+        <p>إقامات استثنائية مصممة للمسافر العصري. من المعالم في وسط المدينة إلى الملاذات الساحلية الخفية.</p>
       </div>
       <div class="footer-col">
-        <span class="footer-head">Hotels</span>
-        <a href="index.html">Find a hotel</a>
-        <a href="index.html">Special offers</a>
-        <a href="index.html">New openings</a>
-        <a href="index.html">Gift cards</a>
+        <span class="footer-head">الفنادق</span>
+        <a href="index.html">ابحث عن فندق</a>
+        <a href="index.html">العروض الخاصة</a>
+        <a href="index.html">الافتتاحات الجديدة</a>
+        <a href="index.html">بطاقات الهدايا</a>
       </div>
       <div class="footer-col">
-        <span class="footer-head">Experiences</span>
-        <a href="inroom.html">In-room concierge</a>
-        <a href="index.html">Spa &amp; wellness</a>
-        <a href="index.html">Dining</a>
-        <a href="index.html">Meetings &amp; events</a>
+        <span class="footer-head">التجارب</span>
+        <a href="../inroom.html">كونسيرج الغرفة</a>
+        <a href="index.html">السبا والعافية</a>
+        <a href="index.html">المطاعم</a>
+        <a href="index.html">الاجتماعات والفعاليات</a>
       </div>
       <div class="footer-col">
-        <span class="footer-head">Help</span>
-        <a href="index.html">Manage booking</a>
-        <a href="index.html">Contact us</a>
-        <a href="index.html">Cancellation policy</a>
-        <a href="index.html">Accessibility</a>
+        <span class="footer-head">المساعدة</span>
+        <a href="index.html">إدارة الحجز</a>
+        <a href="index.html">اتصل بنا</a>
+        <a href="index.html">سياسة الإلغاء</a>
+        <a href="index.html">إمكانية الوصول</a>
       </div>
     </div>
     <div class="footer-legal">
-      <span>Ada Hotels is a demo experience. Prices and properties are illustrative only.</span>
-      <span>&copy; 2026 Ada Hotels</span>
+      <span>فنادق أدا تجربة توضيحية. الأسعار والعقارات توضيحية فقط.</span>
+      <span>&copy; 2026 فنادق أدا</span>
     </div>
   </div>
 </footer>
