@@ -405,6 +405,71 @@
   .ep-body  { margin-left: 0; }
   .ep-tags  { margin-left: 0; }
 }
+
+/* ── Waveform player ──────────────────────────────────────── */
+.vc-player-area {
+  padding: 20px 24px 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.waveform-wrap {
+  position: relative;
+  width: 100%;
+  height: 72px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.03);
+  cursor: pointer;
+}
+#waveformCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.vc-scrubber-row {
+  display: flex; align-items: center; gap: 10px; margin-top: 10px;
+}
+.vc-tlabel {
+  font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums;
+  color: rgba(255,255,255,0.4); white-space: nowrap; min-width: 28px;
+}
+#vcScrubber {
+  flex: 1; -webkit-appearance: none; appearance: none;
+  height: 3px; border-radius: 999px;
+  background: rgba(255,255,255,0.12); outline: none; cursor: pointer;
+}
+#vcScrubber::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 13px; height: 13px;
+  border-radius: 50%; background: #C9A84C; cursor: pointer;
+  box-shadow: 0 0 0 3px rgba(201,168,76,0.2);
+}
+.vc-ctrl-bar {
+  display: flex; align-items: center; gap: 16px; margin-top: 14px;
+}
+.vc-play-btn {
+  width: 44px; height: 44px; border-radius: 50%; border: none;
+  background: #C9A84C; color: #0A0F1C; font-size: 15px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: transform 120ms, background 120ms;
+}
+.vc-play-btn:hover { transform: scale(1.08); background: #D4B55D; }
+.vc-speed-group { display: flex; gap: 4px; }
+.vc-spd {
+  padding: 4px 9px; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.15); background: transparent;
+  color: rgba(255,255,255,0.45); font-size: 11px; font-weight: 600;
+  cursor: pointer; transition: all 120ms;
+}
+.vc-spd.active { background: rgba(201,168,76,0.15); border-color: rgba(201,168,76,0.45); color: #C9A84C; }
+.vc-spd:hover  { border-color: rgba(201,168,76,0.3); color: rgba(201,168,76,0.8); }
+.vc-turn.active .vc-bubble.ada  { background: rgba(201,168,76,0.18); border-color: rgba(201,168,76,0.4); }
+.vc-turn.active .vc-bubble.anna { background: rgba(255,255,255,0.13); border-color: rgba(255,255,255,0.25); }
+
+/* ── Email animation ──────────────────────────────────────── */
+.ep-msg { will-change: opacity, transform; }
+.ep-anim-hide { opacity: 0; transform: translateY(12px); }
+.ep-anim-anna-hide { opacity: 0; transform: translateY(-10px); }
+.ep-anim-show { opacity: 1 !important; transform: translateY(0) !important; transition: opacity 0.65s ease, transform 0.65s ease; }
+.ep-anim-fadeout { opacity: 0 !important; transition: opacity 0.45s ease !important; }
 </style>
 </head>
 <body>
@@ -492,75 +557,141 @@ const HOTEL_CONFIG = {
         <div class="vc-label">Incoming call to</div>
         <div class="vc-name">Ada Hotels · Restaurant Reservations</div>
         <div class="vc-number">+44 20 7946 0800</div>
-        <div class="vc-duration">2:47 · Call ended</div>
+        <div class="vc-duration">2:16 · Call ended</div>
       </div>
 
-      <div class="vc-transcript">
+      <!-- Waveform player -->
+      <div class="vc-player-area">
+        <div class="waveform-wrap" id="waveformWrap">
+          <canvas id="waveformCanvas"></canvas>
+        </div>
+        <div class="vc-scrubber-row">
+          <span class="vc-tlabel" id="timeCur">0:00</span>
+          <input type="range" id="vcScrubber" min="0" max="136.4" step="0.1" value="0">
+          <span class="vc-tlabel" id="timeTotal">2:16</span>
+        </div>
+        <div class="vc-ctrl-bar">
+          <button class="vc-play-btn" id="playBtn" title="Play">▶</button>
+          <div class="vc-speed-group">
+            <button class="vc-spd active" data-s="1">1×</button>
+            <button class="vc-spd" data-s="1.25">1.25×</button>
+            <button class="vc-spd" data-s="1.5">1.5×</button>
+            <button class="vc-spd" data-s="2">2×</button>
+          </div>
+        </div>
+      </div>
 
-        <div class="vc-turn">
-          <span class="vc-speaker ada">Ada AI</span>
-          <div class="vc-bubble ada">Thank you for calling Ada Hotels. You're through to our dining reservations line. I'm Ada, your AI concierge. How can I help you today?</div>
+      <!-- Real transcript from conversation 6aa2f9790607fdec8f9ae52a -->
+      <div class="vc-transcript" id="vcTranscript">
+
+        <div class="vc-turn" data-t="1.460">
+          <span class="vc-speaker ada">Connie · Ada AI</span>
+          <div class="vc-bubble ada">Hi Anna! I'm Connie, Ada Hotel's AI concierge. I can help you with dining reservations, room requests, and anything you need during your stay. I can see you have an upcoming booking with us. How can I help you today?</div>
         </div>
 
-        <div class="vc-turn">
+        <div class="vc-turn" data-t="15.245">
           <span class="vc-speaker anna">Anna Chambers</span>
-          <div class="vc-bubble anna">Hi, yes — I'd like to book a table for dinner. We're checking in on Tuesday the ninth of September.</div>
+          <div class="vc-bubble anna">Yeah. I'd like to book a table for my colleagues, please.</div>
         </div>
 
-        <div class="vc-turn">
-          <span class="vc-speaker ada">Ada AI</span>
-          <div class="vc-bubble ada">Lovely — welcome in advance, and what a wonderful time to visit London. Could I take your booking reference or name to pull up your reservation?</div>
+        <div class="vc-turn" data-t="21.805">
+          <span class="vc-speaker ada">Connie · Ada AI</span>
+          <div class="vc-bubble ada">Absolutely, I'll look into dining options for your colleagues.</div>
         </div>
 
-        <div class="vc-turn">
+        <div class="vc-turn" data-t="25.005">
+          <span class="vc-speaker ada">Connie · Ada AI</span>
+          <div class="vc-bubble ada">We have three dining options at Ada Hotel Mayfair. The Mayfair Brasserie offers modern European cuisine throughout the day, from seven in the morning. Milano serves Italian dishes, including handmade pasta and wood-fired specialties, for dinner from six in the evening, Monday through Saturday. The Jade Room offers Pan-Asian cuisine, including Thai, Japanese, and Vietnamese dishes, for dinner from six in the evening, Monday through Saturday.</div>
+        </div>
+
+        <div class="vc-turn" data-t="51.715">
+          <span class="vc-speaker ada">Connie · Ada AI</span>
+          <div class="vc-bubble ada">Which restaurant would you like to book: The Mayfair Brasserie, Milano, or The Jade Room?</div>
+        </div>
+
+        <div class="vc-turn" data-t="57.960">
           <span class="vc-speaker anna">Anna Chambers</span>
-          <div class="vc-bubble anna">It's Anna Chambers. Booking reference AH-291847.</div>
+          <div class="vc-bubble anna">The Jade Room sounds interesting. Uh, I love Vietnamese. Do you know if they serve the famous Vietnamese dish pho?</div>
         </div>
 
-        <div class="vc-turn">
-          <span class="vc-speaker ada">Ada AI</span>
-          <div class="vc-bubble ada">Perfect, Anna — I have your booking for Ada Hotel Mayfair, checking in Tuesday the ninth, checking out Saturday the thirteenth. Now, we have three dining options for your stay: The Conservatory, which is our classic British brasserie; Roux at the Mayfair, which is our fine dining room; and The Garden, our Thai and South-East Asian restaurant. Do any of those appeal?</div>
+        <div class="vc-turn" data-t="67.080">
+          <span class="vc-speaker ada">Connie · Ada AI</span>
+          <div class="vc-bubble ada">Yes, pho is a house specialty at The Jade Room. How many guests will be dining?</div>
         </div>
 
-        <div class="vc-turn">
+        <div class="vc-turn" data-t="72.680">
           <span class="vc-speaker anna">Anna Chambers</span>
-          <div class="vc-bubble anna">The Garden sounds perfect actually — Thai food, yes please. It'd be for Friday evening, the twelfth. Eight o'clock if possible, for three people.</div>
+          <div class="vc-bubble anna">Great. Um, yes. Three of us then, please.</div>
         </div>
 
-        <div class="vc-turn">
-          <span class="vc-speaker ada">Ada AI</span>
-          <div class="vc-bubble ada">Wonderful choice — The Garden has a beautiful terrace for September evenings. Let me check availability for Friday the twelfth at eight PM, for three guests... I can confirm a table for three at The Garden on Friday the twelfth of September at 8 PM. Shall I go ahead and book that for you?</div>
+        <div class="vc-turn" data-t="76.200">
+          <span class="vc-speaker ada">Connie · Ada AI</span>
+          <div class="vc-bubble ada">What date would you like to dine at The Jade Room?</div>
         </div>
 
-        <div class="vc-turn">
+        <div class="vc-turn" data-t="80.280">
           <span class="vc-speaker anna">Anna Chambers</span>
-          <div class="vc-bubble anna">Yes please, that's great.</div>
+          <div class="vc-bubble anna">This Friday.</div>
         </div>
 
-        <div class="vc-turn">
-          <span class="vc-speaker ada">Ada AI</span>
-          <div class="vc-bubble ada">All confirmed, Anna. Table for three at The Garden on Friday twelfth of September at 8 PM, linked to booking AH-291847. You'll receive a confirmation to the email on your account. Is there anything else I can help arrange before your stay?</div>
+        <div class="vc-turn" data-t="81.320">
+          <span class="vc-speaker ada">Connie · Ada AI</span>
+          <div class="vc-bubble ada">Perfect. What time would you like the table?</div>
         </div>
 
-        <div class="vc-turn">
+        <div class="vc-turn" data-t="85.000">
           <span class="vc-speaker anna">Anna Chambers</span>
-          <div class="vc-bubble anna">No, that's everything — thank you!</div>
+          <div class="vc-bubble anna">Eight PM, please.</div>
         </div>
 
-        <div class="vc-turn">
-          <span class="vc-speaker ada">Ada AI</span>
-          <div class="vc-bubble ada">My pleasure, Anna. We look forward to welcoming you to Ada Hotel Mayfair on Tuesday. Enjoy the rest of your week!</div>
+        <div class="vc-turn" data-t="86.600">
+          <span class="vc-speaker ada">Connie · Ada AI</span>
+          <div class="vc-bubble ada">Just to confirm, a table for three at The Jade Room on Friday, September twelfth, twenty twenty-six at eight PM. Is that right?</div>
+        </div>
+
+        <div class="vc-turn" data-t="95.160">
+          <span class="vc-speaker anna">Anna Chambers</span>
+          <div class="vc-bubble anna">Yep. That's correct. Thank you.</div>
+        </div>
+
+        <div class="vc-turn" data-t="97.240">
+          <span class="vc-speaker ada">Connie · Ada AI</span>
+          <div class="vc-bubble ada">Wonderful, your booking details are confirmed. Do you have any dietary requirements I should note for the reservation?</div>
+        </div>
+
+        <div class="vc-turn" data-t="104.760">
+          <span class="vc-speaker anna">Anna Chambers</span>
+          <div class="vc-bubble anna">No.</div>
+        </div>
+
+        <div class="vc-turn" data-t="105.560">
+          <span class="vc-speaker ada">Connie · Ada AI</span>
+          <div class="vc-bubble ada">Your table is booked at The Jade Room for Friday, September twelfth, twenty twenty-six at eight PM. It is on the ground floor to the right of the main lobby. We look forward to welcoming you and your colleagues.</div>
+        </div>
+
+        <div class="vc-turn" data-t="118.745">
+          <span class="vc-speaker anna">Anna Chambers</span>
+          <div class="vc-bubble anna">Great. Thank you very much.</div>
+        </div>
+
+        <div class="vc-turn" data-t="120.505">
+          <span class="vc-speaker ada">Connie · Ada AI</span>
+          <div class="vc-bubble ada">Would you like me to send you a quick survey by text message to rate your experience today?</div>
+        </div>
+
+        <div class="vc-turn" data-t="125.680">
+          <span class="vc-speaker anna">Anna Chambers</span>
+          <div class="vc-bubble anna">Yes, please.</div>
+        </div>
+
+        <div class="vc-turn" data-t="127.280">
+          <span class="vc-speaker ada">Connie · Ada AI</span>
+          <div class="vc-bubble ada">Thanks for confirming. The survey has been sent by text. We hope you and your colleagues enjoy your evening at The Jade Room.</div>
         </div>
 
       </div>
 
-      <div class="vc-controls">
-        <button class="vc-btn vc-btn-mute" title="Mute">🔇</button>
-        <button class="vc-btn vc-btn-hold" title="Hold">⏸</button>
-        <button class="vc-btn vc-btn-end" title="End call" style="width:60px;height:60px;font-size:22px">📵</button>
-        <button class="vc-btn vc-btn-speaker" title="Speaker">🔊</button>
-        <span class="vc-ended-badge">● Call ended · 2:47</span>
-      </div>
+      <audio id="callAudio" src="restaurant-booking-call.wav" preload="auto"></audio>
     </div>
   </div>
 </section>
@@ -594,7 +725,7 @@ const HOTEL_CONFIG = {
         <!-- Subject bar -->
         <div class="ep-subject-bar">
           <div class="ep-subject-row">
-            <div class="ep-subject">RE: Dining Reservation — The Garden · Fri 12 Sep · 8:00 PM</div>
+            <div class="ep-subject">RE: Dining Reservation — The Jade Room · Fri 12 Sep · 8:00 PM</div>
           </div>
           <div class="ep-meta-row">
             <span class="ep-meta">Confirmation #DIN-8847 · 2 messages</span>
@@ -607,7 +738,7 @@ const HOTEL_CONFIG = {
         <div class="ep-thread">
 
           <!-- Anna's email -->
-          <div class="ep-msg">
+          <div class="ep-msg ep-anim-anna-hide" id="emailAnna">
             <div class="ep-msg-header">
               <div class="ep-avatar ep-avatar-guest">AC</div>
               <div class="ep-sender-wrap">
@@ -618,14 +749,14 @@ const HOTEL_CONFIG = {
             </div>
             <div class="ep-body">
               <p>Hi,</p>
-              <p>My train has been delayed so I'm running late — I won't make the 8 PM reservation at The Garden tonight. Is it possible to push the table back to 9 PM instead? Still three of us.</p>
+              <p>My train has been delayed so I'm running late — I won't make the 8 PM reservation at The Jade Room tonight. Is it possible to push the table back to 9 PM instead? Still three of us.</p>
               <p>Sorry for the short notice. Booking ref is AH-291847.</p>
               <div class="ep-sig">Thanks,<br>Anna</div>
             </div>
           </div>
 
           <!-- Ada's reply -->
-          <div class="ep-msg" style="background:rgba(13,31,60,0.02);">
+          <div class="ep-msg ep-anim-hide" id="emailAda" style="background:rgba(13,31,60,0.02);">
             <div class="ep-msg-header">
               <div class="ep-avatar ep-avatar-ada">AH</div>
               <div class="ep-sender-wrap">
@@ -640,8 +771,8 @@ const HOTEL_CONFIG = {
             </div>
             <div class="ep-body">
               <p>Dear Anna,</p>
-              <p>No trouble at all — I've amended your reservation at The Garden from 8:00 PM to <strong>9:00 PM this evening</strong>, Friday 12 September, for three guests. Your table will be held.</p>
-              <p>The team at The Garden have been notified and look forward to welcoming you. Please don't rush — we'll have everything ready when you arrive.</p>
+              <p>No trouble at all — I've amended your reservation at The Jade Room from 8:00 PM to <strong>9:00 PM this evening</strong>, Friday 12 September, for three guests. Your table will be held.</p>
+              <p>The team at The Jade Room have been notified and look forward to welcoming you. Please don't rush — we'll have everything ready when you arrive.</p>
               <p>Is there anything else I can help with before your arrival?</p>
               <div class="ep-sig">Warm regards,<br><strong>Ada Concierge</strong><br>Ada Hotel Mayfair · +44 20 7946 0800</div>
             </div>
@@ -725,6 +856,216 @@ window.adaSettings = {
 };
 </script>
 <script src="https://static.ada.support/embed2.js" async></script>
+
+<script>
+/* ── Voice call player ──────────────────────────────────── */
+(function() {
+  const audio    = document.getElementById('callAudio');
+  const playBtn  = document.getElementById('playBtn');
+  const scrubber = document.getElementById('vcScrubber');
+  const timeCur  = document.getElementById('timeCur');
+  const timeTotal= document.getElementById('timeTotal');
+  const canvas   = document.getElementById('waveformCanvas');
+  const wrap     = document.getElementById('waveformWrap');
+  const transcript = document.getElementById('vcTranscript');
+  const turns    = Array.from(transcript.querySelectorAll('.vc-turn'));
+  let decodedBuffer = null;
+  let activeTurn = -1;
+
+  function fmt(s) {
+    const m = Math.floor(s / 60), ss = Math.floor(s % 60);
+    return m + ':' + String(ss).padStart(2,'0');
+  }
+
+  /* Waveform draw */
+  function drawWaveform(buffer, progress) {
+    const dpr = window.devicePixelRatio || 1;
+    const W = wrap.clientWidth;
+    const H = wrap.clientHeight;
+    canvas.width  = W * dpr;
+    canvas.height = H * dpr;
+    const ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+    ctx.clearRect(0, 0, W, H);
+
+    const data = buffer.getChannelData(0);
+    const step = Math.ceil(data.length / W);
+    const mid  = H / 2;
+    const playX = (progress || 0) * W;
+
+    for (let x = 0; x < W; x++) {
+      let max = 0;
+      const base = x * step;
+      for (let j = 0; j < step; j++) {
+        const v = Math.abs(data[base + j] || 0);
+        if (v > max) max = v;
+      }
+      const barH = Math.max(2, max * H * 0.88);
+      ctx.fillStyle = x < playX ? '#C9A84C' : 'rgba(201,168,76,0.22)';
+      ctx.fillRect(x, mid - barH / 2, 1, barH);
+    }
+    /* Playhead */
+    if (progress > 0 && progress < 1) {
+      ctx.fillStyle = 'rgba(255,255,255,0.85)';
+      ctx.fillRect(playX - 0.5, 4, 1, H - 8);
+    }
+  }
+
+  function drawEmpty() {
+    const dpr = window.devicePixelRatio || 1;
+    const W = wrap.clientWidth, H = wrap.clientHeight;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    const ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+    ctx.clearRect(0, 0, W, H);
+    /* Flat placeholder bars */
+    ctx.fillStyle = 'rgba(201,168,76,0.15)';
+    const mid = H / 2;
+    for (let x = 0; x < W; x += 2) {
+      const h = 4 + Math.sin(x * 0.15) * 3 + Math.sin(x * 0.04) * 6;
+      ctx.fillRect(x, mid - h / 2, 1, h);
+    }
+  }
+  drawEmpty();
+
+  /* Fetch + decode audio buffer for waveform */
+  async function loadWaveform() {
+    try {
+      const ac  = new (window.AudioContext || window.webkitAudioContext)();
+      const res = await fetch('restaurant-booking-call.wav');
+      const ab  = await res.arrayBuffer();
+      decodedBuffer = await ac.decodeAudioData(ab);
+      drawWaveform(decodedBuffer, 0);
+    } catch(e) { /* leave placeholder */ }
+  }
+  loadWaveform();
+
+  /* Transcript highlight */
+  function highlightAt(t) {
+    let next = -1;
+    for (let i = 0; i < turns.length; i++) {
+      if (parseFloat(turns[i].dataset.t) <= t) next = i;
+    }
+    if (next !== activeTurn) {
+      if (activeTurn >= 0) turns[activeTurn].classList.remove('active');
+      activeTurn = next;
+      if (activeTurn >= 0) {
+        const el = turns[activeTurn];
+        el.classList.add('active');
+        el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+  }
+
+  /* Audio events */
+  audio.addEventListener('timeupdate', () => {
+    const t = audio.currentTime;
+    const d = audio.duration || 136.4;
+    scrubber.value = t;
+    timeCur.textContent = fmt(t);
+    const prog = d > 0 ? t / d : 0;
+    if (decodedBuffer) drawWaveform(decodedBuffer, prog);
+    highlightAt(t);
+  });
+
+  audio.addEventListener('loadedmetadata', () => {
+    scrubber.max = audio.duration;
+    timeTotal.textContent = fmt(audio.duration);
+  });
+
+  audio.addEventListener('play',  () => { playBtn.textContent = '⏸'; });
+  audio.addEventListener('pause', () => { playBtn.textContent = '▶'; });
+  audio.addEventListener('ended', () => {
+    playBtn.textContent = '▶';
+    if (decodedBuffer) drawWaveform(decodedBuffer, 1);
+    turns.forEach(t => t.classList.remove('active'));
+    activeTurn = -1;
+  });
+
+  playBtn.addEventListener('click', () => {
+    if (audio.paused) audio.play();
+    else audio.pause();
+  });
+
+  scrubber.addEventListener('input', () => {
+    audio.currentTime = parseFloat(scrubber.value);
+  });
+
+  /* Click waveform to seek */
+  wrap.addEventListener('click', (e) => {
+    const rect = wrap.getBoundingClientRect();
+    const ratio = (e.clientX - rect.left) / rect.width;
+    const d = audio.duration || 136.4;
+    audio.currentTime = ratio * d;
+  });
+
+  /* Speed buttons */
+  document.querySelectorAll('.vc-spd').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.vc-spd').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      audio.playbackRate = parseFloat(btn.dataset.s);
+    });
+  });
+})();
+
+/* ── Email animation ────────────────────────────────────── */
+(function() {
+  const anna = document.getElementById('emailAnna');
+  const ada  = document.getElementById('emailAda');
+  if (!anna || !ada) return;
+
+  const ANNA_IN    = 100;   /* delay before Anna's email appears */
+  const ADA_IN     = 1800;  /* delay before Ada's reply appears */
+  const HOLD       = 5500;  /* hold both visible */
+  const FADE_OUT   = 6500;  /* start fade-out */
+  const LOOP_RESET = 7400;  /* reset and loop */
+
+  function removeAnimClasses(el) {
+    el.classList.remove('ep-anim-show','ep-anim-fadeout');
+  }
+
+  let timer = null;
+  function runLoop() {
+    clearTimeout(timer);
+
+    /* Reset to hidden */
+    removeAnimClasses(anna); removeAnimClasses(ada);
+    anna.classList.add('ep-anim-anna-hide');
+    ada.classList.add('ep-anim-hide');
+
+    /* Force reflow so transitions fire cleanly */
+    void anna.offsetHeight; void ada.offsetHeight;
+
+    timer = setTimeout(() => {
+      anna.classList.remove('ep-anim-anna-hide');
+      anna.classList.add('ep-anim-show');
+    }, ANNA_IN);
+
+    timer = setTimeout(() => {
+      ada.classList.remove('ep-anim-hide');
+      ada.classList.add('ep-anim-show');
+    }, ADA_IN);
+
+    timer = setTimeout(() => {
+      anna.classList.add('ep-anim-fadeout');
+      ada.classList.add('ep-anim-fadeout');
+    }, HOLD);
+
+    timer = setTimeout(runLoop, LOOP_RESET);
+  }
+
+  /* Trigger when section scrolls into view */
+  const section = anna.closest('section');
+  const obs = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      obs.disconnect();
+      runLoop();
+    }
+  }, { threshold: 0.25 });
+  obs.observe(section);
+})();
+</script>
 
 </body>
 </html>
