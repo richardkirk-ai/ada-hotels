@@ -629,7 +629,6 @@ const HOTEL_CONFIG = {
       <div class="vc-call-info">
         <div class="vc-label">Incoming call to</div>
         <div class="vc-name">Ada Hotels · Restaurant Reservations</div>
-        <div class="vc-duration">2:16 · Call ended</div>
       </div>
 
       <!-- Real transcript from conversation 6aa2f9790607fdec8f9ae52a -->
@@ -988,7 +987,10 @@ window.adaSettings = {
   }
   loadWaveform();
 
-  /* Transcript: progressive reveal + scroll */
+  /* Ensure transcript starts at top on load */
+  transcript.scrollTop = 0;
+
+  /* Transcript: progressive reveal + scroll only downward */
   function updateTranscript(t) {
     let newActive = -1;
     for (let i = 0; i < turns.length; i++) {
@@ -1005,11 +1007,17 @@ window.adaSettings = {
       activeTurn = newActive;
       if (activeTurn >= 0) {
         turns[activeTurn].classList.add('active');
-        /* Scroll the transcript container so active turn stays in lower third */
+        /* Scroll so the newly revealed turn is at the bottom of the visible area,
+           never scrolling back up if user has seeked forward */
         const el        = turns[activeTurn];
         const container = transcript;
-        const target    = el.offsetTop - container.clientHeight * 0.6;
-        container.scrollTo({ top: Math.max(0, target), behavior: 'smooth' });
+        const elBottom  = el.offsetTop + el.offsetHeight;
+        const visBottom = container.scrollTop + container.clientHeight;
+        /* Only scroll if the new turn is below the current visible area */
+        if (elBottom > visBottom - 16) {
+          const target = el.offsetTop - container.clientHeight * 0.72;
+          container.scrollTo({ top: Math.max(0, target), behavior: 'smooth' });
+        }
       }
     }
   }
