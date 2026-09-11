@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ada Hotels — Why Ada</title>
+<link rel="stylesheet" href="ada-hotels.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── Demo nav ─────────────────────────────────────────────── */
+.demo-nav-bar {
+  background: #0D1F3C; border-bottom: 1px solid rgba(201,168,76,0.25);
+  position: sticky; top: 0; z-index: 200;
+}
+.demo-nav-row {
+  display: flex; align-items: center; max-width: 1240px;
+  margin: 0 auto; padding: 0 32px; overflow-x: auto; scrollbar-width: none;
+}
+.demo-nav-row::-webkit-scrollbar { display: none; }
+.demo-nav-tab {
+  display: flex; align-items: center; gap: 6px; padding: 0 16px;
+  font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.55);
+  text-decoration: none; white-space: nowrap; line-height: 42px;
+  border-bottom: 2px solid transparent; transition: color 150ms, border-color 150ms;
+}
+.demo-nav-tab:hover { color: rgba(255,255,255,0.85); }
+.demo-nav-tab.active { color: #C9A84C; border-bottom-color: #C9A84C; font-weight: 600; }
+
+/* ── Shared ───────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', sans-serif; background: #0A0F1C; color: #fff; }
+.inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+.eyebrow {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(201,168,76,0.8);
+}
+
+/* ══════════════════════════════════════════════════════════
+   HERO
+══════════════════════════════════════════════════════════ */
+.hero {
+  background: #070D1A;
+  padding: 96px 0 80px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 1100px 600px at 60% 50%, rgba(201,168,76,0.07) 0%, transparent 65%),
+    radial-gradient(ellipse 600px 400px at 10% 80%, rgba(147,197,253,0.04) 0%, transparent 55%),
+    repeating-linear-gradient(135deg, rgba(201,168,76,0.012) 0, rgba(201,168,76,0.012) 1px, transparent 1px, transparent 72px);
+}
+.hero-inner {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 1fr 420px; gap: 80px; align-items: center;
+}
+.hero-eyebrow { margin-bottom: 20px; }
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(40px, 5.5vw, 72px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+}
+.hero h1 em { font-style: italic; color: #C9A84C; }
+.hero-sub {
+  font-size: 17px; color: rgba(255,255,255,0.6); max-width: 46ch; line-height: 1.75;
+  margin-bottom: 40px;
+}
+.hero-tags {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 7px 14px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 999px;
+  font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.7);
+}
+.hero-tag-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: #C9A84C; flex-shrink: 0;
+}
+
+/* Hero stat cluster */
+.hero-stats {
+  display: flex; flex-direction: column; gap: 16px;
+}
+.hero-stat-row {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 12px;
+  padding: 22px 24px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-stat-row::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  background: #C9A84C;
+}
+.hero-stat-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px; font-weight: 700; color: #fff;
+  line-height: 1; margin-bottom: 4px;
+  font-variant-numeric: tabular-nums;
+}
+.hero-stat-val sup { font-size: 20px; color: #C9A84C; vertical-align: super; }
+.hero-stat-lbl { font-size: 12px; color: rgba(255,255,255,0.45); font-weight: 500; }
+
+/* ══════════════════════════════════════════════════════════
+   JOURNEY STRIP
+══════════════════════════════════════════════════════════ */
+.journey {
+  background: #fff;
+  padding: 72px 0;
+  border-bottom: 1px solid #E5E7EB;
+}
+.journey-head { text-align: center; margin-bottom: 56px; }
+.journey-head .eyebrow { color: #C9A84C; margin-bottom: 12px; }
+.journey-head h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(26px, 3.5vw, 42px);
+  font-weight: 700; color: #0D1F3C; line-height: 1.1;
+}
+.journey-head p { font-size: 16px; color: #6B7280; margin-top: 12px; max-width: 52ch; margin-inline: auto; }
+
+.journey-track {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+}
+.journey-track::before {
+  content: '';
+  position: absolute; top: 52px; left: 12.5%; right: 12.5%; height: 2px;
+  background: linear-gradient(90deg, #C9A84C, rgba(201,168,76,0.3));
+  z-index: 0;
+}
+.journey-stop {
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; padding: 0 16px; position: relative; z-index: 1;
+}
+.journey-icon {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: #0D1F3C;
+  border: 3px solid #C9A84C;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; margin-bottom: 20px;
+  box-shadow: 0 4px 20px rgba(13,31,60,0.2);
+  flex-shrink: 0;
+}
+.journey-channel {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  color: #C9A84C; margin-bottom: 6px;
+}
+.journey-title {
+  font-size: 15px; font-weight: 700; color: #0D1F3C; margin-bottom: 8px; line-height: 1.3;
+}
+.journey-detail {
+  font-size: 13px; color: #6B7280; line-height: 1.55; max-width: 20ch;
+}
+.journey-outcome {
+  display: inline-block; margin-top: 10px;
+  padding: 4px 10px; border-radius: 999px;
+  background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3);
+  font-size: 11px; font-weight: 600; color: #92700A;
+}
+
+/* ══════════════════════════════════════════════════════════
+   CAPABILITIES
+══════════════════════════════════════════════════════════ */
+.capabilities {
+  background: #070D1A;
+  padding: 88px 0;
+  position: relative;
+  overflow: hidden;
+}
+.capabilities::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(201,168,76,0.012) 0, rgba(201,168,76,0.012) 1px,
+    transparent 1px, transparent 72px
+  );
+}
+.cap-head { text-align: center; margin-bottom: 64px; position: relative; z-index: 1; }
+.cap-head .eyebrow { margin-bottom: 14px; }
+.cap-head h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 3.5vw, 46px);
+  font-weight: 700; color: #fff; line-height: 1.1;
+}
+.cap-head p { font-size: 16px; color: rgba(255,255,255,0.5); margin-top: 12px; max-width: 50ch; margin-inline: auto; }
+
+.cap-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative; z-index: 1;
+}
+.cap-cell {
+  background: #0A0F1C;
+  padding: 36px 32px;
+  display: flex; flex-direction: column; gap: 14px;
+  transition: background 200ms;
+  position: relative;
+  overflow: hidden;
+}
+.cap-cell:hover { background: #0F1829; }
+.cap-cell::after {
+  content: '';
+  position: absolute; bottom: 0; left: 32px; right: 32px; height: 2px;
+  background: linear-gradient(90deg, #C9A84C, transparent);
+  opacity: 0;
+  transition: opacity 250ms;
+}
+.cap-cell:hover::after { opacity: 1; }
+.cap-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 13px; font-weight: 700; color: rgba(201,168,76,0.4);
+  letter-spacing: 0.1em;
+}
+.cap-icon { font-size: 28px; line-height: 1; }
+.cap-title {
+  font-size: 18px; font-weight: 700; color: #fff; line-height: 1.2;
+}
+.cap-desc { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.65; }
+.cap-proof {
+  margin-top: auto; padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  font-size: 12px; color: rgba(201,168,76,0.75); font-weight: 500; font-style: italic;
+}
+
+/* ══════════════════════════════════════════════════════════
+   THE LOOP — How It Works
+══════════════════════════════════════════════════════════ */
+.loop-section {
+  background: #FAF7F2;
+  padding: 88px 0;
+  border-top: 1px solid #E5E7EB;
+  border-bottom: 1px solid #E5E7EB;
+}
+.loop-head { text-align: center; margin-bottom: 64px; }
+.loop-head .eyebrow { color: #C9A84C; margin-bottom: 12px; }
+.loop-head h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(26px, 3.5vw, 44px);
+  font-weight: 700; color: #0D1F3C; line-height: 1.1;
+}
+.loop-head p { font-size: 16px; color: #6B7280; margin-top: 12px; max-width: 52ch; margin-inline: auto; }
+
+.loop-diagram {
+  display: flex; align-items: stretch; gap: 0;
+  position: relative; max-width: 960px; margin: 0 auto;
+}
+.loop-node {
+  flex: 1;
+  background: #fff;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 32px 28px;
+  display: flex; flex-direction: column; gap: 12px;
+  position: relative;
+  box-shadow: 0 4px 16px rgba(13,31,60,0.06);
+}
+.loop-node.escalate {
+  border-color: rgba(201,168,76,0.4);
+  background: linear-gradient(135deg, #fff 70%, rgba(201,168,76,0.04));
+}
+.loop-arrow {
+  display: flex; align-items: center; padding: 0 12px; flex-shrink: 0;
+  color: rgba(13,31,60,0.25); font-size: 22px;
+}
+.loop-node-icon { font-size: 28px; }
+.loop-node-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  color: #C9A84C;
+}
+.loop-node-title { font-size: 17px; font-weight: 700; color: #0D1F3C; line-height: 1.2; }
+.loop-node-desc { font-size: 13px; color: #6B7280; line-height: 1.6; }
+.loop-node-channels {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px;
+}
+.loop-chip {
+  padding: 3px 9px; border-radius: 999px;
+  font-size: 11px; font-weight: 600;
+  background: rgba(13,31,60,0.07); color: #0D1F3C;
+}
+.loop-chip.gold { background: rgba(201,168,76,0.15); color: #7A5C10; }
+
+/* ══════════════════════════════════════════════════════════
+   DIFFERENTIATORS
+══════════════════════════════════════════════════════════ */
+.diff-section {
+  background: #0D1F3C;
+  padding: 88px 0;
+}
+.diff-head { text-align: center; margin-bottom: 64px; }
+.diff-head .eyebrow { margin-bottom: 14px; }
+.diff-head h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(26px, 3.5vw, 44px);
+  font-weight: 700; color: #fff; line-height: 1.1;
+}
+.diff-list {
+  display: flex; flex-direction: column; gap: 1px;
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; overflow: hidden;
+  max-width: 860px; margin: 0 auto;
+}
+.diff-row {
+  display: grid; grid-template-columns: 48px 1fr 1fr;
+  background: rgba(255,255,255,0.03);
+  transition: background 200ms;
+}
+.diff-row:hover { background: rgba(255,255,255,0.06); }
+.diff-row-num {
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(201,168,76,0.08); border-right: 1px solid rgba(255,255,255,0.07);
+  font-family: 'Playfair Display', serif;
+  font-size: 15px; color: rgba(201,168,76,0.6); font-weight: 700;
+}
+.diff-row-q {
+  padding: 20px 24px;
+  font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.55);
+  border-right: 1px solid rgba(255,255,255,0.07);
+  display: flex; align-items: center;
+  line-height: 1.45;
+}
+.diff-row-a {
+  padding: 20px 24px;
+  font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.88);
+  display: flex; align-items: center;
+  line-height: 1.45;
+  gap: 10px;
+}
+.diff-check { color: #4ADE80; font-size: 16px; flex-shrink: 0; }
+
+/* ══════════════════════════════════════════════════════════
+   CLOSING CTA
+══════════════════════════════════════════════════════════ */
+.closer {
+  background: #070D1A;
+  padding: 104px 0 96px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.closer::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 900px 500px at 50% 50%, rgba(201,168,76,0.09) 0%, transparent 65%);
+}
+.closer-inner { position: relative; z-index: 1; }
+.closer .eyebrow { margin-bottom: 24px; }
+.closer-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 5vw, 68px);
+  font-weight: 700; color: #fff; line-height: 1.05;
+  letter-spacing: -0.02em; margin-bottom: 24px;
+}
+.closer-headline em { font-style: italic; color: #C9A84C; }
+.closer-sub {
+  font-size: 18px; color: rgba(255,255,255,0.55); max-width: 50ch;
+  margin: 0 auto 48px; line-height: 1.7;
+}
+.closer-rule {
+  width: 60px; height: 2px; background: #C9A84C; margin: 0 auto 48px;
+}
+.closer-logos {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  flex-wrap: wrap;
+}
+.closer-badge {
+  padding: 10px 20px;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 999px;
+  font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.6);
+  display: flex; align-items: center; gap: 8px;
+}
+.closer-badge-dot { width: 7px; height: 7px; border-radius: 50%; background: #4ADE80; }
+
+/* ── Responsive ───────────────────────────────────────── */
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .journey-track { grid-template-columns: 1fr 1fr; }
+  .journey-track::before { display: none; }
+  .cap-grid { grid-template-columns: 1fr 1fr; }
+  .loop-diagram { flex-direction: column; gap: 8px; }
+  .loop-arrow { display: none; }
+  .diff-row { grid-template-columns: 1fr; }
+  .diff-row-num { display: none; }
+  .diff-row-q { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
+}
+@media (max-width: 600px) {
+  .cap-grid { grid-template-columns: 1fr; }
+  .journey-track { grid-template-columns: 1fr; }
+  .hero-stats { grid-template-columns: 1fr; }
+  .inner { padding: 0 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Nav ────────────────────────────────────────────────── -->
+<nav class="demo-nav-bar">
+  <div class="demo-nav-row">
+    <a class="demo-nav-tab" href="index.html">🏨 Book In</a>
+    <a class="demo-nav-tab" href="pre-stay.html">✦ Pre-Stay</a>
+    <a class="demo-nav-tab" href="in-stay.html">🛎 In-Stay</a>
+    <a class="demo-nav-tab" href="post-stay.html">⭐ Post-Stay</a>
+    <a class="demo-nav-tab active" href="summary.html">◈ Summary</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="inner">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <p class="eyebrow hero-eyebrow">Ada for Hospitality — Demo Summary</p>
+        <h1>Every guest moment,<br><em>handled.</em></h1>
+        <p class="hero-sub">Across every channel, at every stage of the stay — Ada's AI agent resolves, escalates, and learns. No transfers. No hold music. No gaps between systems.</p>
+        <div class="hero-tags">
+          <span class="hero-tag"><span class="hero-tag-dot"></span>Voice</span>
+          <span class="hero-tag"><span class="hero-tag-dot"></span>Chat</span>
+          <span class="hero-tag"><span class="hero-tag-dot"></span>Email</span>
+          <span class="hero-tag"><span class="hero-tag-dot"></span>Proactive Push</span>
+          <span class="hero-tag"><span class="hero-tag-dot"></span>QR / In-Room</span>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat-row">
+          <div class="hero-stat-val">87<sup>%</sup></div>
+          <div class="hero-stat-lbl">Conversations resolved without a human</div>
+        </div>
+        <div class="hero-stat-row">
+          <div class="hero-stat-val">&lt;3<sup>s</sup></div>
+          <div class="hero-stat-lbl">Average response time, any channel</div>
+        </div>
+        <div class="hero-stat-row">
+          <div class="hero-stat-val">24<sup>/7</sup></div>
+          <div class="hero-stat-lbl">Always-on — no staffing gaps, no time zones</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     JOURNEY STRIP
+══════════════════════════════════════════════════════════ -->
+<section class="journey">
+  <div class="inner">
+    <div class="journey-head">
+      <p class="eyebrow">What you saw today</p>
+      <h2>Anna's stay — handled end to end</h2>
+      <p>Every touchpoint in this demo was a real Ada agent. Here's what happened.</p>
+    </div>
+    <div class="journey-track">
+      <div class="journey-stop">
+        <div class="journey-icon">🏨</div>
+        <div class="journey-channel">Chat · Book In</div>
+        <div class="journey-title">Pre-arrival welcome</div>
+        <div class="journey-detail">Ada recognised Anna's booking and answered questions before she arrived.</div>
+        <div class="journey-outcome">No front-desk call needed</div>
+      </div>
+      <div class="journey-stop">
+        <div class="journey-icon">📞</div>
+        <div class="journey-channel">Voice · Pre-Stay</div>
+        <div class="journey-title">Restaurant reservation</div>
+        <div class="journey-detail">Anna called the dining line. Ada booked The Jade Room — including confirming pho is on the menu.</div>
+        <div class="journey-outcome">Table booked in 2 min 29 s</div>
+      </div>
+      <div class="journey-stop">
+        <div class="journey-icon">🛎</div>
+        <div class="journey-channel">QR + Chat · In-Stay</div>
+        <div class="journey-title">Room issue resolved</div>
+        <div class="journey-detail">Anna scanned the in-room QR. Ada handled her request without a single transfer.</div>
+        <div class="journey-outcome">Maintenance dispatched instantly</div>
+      </div>
+      <div class="journey-stop">
+        <div class="journey-icon">⭐</div>
+        <div class="journey-channel">Email + Proactive · Post-Stay</div>
+        <div class="journey-title">Feedback & loyalty</div>
+        <div class="journey-detail">Ada sent a personalised follow-up, captured Anna's review, and offered a loyalty incentive.</div>
+        <div class="journey-outcome">5-star review captured</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     CAPABILITIES
+══════════════════════════════════════════════════════════ -->
+<section class="capabilities">
+  <div class="inner">
+    <div class="cap-head">
+      <p class="eyebrow">What makes Ada different</p>
+      <h2>Eight capabilities. One platform.</h2>
+      <p>No point solutions. No stitched-together bots. Ada is built for the full resolution lifecycle.</p>
+    </div>
+    <div class="cap-grid">
+
+      <div class="cap-cell">
+        <div class="cap-num">01</div>
+        <div class="cap-icon">🌐</div>
+        <div class="cap-title">Omnichannel by design</div>
+        <div class="cap-desc">One agent across voice, chat, email, QR, and proactive messaging. Your guest never starts over — Ada knows the full picture regardless of where they reach out.</div>
+        <div class="cap-proof">"Anna booked by phone, queried by chat, and received a follow-up by email — same context every time."</div>
+      </div>
+
+      <div class="cap-cell">
+        <div class="cap-num">02</div>
+        <div class="cap-icon">🧠</div>
+        <div class="cap-title">Context that persists</div>
+        <div class="cap-desc">Ada remembers. Guest profile, booking history, past interactions, preferences stated in any channel — all available the moment the next conversation begins. No re-explaining, ever.</div>
+        <div class="cap-proof">"Connie recognised Anna's booking the moment she called — no account number, no PIN."</div>
+      </div>
+
+      <div class="cap-cell">
+        <div class="cap-num">03</div>
+        <div class="cap-icon">✉️</div>
+        <div class="cap-title">Proactive, not reactive</div>
+        <div class="cap-desc">Ada doesn't wait for problems. It monitors events — late check-ins, weather delays, upcoming stays — and reaches guests first. Turn service recovery into service anticipation.</div>
+        <div class="cap-proof">"Anna's train was delayed. Ada knew before Anna called and sent a re-booking offer proactively."</div>
+      </div>
+
+      <div class="cap-cell">
+        <div class="cap-num">04</div>
+        <div class="cap-icon">⚡</div>
+        <div class="cap-title">Backend integrations</div>
+        <div class="cap-desc">Ada connects to your PMS, booking engine, CRM, and service ticketing systems in real time — looking up reservations, checking availability, dispatching requests, and updating records live during the conversation.</div>
+        <div class="cap-proof">"The Jade Room booking was confirmed and written back to the PMS mid-call."</div>
+      </div>
+
+      <div class="cap-cell">
+        <div class="cap-num">05</div>
+        <div class="cap-icon">🔧</div>
+        <div class="cap-title">Built and tuned via MCP</div>
+        <div class="cap-desc">Ada's agent is authored and refined through a Model Context Protocol — meaning natural language instructions, tested in real time, with no engineer required to deploy a change. Your team owns the roadmap.</div>
+        <div class="cap-proof">"The pho menu update and booking confirmation flow were authored through MCP — live in minutes."</div>
+      </div>
+
+      <div class="cap-cell">
+        <div class="cap-num">06</div>
+        <div class="cap-icon">🔄</div>
+        <div class="cap-title">Continuous self-service loop</div>
+        <div class="cap-desc">Ada handles the full arc — intake, resolution, follow-up, and feedback — without handing off to a separate system at each stage. One loop, one agent, measurable at every step.</div>
+        <div class="cap-proof">"From restaurant booking to post-stay survey, Ada closed the loop on every touchpoint, unprompted."</div>
+      </div>
+
+      <div class="cap-cell">
+        <div class="cap-num">07</div>
+        <div class="cap-icon">🛎</div>
+        <div class="cap-title">First-line concierge</div>
+        <div class="cap-desc">Every incoming question — whether it's a noise complaint, a dinner reservation, or a loyalty query — is answered immediately, without routing, queuing, or waiting for a human to become available.</div>
+        <div class="cap-proof">"Zero hold music across all four scenarios. Every guest reached Ada in under three seconds."</div>
+      </div>
+
+      <div class="cap-cell">
+        <div class="cap-num">08</div>
+        <div class="cap-icon">🤝</div>
+        <div class="cap-title">Seamless human escalation</div>
+        <div class="cap-desc">When a conversation needs a human — a complex complaint, a sensitive situation, a VIP — Ada hands off with full context already in the agent's view. No repeating. No dropped threads.</div>
+        <div class="cap-proof">"Escalation is a warm transfer with context, not a cold hand-off to the main number."</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     HOW THE LOOP WORKS
+══════════════════════════════════════════════════════════ -->
+<section class="loop-section">
+  <div class="inner">
+    <div class="loop-head">
+      <p class="eyebrow">The resolution model</p>
+      <h2>Resolve. Escalate. Learn. Repeat.</h2>
+      <p>Ada isn't a routing layer — it's a complete resolution engine that gets smarter with every conversation.</p>
+    </div>
+    <div class="loop-diagram">
+      <div class="loop-node">
+        <div class="loop-node-icon">📥</div>
+        <div class="loop-node-label">Step 1</div>
+        <div class="loop-node-title">Guest reaches out</div>
+        <div class="loop-node-desc">Any channel, any time. Ada picks up immediately — no IVR menu, no wait.</div>
+        <div class="loop-node-channels">
+          <span class="loop-chip">Voice</span>
+          <span class="loop-chip">Chat</span>
+          <span class="loop-chip">Email</span>
+          <span class="loop-chip">QR</span>
+        </div>
+      </div>
+      <div class="loop-arrow">→</div>
+      <div class="loop-node">
+        <div class="loop-node-icon">⚙️</div>
+        <div class="loop-node-label">Step 2</div>
+        <div class="loop-node-title">Ada resolves</div>
+        <div class="loop-node-desc">Pulls live data, runs playbooks, takes action in connected systems — and closes the issue without a human in most cases.</div>
+        <div class="loop-node-channels">
+          <span class="loop-chip gold">87% self-served</span>
+        </div>
+      </div>
+      <div class="loop-arrow">→</div>
+      <div class="loop-node escalate">
+        <div class="loop-node-icon">🤝</div>
+        <div class="loop-node-label">If needed</div>
+        <div class="loop-node-title">Human takes over</div>
+        <div class="loop-node-desc">Warm hand-off with full context. The human agent sees everything — no re-asking, no lost thread.</div>
+        <div class="loop-node-channels">
+          <span class="loop-chip">Full context passed</span>
+        </div>
+      </div>
+      <div class="loop-arrow">→</div>
+      <div class="loop-node">
+        <div class="loop-node-icon">📈</div>
+        <div class="loop-node-label">Always</div>
+        <div class="loop-node-title">Ada learns</div>
+        <div class="loop-node-desc">Every resolved conversation improves future handling. Coaching, test runs, and MCP refinements close the gap continuously.</div>
+        <div class="loop-node-channels">
+          <span class="loop-chip gold">Gets better every day</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     DIFFERENTIATOR TABLE
+══════════════════════════════════════════════════════════ -->
+<section class="diff-section">
+  <div class="inner">
+    <div class="diff-head">
+      <p class="eyebrow">Why Ada over alternatives</p>
+      <h2>The questions your team will ask</h2>
+    </div>
+    <div class="diff-list">
+      <div class="diff-row">
+        <div class="diff-row-num">1</div>
+        <div class="diff-row-q">"We already have a chatbot — why do we need this?"</div>
+        <div class="diff-row-a"><span class="diff-check">✓</span>Most chatbots answer questions. Ada resolves them — taking action in your systems, across every channel, end to end.</div>
+      </div>
+      <div class="diff-row">
+        <div class="diff-row-num">2</div>
+        <div class="diff-row-q">"How long does it take to build and go live?"</div>
+        <div class="diff-row-a"><span class="diff-check">✓</span>Playbooks are authored through MCP in plain language. A working agent can be live in days, not months — and your team can update it without engineering support.</div>
+      </div>
+      <div class="diff-row">
+        <div class="diff-row-num">3</div>
+        <div class="diff-row-q">"What happens when Ada gets it wrong?"</div>
+        <div class="diff-row-a"><span class="diff-check">✓</span>Ada hands off gracefully with full context — so the human who takes over never has to start from scratch. And every failure is a test case that improves the next run.</div>
+      </div>
+      <div class="diff-row">
+        <div class="diff-row-num">4</div>
+        <div class="diff-row-q">"Can it connect to our existing systems?"</div>
+        <div class="diff-row-a"><span class="diff-check">✓</span>Ada integrates with any system via REST API. PMS, CRM, booking engine, ticketing — if it has an API, Ada can read from and write to it in real time.</div>
+      </div>
+      <div class="diff-row">
+        <div class="diff-row-num">5</div>
+        <div class="diff-row-q">"Is this just for chat, or does it work on voice too?"</div>
+        <div class="diff-row-a"><span class="diff-check">✓</span>Ada powers voice calls, web chat, email, in-room QR, and proactive push — all from one agent, one platform, one set of playbooks.</div>
+      </div>
+      <div class="diff-row">
+        <div class="diff-row-num">6</div>
+        <div class="diff-row-q">"How do we measure success?"</div>
+        <div class="diff-row-a"><span class="diff-check">✓</span>Ada tracks resolution rate, containment, CSAT, escalation reasons, and conversation-level outcomes — all available in the dashboard, in real time.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     CLOSER
+══════════════════════════════════════════════════════════ -->
+<section class="closer">
+  <div class="inner">
+    <div class="closer-inner">
+      <p class="eyebrow">The takeaway</p>
+      <h2 class="closer-headline">One platform.<br><em>Every touchpoint.</em><br>Zero transfers.</h2>
+      <div class="closer-rule"></div>
+      <p class="closer-sub">Ada handles the moments that matter — so your team can focus on the moments that only humans can.</p>
+      <div class="closer-logos">
+        <span class="closer-badge"><span class="closer-badge-dot"></span>Voice · Chat · Email · QR</span>
+        <span class="closer-badge"><span class="closer-badge-dot"></span>PMS · CRM · Booking Engine</span>
+        <span class="closer-badge"><span class="closer-badge-dot"></span>Live in days, not months</span>
+        <span class="closer-badge"><span class="closer-badge-dot"></span>87% self-service rate</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
