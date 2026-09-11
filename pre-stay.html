@@ -137,6 +137,7 @@
   gap: 14px;
   max-height: 420px;
   overflow-y: auto;
+  overflow-anchor: none;
   scrollbar-width: thin;
   scrollbar-color: rgba(255,255,255,0.1) transparent;
 }
@@ -985,10 +986,10 @@ window.adaSettings = {
       drawWaveform(decodedBuffer, 0);
     } catch(e) { /* keep placeholder */ }
   }
-  loadWaveform();
-
-  /* Ensure transcript starts at top on load */
-  transcript.scrollTop = 0;
+  loadWaveform().then(() => { transcript.scrollTop = 0; });
+  /* Belt-and-suspenders: also reset after layout settles */
+  requestAnimationFrame(() => { transcript.scrollTop = 0; });
+  setTimeout(() => { transcript.scrollTop = 0; }, 300);
 
   /* Transcript: progressive reveal + scroll only downward */
   function updateTranscript(t) {
